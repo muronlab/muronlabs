@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/reveal";
+import { ScrollRevealText } from "@/components/ui/scroll-reveal-text";
 
 interface SectionHeadingProps {
   /** Short index/label shown in the monospace bracket eyebrow, e.g. "01". */
@@ -42,7 +43,10 @@ export function SectionHeading({
         {title}
       </h2>
       {description ? (
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">{description}</p>
+        <ScrollRevealText
+          text={description}
+          className="mt-5 max-w-2xl text-base leading-relaxed text-foreground sm:text-lg"
+        />
       ) : null}
     </Reveal>
   );

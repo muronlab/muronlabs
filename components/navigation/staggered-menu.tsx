@@ -68,6 +68,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   onMenuClose,
 }) => {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const openRef = useRef(false);
   const panelRef = useRef<HTMLElement | null>(null);
   const preLayersRef = useRef<HTMLDivElement | null>(null);
@@ -351,6 +352,21 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     }
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
 
+  // Add a blurred, translucent backdrop to the header once the user has
+  // scrolled past one full viewport height (100vh).
+  React.useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY >= window.innerHeight);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   React.useEffect(() => {
     if (!closeOnClickAway || !open) return;
 
@@ -405,7 +421,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         ))}
       </div>
 
-      <header className="staggered-menu-header" aria-label="Main navigation header">
+      <header
+        className="staggered-menu-header"
+        aria-label="Main navigation header"
+        data-scrolled={scrolled || undefined}
+      >
         <div className="sm-header-inner">
         <Link href="/" className="sm-logo" aria-label="Home">
           {logo ?? (

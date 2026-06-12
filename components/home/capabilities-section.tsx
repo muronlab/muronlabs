@@ -97,14 +97,14 @@ export function CapabilitiesSection() {
                           </span>
                           <span
                             className={cn(
-                              "text-base font-bold tracking-tight text-foreground transition-colors duration-300 lg:text-lg",
+                              "text-lg font-bold tracking-tight text-foreground transition-colors duration-300 lg:text-xl",
                               accent.title,
                             )}
                           >
                             {item.capability}
                           </span>
                         </dt>
-                        <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{item.outcome}</dd>
+                        <dd className="mt-1.5 text-base leading-relaxed text-muted-foreground">{item.outcome}</dd>
                       </div>
                     </div>
                   ))}

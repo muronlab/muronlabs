@@ -25,6 +25,15 @@
   background: transparent;
   pointer-events: none;
   z-index: 20;
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease, padding 0.35s ease;
+}
+
+/* Blurred, translucent backdrop once scrolled past one viewport height. */
+.staggered-menu-header[data-scrolled] {
+  background-color: color-mix(in oklch, var(--background) 55%, transparent);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  padding: 1.1em 0;
 }
 
 .sm-header-inner {
