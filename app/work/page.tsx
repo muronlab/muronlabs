@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { SiteFooter } from "@/components/site-footer";
+import { JsonLd } from "@/components/json-ld";
+import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Work",
-  description: "Selected work from the muronlabs studio — products, platforms and brands we've shipped.",
-  alternates: { canonical: "/work" },
-};
+  description: "Selected work from the Muronlabs studio — products, platforms and brands we've shipped.",
+  path: "/work",
+});
 
 const projects = [
   { name: "Atlas", discipline: "Fintech platform", year: "2026", summary: "A consumer payments app rebuilt from the rails up." },
@@ -18,6 +19,12 @@ const projects = [
 export default function WorkPage() {
   return (
     <main className="flex flex-1 flex-col">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+        ])}
+      />
       <section className="px-6 pt-40 pb-20 md:px-10">
         <div className="mx-auto w-full max-w-7xl">
           <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Selected work</p>

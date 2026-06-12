@@ -1,21 +1,28 @@
-import type { Metadata } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
 import { DistinctionSection } from "@/components/home/distinction-section";
 import { CtaSection } from "@/components/home/cta-section";
 import { Reveal } from "@/components/ui/reveal";
+import { JsonLd } from "@/components/json-ld";
+import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { divisions } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "About",
   description:
     "Muronlabs is a multidisciplinary technology studio housing engineering, agentic AI and digital artistry under one coordinated roof.",
-  alternates: { canonical: "/studio" },
-};
+  path: "/studio",
+});
 
 export default function AboutPage() {
   return (
     <main className="flex flex-1 flex-col">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/studio" },
+        ])}
+      />
       <PageHero
         glow
         eyebrow="About"

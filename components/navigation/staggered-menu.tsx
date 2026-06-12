@@ -391,6 +391,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       data-position={position}
       data-open={open || undefined}
     >
+      {/* Dimming backdrop over the rest of the page while the panel is open.
+          Clicking it closes the menu (when click-away is enabled). */}
+      <div
+        className="sm-backdrop"
+        aria-hidden="true"
+        onClick={closeOnClickAway ? closeMenu : undefined}
+      />
+
       <div ref={preLayersRef} className="sm-prelayers" aria-hidden="true">
         {preLayerColors.map((c, i) => (
           <div key={i} className="sm-prelayer" style={{ background: c }} />

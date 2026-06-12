@@ -22,25 +22,48 @@ export function WorkflowSection() {
         />
 
         <ol className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2">
-          {workflowPhases.map((phase, i) => (
-            <Reveal
-              key={phase.phase}
-              as="li"
-              delay={(i % 2) * 0.08}
-              className="group relative flex flex-col gap-4 bg-background p-8 transition-colors duration-300 hover:bg-foreground/2 lg:p-10"
-            >
-              <div className="flex items-center gap-4">
-                <span className="flex size-10 items-center justify-center rounded-full border border-border font-mono text-sm font-medium text-foreground transition-colors duration-300 group-hover:border-brand group-hover:text-brand">
-                  {String(i + 1).padStart(2, "0")}
+          {workflowPhases.map((phase, i) => {
+            const step = i + 1;
+            const progress = Math.round((step / workflowPhases.length) * 100);
+            return (
+              <Reveal
+                key={phase.phase}
+                as="li"
+                delay={(i % 2) * 0.08}
+                className="group relative flex flex-col gap-4 overflow-hidden bg-background p-8 transition-colors duration-300 hover:bg-foreground/2 lg:p-10"
+              >
+                {/* Oversized faded step watermark */}
+                <span className="pointer-events-none absolute -right-1 -top-5 font-mono text-7xl font-bold text-foreground/[0.04] transition-colors duration-300 group-hover:text-brand/10 lg:text-8xl">
+                  {String(step).padStart(2, "0")}
                 </span>
-                <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                  {phase.phase}
-                </span>
-              </div>
-              <h3 className="text-xl font-bold tracking-tight text-foreground lg:text-2xl">{phase.title}</h3>
-              <p className="text-base leading-relaxed text-muted-foreground">{phase.body}</p>
-            </Reveal>
-          ))}
+
+                <div className="flex items-center gap-4">
+                  <span className="flex size-10 items-center justify-center rounded-full border border-border font-mono text-sm font-medium text-foreground transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-brand-foreground">
+                    {String(step).padStart(2, "0")}
+                  </span>
+                  <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                    {phase.phase}
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold tracking-tight text-foreground lg:text-2xl">{phase.title}</h3>
+                <p className="text-base leading-relaxed text-muted-foreground">{phase.body}</p>
+
+                {/* Cumulative progress through the workflow */}
+                <div className="mt-auto pt-6">
+                  <div className="flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.15em] text-muted-foreground/70">
+                    <span>Step {step} / {workflowPhases.length}</span>
+                    <span>{progress}%</span>
+                  </div>
+                  <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-border">
+                    <div
+                      className="h-full rounded-full bg-brand transition-[width] duration-700 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
         </ol>
       </div>
     </section>

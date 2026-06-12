@@ -59,6 +59,12 @@ export function EcosystemSection() {
                   </li>
                 ))}
               </ul>
+
+              {/* Full-width accent bar matching the division's title colour */}
+              <span
+                aria-hidden="true"
+                className={cn("absolute inset-x-0 bottom-0 h-4", division.accent)}
+              />
             </Reveal>
           ))}
         </div>

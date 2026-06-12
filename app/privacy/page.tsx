@@ -1,16 +1,24 @@
-import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
+import { JsonLd } from "@/components/json-ld";
+import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Privacy Architecture",
   description: `How ${siteConfig.name} collects, uses and protects personal data.`,
-  alternates: { canonical: "/privacy" },
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (
-    <LegalPage
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Privacy Architecture", path: "/privacy" },
+        ])}
+      />
+      <LegalPage
       eyebrow="Legal"
       title="Privacy Architecture"
       lastUpdated="09 Jun 2026"
@@ -37,6 +45,7 @@ export default function PrivacyPage() {
           ],
         },
       ]}
-    />
+      />
+    </>
   );
 }

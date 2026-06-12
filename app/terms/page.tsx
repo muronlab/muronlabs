@@ -1,16 +1,24 @@
-import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
+import { JsonLd } from "@/components/json-ld";
+import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Terms of Service",
   description: `The terms governing use of the ${siteConfig.name} website.`,
-  alternates: { canonical: "/terms" },
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (
-    <LegalPage
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Terms of Service", path: "/terms" },
+        ])}
+      />
+      <LegalPage
       eyebrow="Legal"
       title="Terms of Service"
       lastUpdated="09 Jun 2026"
@@ -39,6 +47,7 @@ export default function TermsPage() {
           body: [`Questions about these terms? Email ${siteConfig.contact.email}.`],
         },
       ]}
-    />
+      />
+    </>
   );
 }

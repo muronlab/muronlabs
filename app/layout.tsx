@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { siteConfig, socialItems } from "@/lib/site-config";
+import { siteConfig } from "@/lib/site-config";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/navigation/site-header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -63,15 +65,9 @@ export const metadata: Metadata = {
   },
 };
 
-/** Organization structured data for search engines and AI crawlers. */
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: siteConfig.name,
-  url: siteConfig.url,
-  description: siteConfig.shortDescription,
-  email: siteConfig.contact.email,
-  sameAs: socialItems.map((s) => s.href),
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#fafaf8",
 };
 
 export default function RootLayout({
@@ -85,12 +81,7 @@ export default function RootLayout({
       className={cn("h-full antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <body id="top" className="flex min-h-full flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
+        <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
         <SiteHeader />
         {children}
       </body>

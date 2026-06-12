@@ -6,7 +6,12 @@
       "Bash(pnpm add *)",
       "Bash(curl -s -L __TRACKED_VAR__/card.glb -o public/lanyard/card.glb)",
       "Bash(curl -s -L __TRACKED_VAR__/lanyard.png -o public/lanyard/lanyard.png)",
-      "Bash(xxd)"
+      "Bash(xxd)",
+      "Bash(ls app/*.ico app/icon.* app/apple-icon.* app/opengraph-image.*)",
+      "Bash(ls public/favicon* public/icon*)",
+      "Bash(ls next.config.*)",
+      "Bash(ls app/studio app/about)",
+      "Bash(grep -l \"CtaSection\\\\|cta-section\\\\|PageHero\\\\|page-hero\" app/studio/page.tsx app/about/page.tsx)"
     ]
   }
 }

@@ -87,6 +87,11 @@ export interface Division {
   focus: string[];
   /** Optional Tailwind classes to render the division name as a gradient. */
   gradient?: string;
+  /**
+   * Background classes for the full-width accent bar at the bottom of the
+   * card — the solid/gradient counterpart of `gradient` (which is text-only).
+   */
+  accent: string;
 }
 
 export const divisions: Division[] = [
@@ -104,6 +109,7 @@ export const divisions: Division[] = [
       "API Design",
       "Performance Engineering",
     ],
+    accent: "bg-foreground",
   },
   {
     id: "muron-ai",
@@ -120,6 +126,7 @@ export const divisions: Division[] = [
       "Model Integration",
     ],
     gradient: "bg-linear-to-r from-purple-900 via-indigo-900 to-blue-900 bg-clip-text text-transparent",
+    accent: "bg-linear-to-r from-purple-900 via-indigo-900 to-blue-900",
   },
   {
     id: "muron-arts",
@@ -136,6 +143,7 @@ export const divisions: Division[] = [
       "Visual Systems",
     ],
     gradient: "bg-linear-to-r from-rose-500 to-red-500 bg-clip-text text-transparent",
+    accent: "bg-linear-to-r from-rose-500 to-red-500",
   },
 ];
 

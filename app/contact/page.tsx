@@ -1,19 +1,26 @@
-import type { Metadata } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
 import { ProjectForm } from "@/components/contact/project-form";
+import { JsonLd } from "@/components/json-ld";
+import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { siteConfig, socialItems } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Start a Project",
   description:
     "Tell Muronlabs about your project. Whether you need an immersive application interface, custom AI agent workflows, or a full system build, our engineers are ready to ship.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
     <main className="flex flex-1 flex-col">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Start a Project", path: "/contact" },
+        ])}
+      />
       <PageHero
         glow
         eyebrow="Start a Project"
