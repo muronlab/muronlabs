@@ -420,3 +420,15 @@
     color: #0a0a0a;
   }
 }
+
+/* Phones: the panel is the full screen, so it can afford tighter margins and
+   give the width back to the items. */
+@media (max-width: 640px) {
+  .staggered-menu-panel {
+    padding: 5em 1.5em 1.75em;
+  }
+
+  .sm-panel-inner {
+    gap: clamp(2rem, 9vh, 4rem);
+  }
+}
