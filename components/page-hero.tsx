@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/reveal";
+import { FlickerText } from "@/components/ui/flicker-text";
 
 interface PageHeroProps {
   eyebrow: string;
@@ -34,17 +35,36 @@ export function PageHero({ eyebrow, title, description, narrow = false, glow = f
       ) : null}
       <div className={cn("relative z-10 mx-auto w-full", narrow ? "max-w-3xl" : "max-w-7xl")}>
         <Reveal>
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand">[ {eyebrow} ]</p>
+          <FlickerText
+            as="p"
+            text={`[ ${eyebrow} ]`}
+            variant="tube"
+            inline
+            className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand"
+          />
         </Reveal>
         <Reveal delay={0.05}>
-          <h1
-            className={cn(
-              "mt-6 text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-7xl",
-              narrow ? "max-w-3xl" : "max-w-4xl",
-            )}
-          >
-            {title}
-          </h1>
+          {typeof title === "string" ? (
+            <FlickerText
+              as="h1"
+              text={title}
+              pace="primary"
+              delay={0.1}
+              className={cn(
+                "mt-6 text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-7xl",
+                narrow ? "max-w-3xl" : "max-w-4xl",
+              )}
+            />
+          ) : (
+            <h1
+              className={cn(
+                "mt-6 text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-7xl",
+                narrow ? "max-w-3xl" : "max-w-4xl",
+              )}
+            >
+              {title}
+            </h1>
+          )}
         </Reveal>
         {description ? (
           <Reveal delay={0.12}>

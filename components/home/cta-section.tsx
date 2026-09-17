@@ -1,5 +1,6 @@
 import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
+import { FlickerText } from "@/components/ui/flicker-text";
 import { primaryCta, siteConfig } from "@/lib/site-config";
 
 /**
@@ -18,15 +19,23 @@ export function CtaSection() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
         <Reveal>
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand">[ Start a Project ]</p>
+          <FlickerText
+            as="p"
+            text="[ Start a Project ]"
+            variant="tube"
+            inline
+            className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand"
+          />
         </Reveal>
         <Reveal delay={0.05}>
-          <h2
+          <FlickerText
+            as="h2"
             id="cta-heading"
+            pace="primary"
+            text="Have a complex problem? Let’s engineer the solution."
+            delay={0.1}
             className="mt-6 text-balance text-3xl font-extrabold uppercase leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl"
-          >
-            Have a complex problem? Let&rsquo;s engineer the solution.
-          </h2>
+          />
         </Reveal>
         <Reveal delay={0.12}>
           <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">

@@ -2,6 +2,7 @@ import { capabilityGroups } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { FlickerText } from "@/components/ui/flicker-text";
 
 /**
  * Per-division accent palette. Classes are written as full literals so Tailwind
@@ -70,9 +71,13 @@ export function CapabilitiesSection() {
                   <span className={cn("font-mono text-5xl font-bold tabular-nums", accent.index)}>{index}</span>
                   <div className="mt-4 flex items-center gap-2.5">
                     <span className={cn("size-2 rounded-full", accent.dot)} />
-                    <h3 className={cn("font-mono text-sm font-medium uppercase tracking-[0.15em]", accent.label)}>
-                      {group.division}
-                    </h3>
+                    <FlickerText
+                      as="h3"
+                      text={group.division}
+                      variant="tube"
+                      inline
+                      className={cn("font-mono text-sm font-medium uppercase tracking-[0.15em]", accent.label)}
+                    />
                   </div>
                   <p className="mt-2 pl-4.5 font-mono text-xs text-muted-foreground">
                     {String(group.items.length).padStart(2, "0")} capabilities
@@ -95,14 +100,16 @@ export function CapabilitiesSection() {
                           <span className={cn("font-mono text-xs font-medium tabular-nums", accent.index)}>
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span
+                          <FlickerText
+                            as="p"
+                            text={item.capability}
+                            delay={i * 0.06}
+                            inline
                             className={cn(
                               "text-lg font-bold tracking-tight text-foreground transition-colors duration-300 lg:text-xl",
                               accent.title,
                             )}
-                          >
-                            {item.capability}
-                          </span>
+                          />
                         </dt>
                         <dd className="mt-1.5 text-base leading-relaxed text-muted-foreground">{item.outcome}</dd>
                       </div>

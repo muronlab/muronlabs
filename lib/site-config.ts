@@ -85,8 +85,11 @@ export interface Division {
    * per project rather than forcing one toolchain on every client.
    */
   focus: string[];
-  /** Optional Tailwind classes to render the division name as a gradient. */
-  gradient?: string;
+  /**
+   * Optional two-stop gradient for the division name. Hex rather than Tailwind
+   * classes because the name paints its own fill (see `FlickerText`).
+   */
+  gradientStops?: { from: string; to: string };
   /**
    * Background classes for the full-width accent bar at the bottom of the
    * card — the solid/gradient counterpart of `gradient` (which is text-only).
@@ -125,7 +128,7 @@ export const divisions: Division[] = [
       "Data Pipelines",
       "Model Integration",
     ],
-    gradient: "bg-linear-to-r from-purple-900 via-indigo-900 to-blue-900 bg-clip-text text-transparent",
+    gradientStops: { from: "#581c87", to: "#1e3a8a" },
     accent: "bg-linear-to-r from-purple-900 via-indigo-900 to-blue-900",
   },
   {
@@ -142,7 +145,7 @@ export const divisions: Division[] = [
       "Prototyping",
       "Visual Systems",
     ],
-    gradient: "bg-linear-to-r from-rose-500 to-red-500 bg-clip-text text-transparent",
+    gradientStops: { from: "#f43f5e", to: "#ef4444" },
     accent: "bg-linear-to-r from-rose-500 to-red-500",
   },
 ];

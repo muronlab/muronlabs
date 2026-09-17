@@ -24,7 +24,7 @@ export default function ContactPage() {
       <PageHero
         glow
         eyebrow="Start a Project"
-        title={<>Have a complex problem? Let&rsquo;s engineer the solution.</>}
+        title="Have a complex problem? Let’s engineer the solution."
         description="Reach out with your project details. Whether you are looking for an immersive application interface, custom AI agent workflows, or a full system build, our engineers are ready to ship."
       />
 

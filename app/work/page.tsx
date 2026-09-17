@@ -1,5 +1,6 @@
 import { SiteFooter } from "@/components/site-footer";
 import { JsonLd } from "@/components/json-ld";
+import { FlickerText } from "@/components/ui/flicker-text";
 import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -27,10 +28,20 @@ export default function WorkPage() {
       />
       <section className="px-6 pt-40 pb-20 md:px-10">
         <div className="mx-auto w-full max-w-7xl">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Selected work</p>
-          <h1 className="max-w-3xl text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-7xl">
-            Things we&apos;ve shipped.
-          </h1>
+          <FlickerText
+            as="p"
+            text="Selected work"
+            variant="tube"
+            inline
+            className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
+          />
+          <FlickerText
+            as="h1"
+            text="Things we’ve shipped."
+            pace="primary"
+            delay={0.1}
+            className="max-w-3xl text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-7xl"
+          />
         </div>
       </section>
 
@@ -40,9 +51,11 @@ export default function WorkPage() {
             {projects.map((p) => (
               <li key={p.name} className="group py-10">
                 <div className="flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between">
-                  <h2 className="text-3xl font-bold uppercase tracking-tight text-foreground sm:text-5xl">
-                    {p.name}
-                  </h2>
+                  <FlickerText
+                    as="h2"
+                    text={p.name}
+                    className="text-3xl font-bold uppercase tracking-tight text-foreground sm:text-5xl"
+                  />
                   <div className="flex items-baseline gap-6 text-sm text-muted-foreground">
                     <span>{p.discipline}</span>
                     <span>{p.year}</span>

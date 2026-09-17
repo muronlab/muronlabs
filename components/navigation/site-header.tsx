@@ -28,7 +28,7 @@ export function SiteHeader() {
       contact={siteConfig.contact}
       displaySocials
       displayItemNumbering={false}
-      logo={<Wordmark />}
+      logo={<Wordmark fuzzOnHover />}
       accentColor={siteConfig.accent}
       panelColor="#b497cf"
       colors={["#cdb8e6", "#b497cf", "#5227ff"]}

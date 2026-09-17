@@ -1,6 +1,7 @@
 import { workflowPhases } from "@/lib/site-config";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { FlickerText } from "@/components/ui/flicker-text";
 
 /**
  * The execution framework — a numbered sequence showing how a raw idea becomes
@@ -41,11 +42,20 @@ export function WorkflowSection() {
                   <span className="flex size-10 items-center justify-center rounded-full border border-border font-mono text-sm font-medium text-foreground transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-brand-foreground">
                     {String(step).padStart(2, "0")}
                   </span>
-                  <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                    {phase.phase}
-                  </span>
+                  <FlickerText
+                    as="p"
+                    text={phase.phase}
+                    variant="tube"
+                    inline
+                    className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground"
+                  />
                 </div>
-                <h3 className="text-xl font-bold tracking-tight text-foreground lg:text-2xl">{phase.title}</h3>
+                <FlickerText
+                  as="h3"
+                  text={phase.title}
+                  delay={(i % 2) * 0.08}
+                  className="text-xl font-bold tracking-tight text-foreground lg:text-2xl"
+                />
                 <p className="text-base leading-relaxed text-muted-foreground">{phase.body}</p>
 
                 {/* Cumulative progress through the workflow */}

@@ -343,6 +343,7 @@
 
 /* Wordmark logo */
 .wordmark {
+  position: relative;
   display: inline-flex;
   align-items: baseline;
   font-weight: 800;
@@ -361,6 +362,42 @@
   display: inline-block;
   margin: 0 0.06em;
   align-self: center;
+}
+
+/* Hover noise: the canvas copy cross-fades in as the DOM letters fade out. */
+.wordmark-letters,
+.wordmark-dot {
+  transition: opacity 140ms ease;
+}
+
+.wordmark[data-fuzz] > .wordmark-letters,
+.wordmark[data-fuzz] > .wordmark-dot {
+  opacity: 0;
+  /* Hold the crisp letters a beat so the canvas is painted before they go. */
+  transition-delay: 60ms;
+}
+
+.wordmark-fuzz {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.wordmark[data-fuzz] > .wordmark-fuzz {
+  opacity: 1;
+}
+
+.wordmark-fuzz > .wordmark-dot {
+  align-self: center;
+}
+
+.wordmark-fuzz-part {
+  display: inline-block;
+  width: max-content;
+  flex: 0 0 auto;
 }
 
 @media (max-width: 1024px) {
