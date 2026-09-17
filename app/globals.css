@@ -306,3 +306,25 @@
     animation: none;
   }
 }
+/* Strip-light strike — hard cuts, matching the canvas flicker used on headings.
+   Paired stops keep each transition under a millisecond, so it reads as a cut
+   rather than a fade. Applied by FlickerBlock, which remounts to replay it. */
+@keyframes flicker-strike {
+  0%, 5.9% { opacity: 1; }
+  6%, 9.9% { opacity: 0; }
+  10%, 16.9% { opacity: 1; }
+  17%, 19.9% { opacity: 0; }
+  20%, 37.9% { opacity: 1; }
+  38%, 40.9% { opacity: 0.2; }
+  41%, 100% { opacity: 1; }
+}
+
+.flicker-strike {
+  animation: flicker-strike 900ms linear 1 both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flicker-strike {
+    animation: none;
+  }
+}

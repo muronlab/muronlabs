@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { useInView, useReducedMotion } from "motion/react";
+import type { CSSProperties } from "react";
+import { useReducedMotion } from "motion/react";
 import FlickerSource from "@/components/originkit/ui/flickertext";
+import { useFlickerLoop, type FlickerPace } from "@/components/ui/use-flicker-loop";
 import { cn } from "@/lib/utils";
 
 type FlickerTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
@@ -26,17 +27,6 @@ const INHERIT: CSSProperties = {
   textWrap: "inherit",
 };
 
-/**
- * Idle re-strike cadences, in seconds. Each instance picks a fresh wait inside
- * its window every cycle, so nothing on the page ever flickers in lockstep.
- * Page and section titles carry the effect; everything beneath them idles far
- * longer, so a screen full of labels never strobes.
- */
-const REPEAT_WINDOW = {
-  primary: [2, 4.5],
-  secondary: [9, 17],
-} as const;
-
 interface Gradient {
   from: string;
   to: string;
@@ -44,7 +34,6 @@ interface Gradient {
 }
 
 type FlickerVariant = "letters" | "tube";
-type FlickerPace = keyof typeof REPEAT_WINDOW;
 
 /**
  * Flicker timings. `letters` drops one or two glyphs at a time — a faulty-panel
@@ -139,33 +128,11 @@ export function FlickerText({
   const reduceMotion = useReducedMotion();
   const Tag = as;
 
-  const hostRef = useRef<HTMLDivElement>(null);
-  /** Not `once` — the loop has to stop again when the text scrolls away. */
-  const inView = useInView(hostRef);
-  const [cycle, setCycle] = useState(0);
-
   /**
    * The effect itself only knows how to play on entrance, so each repeat is a
    * remount: the fresh instance sees itself intersecting and strikes again.
-   * Idle instances never tick, so offscreen text costs nothing.
    */
-  useEffect(() => {
-    if (!repeat || reduceMotion || !inView) return;
-
-    const [min, max] = REPEAT_WINDOW[pace];
-
-    let timer: ReturnType<typeof setTimeout>;
-    const schedule = () => {
-      const wait = min + Math.random() * (max - min);
-      timer = setTimeout(() => {
-        setCycle((c) => c + 1);
-        schedule();
-      }, wait * 1000);
-    };
-
-    schedule();
-    return () => clearTimeout(timer);
-  }, [repeat, reduceMotion, inView, pace]);
+  const { ref: hostRef, cycle } = useFlickerLoop<HTMLDivElement>(pace, repeat && !reduceMotion);
 
   /**
    * A gradient fill is painted by the element itself and clipped to the glyphs,

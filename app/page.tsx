@@ -1,6 +1,8 @@
 import Prism from "@/components/Prism";
 import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
+import { FlickerText } from "@/components/ui/flicker-text";
+import { FlickerBlock } from "@/components/ui/flicker-block";
 import { CapabilityTicker } from "@/components/home/capability-ticker";
 import { EcosystemSection } from "@/components/home/ecosystem-section";
 import { CapabilitiesSection } from "@/components/home/capabilities-section";
@@ -52,15 +54,23 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center py-16 text-center">
           <Reveal>
-            <p className="font-mono text-[0.6rem] font-medium uppercase tracking-widest text-foreground/70 sm:text-xs sm:tracking-[0.18em]">
-              [ Multidisciplinary Technology Studio ]
-            </p>
+            <FlickerText
+              as="p"
+              text="[ Multidisciplinary Technology Studio ]"
+              variant="tube"
+              inline
+              className="font-mono text-[0.6rem] font-medium uppercase tracking-widest text-foreground/70 sm:text-xs sm:tracking-[0.18em]"
+            />
           </Reveal>
           <Reveal delay={0.05}>
-            <h1 className="mx-auto mt-6 max-w-5xl text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-5xl sm:leading-[0.92] md:text-6xl lg:text-8xl">
-              Engineering with precision.
-              <span className="block text-brand">Designing with soul.</span>
-            </h1>
+            {/* Two-tone, two-line headline — struck as a block so the brand
+                colour and the line break survive. */}
+            <FlickerBlock pace="primary">
+              <h1 className="mx-auto mt-6 max-w-5xl text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-5xl sm:leading-[0.92] md:text-6xl lg:text-8xl">
+                Engineering with precision.
+                <span className="block text-brand">Designing with soul.</span>
+              </h1>
+            </FlickerBlock>
           </Reveal>
           <Reveal delay={0.12}>
             <p className="mx-auto mt-8 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
