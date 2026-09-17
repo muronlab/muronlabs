@@ -1,7 +1,9 @@
 import { distinctions } from "@/lib/site-config";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { cn } from "@/lib/utils";
 import { FlickerText } from "@/components/ui/flicker-text";
+import { DistinctionIcon } from "./distinction-icons";
 
 /**
  * The Muronlabs distinction — three specific value statements that set the
@@ -27,9 +29,19 @@ export function DistinctionSection({ index = "04" }: DistinctionSectionProps) {
             <Reveal
               key={item.title}
               delay={i * 0.08}
-              className="flex flex-col gap-4 bg-background p-8 lg:p-10"
+              className="group relative flex flex-col gap-4 bg-background p-8 transition-colors duration-300 hover:bg-foreground/2 lg:p-10"
             >
-              <span className="font-mono text-4xl font-bold text-brand">0{i + 1}</span>
+              {/* Tracer running the card's perimeter. */}
+              <span
+                aria-hidden="true"
+                className={cn("card-edge", i === 1 && "card-edge-b", i === 2 && "card-edge-c")}
+              />
+              <div className="mb-2 flex items-center justify-between gap-4">
+                <span className="flex size-12 items-center justify-center rounded-xl border border-border text-foreground/70 transition-colors duration-300 group-hover:border-brand/40 group-hover:text-brand">
+                  <DistinctionIcon index={i} className="size-6" />
+                </span>
+                <span className="font-mono text-4xl font-bold text-brand">0{i + 1}</span>
+              </div>
               <FlickerText
                 as="h3"
                 text={item.title}

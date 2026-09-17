@@ -38,11 +38,11 @@ export function CapabilitiesField() {
         hot={FIELD_HOT}
         density={13}
         streak={9}
-        speed={16}
+        speed={6}
         size={4}
         rim={20}
         haze={26}
-        spin={14}
+        spin={5}
         direction="right"
         sizePercent={92}
         style={{ minWidth: 0, minHeight: 0 }}

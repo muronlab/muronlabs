@@ -2,7 +2,6 @@ import Prism from "@/components/Prism";
 import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
 import { FlickerText } from "@/components/ui/flicker-text";
-import { FlickerBlock } from "@/components/ui/flicker-block";
 import { CapabilityTicker } from "@/components/home/capability-ticker";
 import { EcosystemSection } from "@/components/home/ecosystem-section";
 import { CapabilitiesSection } from "@/components/home/capabilities-section";
@@ -63,14 +62,28 @@ export default function Home() {
             />
           </Reveal>
           <Reveal delay={0.05}>
-            {/* Two-tone, two-line headline — struck as a block so the brand
-                colour and the line break survive. */}
-            <FlickerBlock pace="primary">
-              <h1 className="mx-auto mt-6 max-w-5xl text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-5xl sm:leading-[0.92] md:text-6xl lg:text-8xl">
-                Engineering with precision.
-                <span className="block text-brand">Designing with soul.</span>
-              </h1>
-            </FlickerBlock>
+            {/* The effect renders one string in one colour, so the two-tone
+                headline is two of them. The real <h1> stays whole for search
+                and screen readers; the visible lines are decorative. */}
+            <h1 className="sr-only">Engineering with precision. Designing with soul.</h1>
+            <div
+              aria-hidden="true"
+              className="mx-auto mt-6 max-w-5xl text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight sm:text-5xl sm:leading-[0.92] md:text-6xl lg:text-8xl"
+            >
+              <FlickerText
+                as="p"
+                text="Engineering with precision."
+                pace="primary"
+                className="text-foreground"
+              />
+              <FlickerText
+                as="p"
+                text="Designing with soul."
+                pace="primary"
+                delay={0.1}
+                className="text-brand"
+              />
+            </div>
           </Reveal>
           <Reveal delay={0.12}>
             <p className="mx-auto mt-8 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">

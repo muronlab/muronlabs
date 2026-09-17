@@ -202,11 +202,16 @@
   opacity: 0;
 }
 
+/* The list is anchored to the foot of the panel rather than hanging from the
+   header, so the empty space sits above it. */
 .sm-panel-inner {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  justify-content: flex-end;
+  /* Breathing room between the list and the footer block; scales with the
+     viewport so short screens still fit. */
+  gap: clamp(3rem, 12vh, 7rem);
 }
 
 .sm-panel-list {
@@ -215,28 +220,32 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0;
+  border-top: 1px solid var(--sm-rule, rgba(10, 10, 10, 0.28));
 }
 
+/* The label animates up from below, so the wrap clips: the words rise out of
+   the rule underneath them. */
 .sm-panel-itemWrap {
   position: relative;
   overflow: hidden;
   line-height: 1;
+  padding: 0.12em 0 0.1em;
+  border-bottom: 1px solid var(--sm-rule, rgba(10, 10, 10, 0.28));
 }
 
 .sm-panel-item {
   position: relative;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  color: #0a0a0a;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 8.5vw, 4.2rem);
   cursor: pointer;
   line-height: 1.02;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.045em;
   text-transform: uppercase;
   transition: color 0.25s;
   display: inline-block;
   text-decoration: none;
-  padding-right: 1.4em;
 }
 
 .sm-panel-item:hover {
@@ -255,22 +264,21 @@
 
 .sm-panel-list[data-numbering] .sm-panel-item::after {
   counter-increment: smItem;
-  content: counter(smItem, decimal-leading-zero);
-  position: absolute;
-  top: 0.1em;
-  right: 0.4em;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--sm-accent, #2d1b69);
-  letter-spacing: 0;
+  content: counter(smItem, upper-roman);
+  margin-left: 0.22em;
+  font-size: 0.24em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  vertical-align: super;
+  color: inherit;
   pointer-events: none;
   user-select: none;
   opacity: var(--sm-num-opacity, 0);
 }
 
 .sm-socials {
-  margin-top: auto;
-  padding-top: 2rem;
+  margin-top: 0;
+  padding-top: 0;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -282,7 +290,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--sm-accent, #2d1b69);
+  color: rgba(10, 10, 10, 0.55);
 }
 
 .sm-socials-list {
@@ -299,7 +307,7 @@
 .sm-socials-link {
   font-size: 1rem;
   font-weight: 500;
-  color: #ffffff;
+  color: #0a0a0a;
   text-decoration: none;
   position: relative;
   padding: 2px 0;
@@ -329,7 +337,7 @@
 }
 
 .sm-contact-link {
-  color: #ffffff;
+  color: #0a0a0a;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -409,6 +417,6 @@
   }
 
   .staggered-menu-wrapper[data-open] .sm-logo {
-    color: #ffffff;
+    color: #0a0a0a;
   }
 }

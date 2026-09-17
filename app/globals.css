@@ -306,25 +306,239 @@
     animation: none;
   }
 }
-/* Strip-light strike — hard cuts, matching the canvas flicker used on headings.
-   Paired stops keep each transition under a millisecond, so it reads as a cut
-   rather than a fade. Applied by FlickerBlock, which remounts to replay it. */
-@keyframes flicker-strike {
-  0%, 5.9% { opacity: 1; }
-  6%, 9.9% { opacity: 0; }
-  10%, 16.9% { opacity: 1; }
-  17%, 19.9% { opacity: 0; }
-  20%, 37.9% { opacity: 1; }
-  38%, 40.9% { opacity: 0.2; }
-  41%, 100% { opacity: 1; }
+/* Distinction card marks — continuous, low-amplitude motion. Everything is
+   expressed on the SVG itself so the cards stay server-rendered. */
+@keyframes icon-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
 }
 
-.flicker-strike {
-  animation: flicker-strike 900ms linear 1 both;
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.4;
+  }
+}
+
+@keyframes icon-breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.88);
+  }
+}
+
+@keyframes icon-sweep {
+  0% {
+    stroke-dashoffset: 48;
+  }
+  55%, 100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes icon-needle {
+  0%, 100% {
+    transform: rotate(-85deg);
+  }
+  55%, 75% {
+    transform: rotate(40deg);
+  }
+}
+
+@keyframes icon-scan {
+  0%, 100% {
+    transform: translateY(-13px);
+  }
+  50% {
+    transform: translateY(13px);
+  }
+}
+
+@keyframes icon-draw {
+  0%, 12% {
+    stroke-dashoffset: 19;
+  }
+  45%, 88% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 19;
+  }
+}
+
+.icon-flow {
+  stroke-dasharray: 5 5;
+  animation: icon-flow 1.9s linear infinite;
+}
+
+.icon-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: icon-pulse 2.6s ease-in-out infinite;
+}
+
+.icon-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: icon-breathe 2.6s ease-in-out infinite;
+}
+
+.icon-sweep {
+  stroke-dasharray: 48;
+  animation: icon-sweep 3.4s ease-in-out infinite;
+}
+
+.icon-needle {
+  transform-box: view-box;
+  transform-origin: 24px 33px;
+  animation: icon-needle 3.4s ease-in-out infinite;
+}
+
+.icon-scan {
+  animation: icon-scan 3s ease-in-out infinite;
+}
+
+.icon-draw {
+  stroke-dasharray: 19;
+  animation: icon-draw 3s ease-in-out infinite;
+}
+
+/* Paired with pathLength="1" on the path, so the same timing works whatever
+   the path actually measures. */
+@keyframes glyph-draw {
+  0%, 10% {
+    stroke-dashoffset: 1;
+  }
+  52%, 86% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 1;
+  }
+}
+
+.glyph-draw {
+  stroke-dasharray: 1;
+  animation: glyph-draw 5s ease-in-out infinite;
+}
+
+.icon-delay-1 {
+  animation-delay: 0.35s;
+}
+
+.icon-delay-2 {
+  animation-delay: 0.7s;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flicker-strike {
+  .icon-flow,
+  .icon-pulse,
+  .icon-breathe,
+  .icon-sweep,
+  .icon-needle,
+  .icon-scan,
+  .icon-draw,
+  .glyph-draw {
     animation: none;
+  }
+
+  .icon-sweep,
+  .icon-draw,
+  .glyph-draw {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Live card edges — a light tracer runs the perimeter and stutters, using the
+   same hard-cut language as the text flicker. The border itself is a conic
+   gradient masked down to a 1px frame, so it costs one compositor layer and no
+   extra elements beyond the overlay span. */
+@property --edge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes edge-spin {
+  to {
+    --edge-angle: 360deg;
+  }
+}
+
+@keyframes edge-glitch {
+  0%, 58% {
+    opacity: 0.6;
+  }
+  59% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 0.08;
+  }
+  64% {
+    opacity: 0.95;
+  }
+  66%, 85% {
+    opacity: 0.6;
+  }
+  86% {
+    opacity: 0.05;
+  }
+  88%, 100% {
+    opacity: 0.6;
+  }
+}
+
+.card-edge {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--edge-angle),
+    transparent 0deg,
+    var(--brand) 10deg,
+    #b9a6ff 20deg,
+    var(--brand) 30deg,
+    transparent 48deg
+  );
+  /* Punch out the middle so only the 1px frame paints. */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  animation: edge-spin 6s linear infinite, edge-glitch 5.4s steps(1, end) infinite;
+}
+
+.card-edge-b {
+  animation-delay: -2.1s, -1.3s;
+}
+
+.card-edge-c {
+  animation-delay: -4.2s, -3.6s;
+}
+
+.group:hover > .card-edge {
+  animation-duration: 2.4s, 5.4s;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-edge {
+    animation: none;
+    opacity: 0;
   }
 }

@@ -132,7 +132,11 @@ export function FlickerText({
    * The effect itself only knows how to play on entrance, so each repeat is a
    * remount: the fresh instance sees itself intersecting and strikes again.
    */
-  const { ref: hostRef, cycle } = useFlickerLoop<HTMLDivElement>(pace, repeat && !reduceMotion);
+  const { ref: hostRef, cycle } = useFlickerLoop<HTMLDivElement>(
+    pace,
+    repeat && !reduceMotion,
+    text.length,
+  );
 
   /**
    * A gradient fill is painted by the element itself and clipped to the glyphs,

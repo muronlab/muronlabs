@@ -27,13 +27,13 @@ export function SiteHeader() {
       socialItems={socialItems.map((s) => ({ label: s.label, link: s.href }))}
       contact={siteConfig.contact}
       displaySocials
-      displayItemNumbering={false}
+      displayItemNumbering
       logo={<Wordmark fuzzOnHover />}
       accentColor={siteConfig.accent}
       panelColor="#b497cf"
       colors={["#cdb8e6", "#b497cf", "#5227ff"]}
       menuButtonColor="#0a0a0a"
-      openMenuButtonColor="#ffffff"
+      openMenuButtonColor="#0a0a0a"
       changeMenuColorOnOpen
     />
   );
