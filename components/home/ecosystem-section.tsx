@@ -1,152 +1,108 @@
-import { divisions } from "@/lib/site-config";
-import { cn } from "@/lib/utils";
-import { SectionHeading } from "./section-heading";
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { FlowGradient, type FlowPalette } from "@/components/visuals/flow-gradient";
+import { GetInTouchButton } from "@/components/contact/contact-drawer";
+import { LineBreaker } from "@/components/ui/line-breaker";
 import { Reveal } from "@/components/ui/reveal";
-import { EcosystemCore, coreColors } from "./ecosystem-core";
-import { FlickerText } from "@/components/ui/flicker-text";
+import { divisions, homeCopy, type Division } from "@/lib/site-config";
+import { cn } from "@/lib/utils";
+
+/** Corner treatment per column, left to right. */
+const columnShape = ["rounded-l-[20px]", "rounded-bl-[60px]", "rounded-r-[20px] rounded-bl-[20px]"];
+
+/** Each division gets its own living colour field: graphite, green, blush. */
+const columnPalette: FlowPalette[] = ["dev", "ai", "arts"];
+
+/** Vertical parallax travel per column, so the three drift against each other. */
+const columnTravel: [string, string][] = [
+  ["4%", "-10%"],
+  ["-8%", "6%"],
+  ["2%", "-12%"],
+];
+
+function Column({ division, i, progress }: { division: Division; i: number; progress: MotionValue<number> }) {
+  const y = useTransform(progress, [0, 1], columnTravel[i]);
+
+  return (
+    <div
+      className={cn("relative h-full flex-1 overflow-hidden shadow-[1.5rem_0_2rem_rgb(0_0_0/0.11)]", columnShape[i])}
+      style={{ zIndex: 3 - i }}
+    >
+      <motion.div className="absolute inset-x-0 -top-[10%] h-[120%] max-lg:!translate-y-0" style={{ y }}>
+        <FlowGradient palette={columnPalette[i]} resolution={0.4} speed={0.8 + i * 0.15} />
+      </motion.div>
+      <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+      <span className="absolute bottom-4 left-4 font-sans text-3xl font-light text-white md:bottom-6 md:left-6 md:text-5xl">
+        {division.mark}
+      </span>
+    </div>
+  );
+}
 
 /**
- * The Core Ecosystem — an interactive plasma core above three editorial cards
- * introducing the specialist sub-brands (Muron Dev, Muron AI, Muron Arts).
- * Driven by `divisions` in site-config so copy lives in one place.
+ * The three divisions as a sticky, three-column colour-field scroll. On desktop
+ * the columns start full-screen, then compress into a right-hand panel as the
+ * division copy scrolls in on the left. Below `lg` it degrades to a colour strip
+ * above a normal column of copy.
  */
 export function EcosystemSection() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
+  const width = useTransform(scrollYProgress, [0, 0.24], ["100%", "45%"]);
+
   return (
-    <section
-      id="ecosystem"
-      aria-labelledby="ecosystem-heading"
-      className="scroll-mt-24 border-t border-border px-6 py-24 md:px-10 lg:py-32"
-    >
-      <div className="mx-auto w-full max-w-7xl">
-        <SectionHeading
-          index="01"
-          eyebrow="The Ecosystem"
-          title="Three specialist divisions. One coordinated roof."
-          description="Modern software requires specialised squads. Each Muronlabs division owns a discipline outright — and they ship as one connected team."
-        />
-
-        {/* Core + divisions read as a single object: one border, one radius. */}
-        <Reveal className="mt-16 overflow-hidden rounded-3xl border border-border">
-          {/* ── The core ─────────────────────────────────────────────── */}
-          <div className="relative h-[360px] border-b border-border bg-[#05060a] sm:h-[440px] lg:h-[560px]">
-            <EcosystemCore />
-
-            {/* Vignette: settles the canvas into the panel edges. */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,transparent_30%,rgba(5,6,10,0.92)_100%)]"
-            />
-
-            {/* Overlay chrome — never intercepts the drag-to-orbit pointer. */}
-            <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-6 lg:p-9">
-              <div className="flex items-start justify-between gap-6 font-mono text-[11px] uppercase tracking-[0.2em] text-white/45">
-                <FlickerText as="p" text="[ The Core ]" variant="tube" inline />
-                <FlickerText
-                  as="p"
-                  text="Drag to orbit ⟲"
-                  variant="tube"
-                  delay={0.35}
-                  className="hidden sm:inline-block"
-                />
-              </div>
-
-              <div className="flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
-                <FlickerText
-                  as="p"
-                  text="One shared core. Three disciplines in orbit."
-                  pace="primary"
-                  delay={0.15}
-                  className="max-w-md text-balance text-lg font-semibold leading-snug text-white/90 lg:text-2xl"
-                />
-
-                <ul className="flex flex-wrap gap-x-6 gap-y-2 sm:justify-end">
-                  {divisions.map((division, i) => (
-                    <li
-                      key={division.id}
-                      className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/55"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="size-1.5 rounded-full"
-                        style={{
-                          backgroundColor: coreColors[i % coreColors.length],
-                          boxShadow: `0 0 10px ${coreColors[i % coreColors.length]}`,
-                        }}
-                      />
-                      <FlickerText
-                        as="p"
-                        text={division.name}
-                        variant="tube"
-                        delay={0.45 + i * 0.12}
-                        inline
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* ── The divisions ────────────────────────────────────────── */}
-          <div className="grid gap-px bg-border md:grid-cols-3">
+    <section id="ecosystem" aria-labelledby="ecosystem-heading" className="relative z-[1] scroll-mt-24 bg-paper">
+      <div ref={wrapRef} className="relative lg:h-[360vh]">
+        <div className="relative h-[60vh] w-full overflow-hidden lg:sticky lg:top-0 lg:h-svh">
+          <motion.div
+            className="absolute inset-y-0 right-0 flex max-lg:!w-full lg:inset-y-[1vh] lg:right-[0.5vw]"
+            style={{ width }}
+          >
             {divisions.map((division, i) => (
-              <Reveal
-                key={division.id}
-                as="article"
-                delay={i * 0.08}
-                className="group relative flex flex-col gap-5 bg-background p-8 transition-colors duration-300 hover:bg-foreground/2 lg:p-10"
-              >
-                {/* Oversized faded index watermark */}
-                <span className="pointer-events-none absolute right-6 top-6 font-mono text-5xl font-bold text-foreground/6 transition-colors duration-300 group-hover:text-brand/20 lg:text-6xl">
-                  {division.index}
-                </span>
+              <Column key={division.id} division={division} i={i} progress={scrollYProgress} />
+            ))}
+          </motion.div>
+        </div>
+      </div>
 
-                <span className="font-mono text-sm text-brand">
-                  [{division.index}]
-                </span>
-                <FlickerText
-                  as="h3"
-                  text={division.name}
-                  gradient={division.gradientStops}
-                  variant="tube"
-                  delay={i * 0.08}
-                  onHover
-                  className={cn(
-                    "text-2xl font-bold tracking-tight lg:text-3xl",
-                    division.gradientStops ? undefined : "text-foreground",
-                  )}
-                />
-                <FlickerText
-                  as="p"
-                  text={division.tagline}
-                  variant="tube"
-                  delay={0.2 + i * 0.08}
-                  className="text-sm font-semibold uppercase tracking-wide text-foreground/70"
-                />
-                <p className="text-base leading-relaxed text-muted-foreground">
-                  {division.body}
-                </p>
+      <div className="relative z-[3] lg:-mt-[200vh] lg:min-h-svh lg:w-1/2">
+        <div className="px-5 pt-16 pb-20 sm:px-10 lg:pt-[10vh] lg:pr-16 lg:pb-[12vh] lg:pl-[max(5rem,calc((100vw-90rem)/2+5rem))]">
+          <Reveal>
+            <h2 id="ecosystem-heading" className="mb-5 font-display text-2xl leading-[1.25] font-normal text-brand-deep">
+              {homeCopy.ecosystem.title}
+            </h2>
+            <p className="max-w-xl text-base leading-6 text-muted-foreground">{homeCopy.ecosystem.intro}</p>
+          </Reveal>
 
-                <ul className="mt-auto flex flex-wrap gap-2 pt-4">
+          <LineBreaker className="mt-8" />
+
+          {divisions.map((division) => (
+            <article key={division.id} id={division.id} className="scroll-mt-28">
+              <Reveal className="py-8">
+                <div className="flex items-baseline gap-4">
+                  <span className="text-base text-brand-deep">/{division.index}</span>
+                  <h3 className="font-display text-[1.75rem] leading-tight font-medium text-ink">{division.name}</h3>
+                </div>
+                <p className="mt-2 text-base font-semibold text-muted-foreground">{division.tagline}</p>
+                <p className="mt-4 text-base leading-6 text-muted-foreground">{division.body}</p>
+                <ul className="mt-5 flex flex-wrap gap-2">
                   {division.focus.map((area) => (
-                    <li
-                      key={area}
-                      className="rounded-full border border-border px-3 py-1 font-mono text-xs text-muted-foreground transition-colors duration-300 group-hover:border-foreground/20"
-                    >
+                    <li key={area} className="rounded-full border border-hairline px-3 py-1 text-sm text-muted-foreground">
                       {area}
                     </li>
                   ))}
                 </ul>
-
-                {/* Full-width accent bar matching the division's title colour */}
-                <span
-                  aria-hidden="true"
-                  className={cn("absolute inset-x-0 bottom-0 h-4", division.accent)}
-                />
               </Reveal>
-            ))}
+              <LineBreaker />
+            </article>
+          ))}
+
+          <div className="mt-10">
+            <GetInTouchButton tone="outline">Get in touch</GetInTouchButton>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

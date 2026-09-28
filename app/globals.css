@@ -9,9 +9,15 @@
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
-  --font-sans: var(--font-sans);
+  --color-brand-deep: var(--brand-deep);
+  --color-pink: var(--pink);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-hairline: var(--hairline);
+  --font-sans: var(--font-flex), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-gsans), var(--font-flex), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-gsans), ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -59,77 +65,81 @@
   }
 }
 
+/* Palette — soft grey canvas, warm ink, a signature green and a blush pink.
+   Mirrors the flow-gradient artwork that anchors the hero. */
 :root {
-  --background: oklch(0.985 0.002 95);
-  --foreground: oklch(0.145 0 0);
-  --brand: oklch(0.58 0.222 286);
-  --brand-foreground: oklch(0.985 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --paper: #ededed;
+  --ink: #242422;
+  --hairline: #c9c8c7;
+  --brand-deep: #5c9376;
+  --pink: #f5a6af;
+
+  --background: #ededed;
+  --foreground: #242422;
+  --brand: #70b494;
+  --brand-foreground: #242422;
+  --card: #f8f8f8;
+  --card-foreground: #242422;
+  --popover: #f8f8f8;
+  --popover-foreground: #242422;
+  --primary: #242422;
+  --primary-foreground: #ffffff;
+  --secondary: #e4e4e3;
+  --secondary-foreground: #242422;
+  --muted: #e4e4e3;
+  --muted-foreground: #6a6a6a;
+  --accent: #e4e4e3;
+  --accent-foreground: #242422;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: #c9c8c7;
+  --input: #c9c8c7;
+  --ring: #70b494;
+  --chart-1: #70b494;
+  --chart-2: #5c9376;
+  --chart-3: #f5a6af;
+  --chart-4: #6a6a6a;
+  --chart-5: #242422;
+  --radius: 0.75rem;
+  --sidebar: #ededed;
+  --sidebar-foreground: #242422;
+  --sidebar-primary: #242422;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e4e4e3;
+  --sidebar-accent-foreground: #242422;
+  --sidebar-border: #c9c8c7;
+  --sidebar-ring: #70b494;
 }
 
+/* Local inversion for ink panels (cards, drawers) — not a site-wide theme. */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --brand: oklch(0.68 0.18 286);
-  --brand-foreground: oklch(0.145 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #242422;
+  --foreground: #ffffff;
+  --brand: #70b494;
+  --brand-foreground: #242422;
+  --card: #2e2e2c;
+  --card-foreground: #ffffff;
+  --popover: #2e2e2c;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #242422;
+  --secondary: #3a3a38;
+  --secondary-foreground: #ffffff;
+  --muted: #3a3a38;
+  --muted-foreground: rgb(255 255 255 / 0.7);
+  --accent: #3a3a38;
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: rgb(255 255 255 / 0.2);
+  --input: rgb(255 255 255 / 0.3);
+  --ring: #70b494;
+  --sidebar: #242422;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #70b494;
+  --sidebar-primary-foreground: #242422;
+  --sidebar-accent: #3a3a38;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.2);
+  --sidebar-ring: #70b494;
 }
 
 @layer base {
@@ -149,7 +159,13 @@
   }
   ::selection {
     background: var(--brand);
-    color: var(--brand-foreground);
+    color: var(--ink);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
   }
 }
 
@@ -429,6 +445,94 @@
   animation: glyph-draw 5s ease-in-out infinite;
 }
 
+@keyframes icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Rotates about the middle of the viewBox — for marks built around the centre. */
+.icon-spin {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: icon-spin 16s linear infinite;
+}
+
+/* Rotates about the shape's own middle. */
+.icon-turn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: icon-spin 22s linear infinite;
+}
+
+/* Workflow ribbons --------------------------------------------------------- */
+@keyframes wf-blade {
+  0%, 100% {
+    transform: rotate(-1.6deg);
+  }
+  50% {
+    transform: rotate(1.6deg);
+  }
+}
+
+/* Each ribbon turns about its own base, and the staggered delays set by the
+   component make the fan ripple rather than swing as one slab. */
+.wf-blade {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: wf-blade 9s ease-in-out infinite;
+}
+
+/* Workflow canvas wiring --------------------------------------------------- */
+
+/* A charge running the length of a connector. `--wf-run` is how far it has to
+   travel, which differs between a straight wire and the drop of a fork, and
+   `--wf-delay` staggers the charges so the graph reads top to bottom. */
+@keyframes wf-charge {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  18%, 78% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--wf-run, 3.5rem));
+    opacity: 0;
+  }
+}
+
+.wf-charge {
+  animation: wf-charge var(--wf-duration, 2.8s) linear infinite;
+  animation-delay: var(--wf-delay, 0s);
+}
+
+/* The charge is drawn as a falling star: a bright head with the light trailing
+   off behind it, rather than a bead sliding down a wire. */
+.wf-star {
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in oklch, var(--brand) 18%, transparent) 45%,
+    color-mix(in oklch, var(--brand) 55%, transparent) 78%,
+    var(--brand) 95%,
+    color-mix(in oklch, var(--brand) 35%, white) 100%
+  );
+  box-shadow:
+    0 0 6px 0 color-mix(in oklch, var(--brand) 60%, transparent),
+    0 0 14px 2px color-mix(in oklch, var(--brand) 32%, transparent);
+  filter: blur(0.4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-charge {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 .icon-delay-1 {
   animation-delay: 0.35s;
 }
@@ -445,7 +549,10 @@
   .icon-needle,
   .icon-scan,
   .icon-draw,
-  .glyph-draw {
+  .glyph-draw,
+  .icon-spin,
+  .icon-turn,
+  .wf-blade {
     animation: none;
   }
 
@@ -541,4 +648,225 @@
     animation: none;
     opacity: 0;
   }
+}
+
+/* ================================================================== */
+/* Flow design system                                                  */
+/* ================================================================== */
+
+/* Fluid root size — rem-based type and spacing breathe with the viewport
+   between tablet and wide desktop. */
+html {
+  font-size: 1rem;
+}
+@media (max-width: 1600px) {
+  html {
+    font-size: calc(0.343rem + 0.657vw);
+  }
+}
+@media (max-width: 991px) {
+  html {
+    font-size: 0.875rem;
+  }
+}
+@media (max-width: 767px) {
+  html {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Page gutter + max width shared by every section. */
+.shell {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: 5rem;
+}
+@media (max-width: 991px) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
+}
+@media (max-width: 767px) {
+  .shell {
+    padding-inline: 1.25rem;
+  }
+}
+
+/* Hero window reveal: the gradient opens from a small rounded slot to a
+   near-full-bleed panel; scroll then pushes it out to the edges. */
+@keyframes flow-window-open {
+  from {
+    clip-path: inset(50% 40% 50% 40% round 60px);
+  }
+  to {
+    clip-path: inset(1% 0.5% 1% 0.5% round 20px);
+  }
+}
+.flow-window {
+  clip-path: inset(50% 40% 50% 40% round 60px);
+  animation: flow-window-open 1.8s cubic-bezier(0.77, 0, 0.18, 1) 0.3s forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-window {
+    animation: none;
+    clip-path: inset(0 round 0);
+  }
+}
+
+/* Dotted orbit rings used around the green circle motif. */
+.orbit-dots {
+  border: 2px dotted var(--hairline);
+  border-radius: 9999px;
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-orbit {
+  animation: orbit-spin 90s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-orbit {
+    animation: none;
+  }
+}
+
+/* Liquid button — the pill and the arrow bead are separate shapes that
+   merge through the goo filter as the bead slides out on hover. */
+.liquid-btn .liquid-bead {
+  transform: translateX(-70%) scale(0.55);
+  opacity: 0;
+  transition:
+    transform 0.9s cubic-bezier(0.135, 0.9, 0.15, 1),
+    opacity 0.35s ease;
+}
+.liquid-btn:hover .liquid-bead,
+.liquid-btn:focus-visible .liquid-bead {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+.liquid-btn .liquid-arrow {
+  transition: transform 0.6s cubic-bezier(0.135, 0.9, 0.15, 1);
+}
+.liquid-btn:hover .liquid-arrow,
+.liquid-btn:focus-visible .liquid-arrow {
+  transform: translateX(200%);
+}
+.liquid-btn .liquid-arrow-next {
+  transform: translateX(-200%);
+}
+.liquid-btn:hover .liquid-arrow-next,
+.liquid-btn:focus-visible .liquid-arrow-next {
+  transform: translateX(0);
+}
+.liquid-btn .liquid-label {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+}
+@media (hover: none) {
+  .liquid-btn .liquid-bead {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* Brand wordmark — MUR●N. The dot takes the signature green. */
+.wordmark {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: inherit;
+}
+.wordmark-dot {
+  width: 0.34em;
+  height: 0.34em;
+  border-radius: 9999px;
+  background: var(--wordmark-dot, var(--brand));
+  display: inline-block;
+  margin: 0 0.06em;
+  align-self: center;
+}
+.wordmark-letters,
+.wordmark-dot {
+  transition: opacity 140ms ease;
+}
+.wordmark[data-fuzz] > .wordmark-letters,
+.wordmark[data-fuzz] > .wordmark-dot {
+  opacity: 0;
+  transition-delay: 60ms;
+}
+.wordmark-fuzz {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+.wordmark[data-fuzz] > .wordmark-fuzz {
+  opacity: 1;
+}
+.wordmark-fuzz > .wordmark-dot {
+  align-self: center;
+}
+.wordmark-fuzz-part {
+  display: inline-block;
+  width: max-content;
+  flex: 0 0 auto;
+}
+
+/* Pill form fields. */
+.field-pill {
+  width: 100%;
+  height: 3.25rem;
+  border: 1px solid var(--hairline);
+  border-radius: 30px;
+  background: rgb(255 255 255 / 0.35);
+  padding-inline: 1.25rem;
+  font-size: 1rem;
+  color: var(--ink);
+  outline: none;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+.field-pill::placeholder {
+  color: var(--muted-foreground);
+}
+.field-pill:hover {
+  border-color: var(--muted-foreground);
+}
+.field-pill:focus-visible {
+  border-color: var(--brand-deep);
+  background: rgb(255 255 255 / 0.6);
+}
+textarea.field-pill {
+  height: auto;
+  min-height: 9rem;
+  border-radius: 22px;
+  padding-block: 0.9rem;
+  resize: vertical;
+}
+select.field-pill {
+  appearance: none;
+}
+
+/* Solid white variant — used on the frosted contact drawer. */
+.field-pill.field-solid {
+  background: #ffffff;
+  border-color: rgb(201 200 199 / 0.7);
+}
+.field-pill.field-solid:focus-visible {
+  border-color: var(--brand-deep);
+  background: #ffffff;
 }

@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/site-footer";
+import { Reveal } from "@/components/ui/reveal";
+import { CircleMotif } from "@/components/visuals/circle-motif";
 import { JsonLd } from "@/components/json-ld";
-import { FlickerText } from "@/components/ui/flicker-text";
 import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -26,45 +27,59 @@ export default function WorkPage() {
           { name: "Work", path: "/work" },
         ])}
       />
-      <section className="px-6 pt-40 pb-20 md:px-10">
-        <div className="mx-auto w-full max-w-7xl">
-          <FlickerText
-            as="p"
-            text="Selected work"
-            variant="tube"
-            inline
-            className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
-          />
-          <FlickerText
-            as="h1"
-            text="Things we’ve shipped."
-            pace="primary"
-            delay={0.1}
-            className="max-w-3xl text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-7xl"
-          />
+
+      <section className="relative z-[1] overflow-hidden bg-paper pt-40 pb-24 lg:pt-52 lg:pb-36">
+        {/* Orb on the right, a faint dotted orbit top-left */}
+        <CircleMotif className="absolute top-[22rem] -right-[30%] size-[70vw] sm:-right-[20%] sm:size-[50vw] lg:top-[12rem] lg:-right-[8%] lg:size-[42vw]" />
+        <div aria-hidden="true" className="orbit-dots absolute -top-[12rem] -left-[10rem] size-[30rem]" />
+
+        <div className="shell relative z-10">
+          <Reveal>
+            <h1 className="max-w-[62rem] text-5xl leading-[1.1] font-normal text-balance text-ink sm:text-6xl lg:text-[5.25rem]">
+              Things we’ve shipped, and what comes next
+            </h1>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <p className="mt-8 max-w-[36rem] text-lg leading-relaxed text-muted-foreground lg:text-xl">
+              Products, platforms and brands built across our three divisions — engineered to scale, designed to be
+              used.
+            </p>
+          </Reveal>
+
+          <div className="mt-20 lg:mt-28 lg:max-w-[65%]">
+            <Reveal>
+              <h2 className="text-2xl font-normal text-brand lg:text-[1.75rem]">Selected Work</h2>
+            </Reveal>
+
+            <ul className="mt-6">
+              {projects.map((p, i) => (
+                <Reveal as="li" key={p.name} delay={i * 0.05}>
+                  <div className="group grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 border-b border-hairline py-7 transition-colors duration-300 hover:border-brand sm:grid-cols-[minmax(0,1fr)_12rem_6rem] sm:items-baseline">
+                    <div>
+                      <p className="text-xl text-muted-foreground transition-colors duration-300 group-hover:text-ink">{p.name}</p>
+                      <p className="mt-1 text-sm text-muted-foreground/80">{p.summary}</p>
+                    </div>
+                    <p className="hidden text-xl text-muted-foreground sm:block">{p.discipline}</p>
+                    <p className="text-xl text-muted-foreground">{p.year}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section className="px-6 pb-24 md:px-10">
-        <div className="mx-auto w-full max-w-7xl">
-          <ul className="divide-y divide-border border-y border-border">
-            {projects.map((p) => (
-              <li key={p.name} className="group py-10">
-                <div className="flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between">
-                  <FlickerText
-                    as="h2"
-                    text={p.name}
-                    className="text-3xl font-bold uppercase tracking-tight text-foreground sm:text-5xl"
-                  />
-                  <div className="flex items-baseline gap-6 text-sm text-muted-foreground">
-                    <span>{p.discipline}</span>
-                    <span>{p.year}</span>
-                  </div>
-                </div>
-                <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">{p.summary}</p>
-              </li>
-            ))}
-          </ul>
+      {/* Closing line, as on the reference events page */}
+      <section className="relative z-[1] bg-paper pb-12 lg:pb-20">
+        <div className="shell flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+          <Reveal>
+            <p className="max-w-[22rem] text-lg leading-relaxed text-muted-foreground lg:text-xl">
+              Every product here started as a conversation with a team like yours.
+            </p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <p className="text-5xl leading-none font-normal text-ink lg:text-[5.25rem]">Yours could be next.</p>
+          </Reveal>
         </div>
       </section>
 

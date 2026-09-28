@@ -21,20 +21,21 @@ interface LegalPageProps {
 export function LegalPage({ eyebrow, title, lastUpdated, intro, sections }: LegalPageProps) {
   return (
     <main className="flex flex-1 flex-col">
-      <PageHero eyebrow={eyebrow} title={title} narrow />
+      <PageHero glow eyebrow={eyebrow} title={title} narrow />
 
-      <section className="px-6 pb-28 md:px-10">
-        <div className="mx-auto w-full max-w-3xl">
-          <p className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+      <section className="relative z-[1] bg-paper pb-28">
+        <div className="shell">
+          <div className="max-w-3xl">
+          <p className="text-sm font-medium tracking-[2px] text-ink uppercase">
             Last updated: {lastUpdated}
           </p>
           <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground">{intro}</p>
 
           <div className="mt-14 space-y-12">
             {sections.map((section, i) => (
-              <section key={section.heading} className="space-y-3 border-t border-border pt-8">
-                <h2 className="flex items-baseline gap-3 text-xl font-bold tracking-tight text-foreground">
-                  <span className="font-mono text-sm text-brand">0{i + 1}</span>
+              <section key={section.heading} className="space-y-3 border-t border-muted-foreground/70 pt-8">
+                <h2 className="flex items-baseline gap-3 text-2xl font-medium text-ink">
+                  <span className="text-base text-brand-deep">/0{i + 1}</span>
                   {section.heading}
                 </h2>
                 {section.body.map((paragraph, j) => (
@@ -44,6 +45,7 @@ export function LegalPage({ eyebrow, title, lastUpdated, intro, sections }: Lega
                 ))}
               </section>
             ))}
+          </div>
           </div>
         </div>
       </section>

@@ -10,7 +10,7 @@ export const alt = `${siteConfig.name} — ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const BRAND = "#7c5cff";
+const BRAND = "#70b494";
 
 export default function OpengraphImage() {
   const { text, dotIndex } = siteConfig.wordmark;
@@ -26,11 +26,11 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0a0a0a",
-          backgroundImage: `radial-gradient(900px circle at 80% -10%, ${BRAND}33, transparent 55%)`,
+          background: "#5f9a8c",
+          backgroundImage: `radial-gradient(700px circle at 12% 30%, #d19a7e, transparent 60%), radial-gradient(800px circle at 75% 15%, ${BRAND}, transparent 60%), radial-gradient(700px circle at 85% 95%, #cfa27f, transparent 60%)`,
           padding: "80px",
           fontFamily: "sans-serif",
-          color: "#fafafa",
+          color: "#ffffff",
         }}
       >
         <div
@@ -39,7 +39,7 @@ export default function OpengraphImage() {
             fontSize: 30,
             letterSpacing: "0.3em",
             textTransform: "uppercase",
-            color: "#a3a3a3",
+            color: "rgba(255,255,255,0.8)",
           }}
         >
           [ Multidisciplinary Technology Studio ]
@@ -50,14 +50,14 @@ export default function OpengraphImage() {
             style={{
               display: "flex",
               fontSize: 150,
-              fontWeight: 800,
+              fontWeight: 600,
               letterSpacing: "-0.04em",
               textTransform: "uppercase",
               lineHeight: 1,
             }}
           >
             {before}
-            <span style={{ color: BRAND }}>•</span>
+            <span style={{ color: "#242422" }}>•</span>
             {after}
           </div>
           <div
@@ -70,7 +70,7 @@ export default function OpengraphImage() {
             }}
           >
             Engineering with precision.
-            <span style={{ color: BRAND, marginLeft: 16 }}>Designing with soul.</span>
+            <span style={{ marginLeft: 16, opacity: 0.8 }}>Designing with soul.</span>
           </div>
         </div>
 
@@ -79,13 +79,13 @@ export default function OpengraphImage() {
             display: "flex",
             justifyContent: "space-between",
             fontSize: 28,
-            color: "#a3a3a3",
-            borderTop: "1px solid #262626",
+            color: "rgba(255,255,255,0.8)",
+            borderTop: "1px solid rgba(255,255,255,0.4)",
             paddingTop: 32,
           }}
         >
           <span>Engineering · Agentic AI · Digital Artistry</span>
-          <span style={{ color: "#fafafa" }}>muronlabs.com</span>
+          <span style={{ color: "#ffffff" }}>muronlabs.com</span>
         </div>
       </div>
     ),

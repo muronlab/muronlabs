@@ -1,16 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist_Mono, Google_Sans, Google_Sans_Flex } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/navigation/site-header";
+import { ContactDrawerProvider } from "@/components/contact/contact-drawer";
+import { GooFilter } from "@/components/ui/liquid-button";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+/** Body copy, UI and eyebrows. */
+const googleSansFlex = Google_Sans_Flex({
+  variable: "--font-flex",
+  adjustFontFallback: false,
+  fallback: ["system-ui", "sans-serif"],
+  subsets: ["latin"],
+});
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/** Display headings. */
+const googleSans = Google_Sans({
+  variable: "--font-gsans",
+  adjustFontFallback: false,
+  fallback: ["system-ui", "sans-serif"],
   subsets: ["latin"],
 });
 
@@ -67,7 +78,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "light",
-  themeColor: "#fafaf8",
+  themeColor: "#ededed",
 };
 
 export default function RootLayout({
@@ -78,12 +89,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
+      className={cn("h-full antialiased", googleSansFlex.variable, googleSans.variable, geistMono.variable, "font-sans")}
     >
       <body id="top" className="flex min-h-full flex-col">
         <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
-        <SiteHeader />
-        {children}
+        <GooFilter />
+        <ContactDrawerProvider>
+          <SiteHeader />
+          {children}
+        </ContactDrawerProvider>
       </body>
     </html>
   );

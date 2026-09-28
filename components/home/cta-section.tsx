@@ -1,61 +1,53 @@
-import { PillButton } from "@/components/ui/pill-button";
+import { FlowGradient } from "@/components/visuals/flow-gradient";
+import { LiquidButton } from "@/components/ui/liquid-button";
 import { Reveal } from "@/components/ui/reveal";
-import { FlickerText } from "@/components/ui/flicker-text";
-import { primaryCta, siteConfig } from "@/lib/site-config";
+import { homeCopy, primaryCta } from "@/lib/site-config";
+
+interface CtaSectionProps {
+  /** Override the two callout lines (e.g. per page). */
+  lines?: readonly string[];
+}
 
 /**
- * Closing conversion band — a high-contrast dark section that points complex
- * problems toward the project engagement form. Uses the `.dark` class to invert
- * the design tokens locally.
+ * Full-bleed call-out: a window onto a fixed flow-gradient (the fixed layer is
+ * clipped to this section, so it behaves like `background-attachment: fixed`)
+ * with a sticky statement that holds while the window scrolls past.
  */
-export function CtaSection() {
-  return (
-    <section aria-labelledby="cta-heading" className="dark relative overflow-hidden bg-background px-6 py-28 text-foreground md:px-10 lg:py-36">
-      <div className="pointer-events-none absolute inset-0 bg-grid mask-radial-fade opacity-50" />
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 size-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-25 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--brand), transparent 70%)" }}
-      />
+export function CtaSection({ lines = homeCopy.callout.lines }: CtaSectionProps) {
+  const [statement, close] = lines;
 
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
-        <Reveal>
-          <FlickerText
-            as="p"
-            text="[ Start a Project ]"
-            variant="tube"
-            inline
-            className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand"
-          />
-        </Reveal>
-        <Reveal delay={0.05}>
-          <FlickerText
-            as="h2"
-            id="cta-heading"
-            pace="primary"
-            text="Have a complex problem? Let’s engineer the solution."
-            delay={0.1}
-            className="mt-6 text-balance text-3xl font-extrabold uppercase leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl"
-          />
-        </Reveal>
-        <Reveal delay={0.12}>
-          <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Reach out with your project details. Whether you need an immersive application interface, custom AI
-            agent workflows, or a full system build, our engineers are ready to ship.
-          </p>
-        </Reveal>
-        <Reveal delay={0.18}>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-            <PillButton href={primaryCta.href} variant="accent" arrow>
+  return (
+    <section
+      data-flow-root
+      aria-label="Start a project"
+      className="relative z-[1] h-[90vh] bg-paper lg:h-[125vh]"
+      style={{ clipPath: "inset(0)" }}
+    >
+      <div className="fixed inset-0">
+        <FlowGradient />
+        <div className="absolute inset-0 bg-black/15" />
+      </div>
+
+      <div className="relative z-[2] h-full">
+        <div className="shell sticky top-[100px] py-[60px] lg:py-[100px]">
+          <Reveal>
+            <p className="max-w-full font-display text-[2rem] leading-9 font-normal text-white lg:max-w-[50%] lg:text-[2.625rem] lg:leading-[3rem]">
+              {statement}
+              {close ? (
+                <>
+                  <br />
+                  <br />
+                  {close}
+                </>
+              ) : null}
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="mt-10">
+            <LiquidButton href={primaryCta.href} tone="light" bead="always">
               {primaryCta.label}
-            </PillButton>
-            <a
-              href={`mailto:${siteConfig.contact.email}`}
-              className="link-underline font-mono text-sm uppercase tracking-wide text-muted-foreground hover:text-foreground"
-            >
-              {siteConfig.contact.email}
-            </a>
-          </div>
-        </Reveal>
+            </LiquidButton>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

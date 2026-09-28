@@ -1,8 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Muronlabs">
-  <rect width="100" height="100" rx="22.0" fill="#0A0A0A"/>
-  <g fill="none" stroke="#FAFAF9" stroke-width="11.12" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M24.5 24.23 V75.5"/>
-    <path d="M24.5 51.32 A13.54 13.54 0 0 0 51.58 51.32 V24.23"/>
+  <defs>
+    <linearGradient id="core" x1="20" y1="14" x2="82" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7DD3FC"/>
+      <stop offset=".38" stop-color="#2E9BFF"/>
+      <stop offset=".72" stop-color="#1355F5"/>
+      <stop offset="1" stop-color="#0B2FC9"/>
+    </linearGradient>
+    <linearGradient id="wisp" x1="84" y1="18" x2="16" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#93D7FD"/>
+      <stop offset=".5" stop-color="#2B9BF8"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.6"/>
+    </filter>
+  </defs>
+
+  <rect width="100" height="100" rx="22" fill="#FFFFFF"/>
+
+  <g fill="none" stroke-linecap="round">
+    <!-- Halo: the ring's own light, bled outward. -->
+    <circle cx="50" cy="50" r="30" stroke="url(#core)" stroke-width="13" opacity=".22" filter="url(#soft)"/>
+
+    <!-- Strands wrapping the ring from outside, laid down before it. -->
+    <circle cx="50" cy="50" r="35" stroke="url(#wisp)" stroke-width="4.6" opacity=".78"
+            stroke-dasharray="86 134" stroke-dashoffset="16" transform="rotate(34 50 50)"/>
+    <circle cx="50" cy="50" r="38.5" stroke="url(#wisp)" stroke-width="2.6" opacity=".5"
+            stroke-dasharray="52 190" stroke-dashoffset="30" transform="rotate(150 50 50)"/>
+    <ellipse cx="50" cy="50" rx="35.5" ry="30" stroke="url(#core)" stroke-width="3" opacity=".55"
+             stroke-dasharray="70 190" stroke-dashoffset="24" transform="rotate(-16 50 50)"/>
+
+    <!-- The ring itself, opened at one shoulder so it reads as a turning strand. -->
+    <circle cx="50" cy="50" r="29" stroke="url(#core)" stroke-width="9.5"
+            stroke-dasharray="158 25" stroke-dashoffset="18" transform="rotate(-28 50 50)"/>
+
+    <!-- Strands crossing back over the inside edge. -->
+    <circle cx="50" cy="50" r="23.5" stroke="url(#wisp)" stroke-width="3.4" opacity=".62"
+            stroke-dasharray="58 100" stroke-dashoffset="10" transform="rotate(202 50 50)"/>
+    <ellipse cx="50" cy="50" rx="26" ry="31" stroke="url(#wisp)" stroke-width="2.2" opacity=".42"
+             stroke-dasharray="44 180" stroke-dashoffset="118" transform="rotate(26 50 50)"/>
   </g>
-  <circle cx="71.95" cy="49.87" r="9.48" fill="#7C5CFF"/>
 </svg>

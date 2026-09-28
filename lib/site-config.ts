@@ -17,7 +17,8 @@ export const siteConfig = {
   /** Absolute base URL of the deployed site. Override with NEXT_PUBLIC_SITE_URL in production. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://muronlabs.com",
   locale: "en_GB",
-  accent: "#7c5cff",
+  /** Signature green, lifted from the flow-gradient palette. */
+  accent: "#70b494",
   contact: {
     // Placeholders — swap for the real studio details before launch.
     email: "hello@muronlabs.com",
@@ -33,10 +34,16 @@ export interface NavItem {
 
 /** Primary navigation shown in the header menu. Anchors resolve to homepage sections. */
 export const navItems: NavItem[] = [
-  { label: "Ecosystem", href: "/#ecosystem", ariaLabel: "View our sub-brand ecosystem" },
-  { label: "Capabilities", href: "/#capabilities", ariaLabel: "Explore our engineering capabilities" },
-  { label: "Our Workflow", href: "/#workflow", ariaLabel: "See our execution framework" },
   { label: "About", href: "/studio", ariaLabel: "Learn about the studio" },
+  { label: "Workflow", href: "/#workflow", ariaLabel: "See our execution framework" },
+  { label: "Work", href: "/work", ariaLabel: "See selected work" },
+];
+
+/** Divisions listed under the "Ecosystem" dropdown in the header. */
+export const ecosystemNav: NavItem[] = [
+  { label: "Muron Dev", href: "/#muron-dev", ariaLabel: "Muron Dev — engineering" },
+  { label: "Muron AI", href: "/#muron-ai", ariaLabel: "Muron AI — agentic automation" },
+  { label: "Muron Arts", href: "/#muron-arts", ariaLabel: "Muron Arts — design and brand" },
 ];
 
 /** Primary call to action, surfaced in the header and conversion sections. */
@@ -95,6 +102,8 @@ export interface Division {
    * card — the solid/gradient counterpart of `gradient` (which is text-only).
    */
   accent: string;
+  /** Short mark used on the oversized hero cards, e.g. "DEV". */
+  mark: string;
 }
 
 export const divisions: Division[] = [
@@ -113,6 +122,7 @@ export const divisions: Division[] = [
       "Performance Engineering",
     ],
     accent: "bg-foreground",
+    mark: "DEV",
   },
   {
     id: "muron-ai",
@@ -128,8 +138,9 @@ export const divisions: Division[] = [
       "Data Pipelines",
       "Model Integration",
     ],
-    gradientStops: { from: "#581c87", to: "#1e3a8a" },
-    accent: "bg-linear-to-r from-purple-900 via-indigo-900 to-blue-900",
+    gradientStops: { from: "#5c9376", to: "#70b494" },
+    accent: "bg-brand",
+    mark: "AI",
   },
   {
     id: "muron-arts",
@@ -145,8 +156,9 @@ export const divisions: Division[] = [
       "Prototyping",
       "Visual Systems",
     ],
-    gradientStops: { from: "#f43f5e", to: "#ef4444" },
-    accent: "bg-linear-to-r from-rose-500 to-red-500",
+    gradientStops: { from: "#e38b95", to: "#f5a6af" },
+    accent: "bg-pink",
+    mark: "ARTS",
   },
 ];
 
@@ -203,28 +215,34 @@ export interface WorkflowPhase {
   phase: string;
   title: string;
   body: string;
+  /** What actually lands at the end of the phase. Rendered as a mono index. */
+  deliverables: string[];
 }
 
 export const workflowPhases: WorkflowPhase[] = [
   {
     phase: "Phase 01",
     title: "Discovery & Architecture Mapping",
-    body: "We unpack your core business objective, map the necessary data structures, outline the functional scope, and select the optimal technology stacks across Dev, AI and Arts.",
+    body: "We map the objective, the data and the stack before a line of code is written.",
+    deliverables: ["Objective mapping", "Data & schema design", "Functional scope", "Stack selection"],
   },
   {
     phase: "Phase 02",
     title: "High-Fidelity UI/UX & System Prototyping",
-    body: "Before writing code, Muron Arts engineers interactive prototypes and clean component libraries. This provides a pixel-perfect, realistic look at your product's user experience.",
+    body: "Muron Arts prototypes the real interface first, so you see the product before we code it.",
+    deliverables: ["Interactive prototypes", "Component library", "Design tokens", "UX validation"],
   },
   {
     phase: "Phase 03",
     title: "Iterative Sprint Development & AI Training",
-    body: "Muron Dev constructs modular, lightweight application frameworks while Muron AI creates, tests and integrates intelligent agentic pipelines to form a fully connected ecosystem.",
+    body: "Muron Dev builds the framework while Muron AI trains and wires the agent pipelines.",
+    deliverables: ["Modular app framework", "Agentic pipelines", "Sprint reviews", "Continuous integration"],
   },
   {
     phase: "Phase 04",
     title: "Vulnerability Assessment & Production Deployment",
-    body: "We rigorously test every input layer, optimise page-load speed parameters, perform code-level security audits, and deploy a secure, ultra-fast configuration to the cloud.",
+    body: "We audit every input, tune the load times, then ship to a locked-down cloud.",
+    deliverables: ["Input-layer testing", "Code security audit", "Speed optimisation", "Cloud deployment"],
   },
 ];
 
@@ -239,16 +257,20 @@ export interface Distinction {
 
 export const distinctions: Distinction[] = [
   {
-    title: "Unified Execution Model",
-    body: "Most companies force you to hire separate creative designers, software engineers and data scientists. Muronlabs removes this friction by housing the creative brain (Arts), the core infrastructure (Dev) and the automation layer (AI) under a single, highly coordinated engineering roof.",
+    title: "Unified Execution",
+    body: "Design, engineering and AI under one coordinated roof.",
   },
   {
-    title: "Performance-First Mentality",
-    body: "We strictly reject slow, outdated legacy systems. We select the best-matching modern stack for each project, prioritising ultra-clean, minimal codebases optimised for loading speed, accessibility and clean search indexing.",
+    title: "Performance First",
+    body: "Lean modern stacks, tuned for speed and search.",
   },
   {
-    title: "Security-First Foundation",
-    body: "We treat security as a primary design requirement. Code validation, secure data extraction patterns and input safety measures are engineered natively into your platform from day one.",
+    title: "Security By Default",
+    body: "Audited inputs, safe data paths, locked-down deploys.",
+  },
+  {
+    title: "Design-Led Craft",
+    body: "Interfaces built with the same rigour as the backend.",
   },
 ];
 
@@ -329,9 +351,10 @@ export const footerColumns: FooterColumn[] = [
     ],
   },
   {
-    heading: "Company",
+    heading: "Navigate",
     links: [
-      { label: "Capabilities", href: "/#capabilities" },
+      { label: "About", href: "/studio" },
+      { label: "Work", href: "/work" },
       { label: "Workflow", href: "/#workflow" },
       { label: "Contact", href: "/contact" },
     ],
@@ -346,3 +369,90 @@ export const footerColumns: FooterColumn[] = [
 ];
 
 export const footerTagline = "Engineering the future, defining the aesthetic.";
+
+/* ------------------------------------------------------------------ */
+/* Homepage narrative copy                                             */
+/* ------------------------------------------------------------------ */
+
+export const homeCopy = {
+  /** Oversized two-line hero headline; the CTA sits between the lines. */
+  heroLines: ["Precision", "meets soul"] as const,
+  heroLead: "Engineering with precision. Designing with soul. One studio for software, agentic AI and digital artistry.",
+  about: {
+    eyebrow: "What is Muronlabs?",
+    body: "Muronlabs brings engineers, AI specialists and designers into one coordinated studio. Together, we map the problem, prototype the experience and ship production-grade software that performs, scales and feels human.",
+    close: "Technology is changing everything. We make sure it is built with care.",
+  },
+  ecosystem: {
+    title: "Bring Muronlabs to your product",
+    intro: "Three specialist divisions, one roof. Engage one squad for a focused build, or the whole ecosystem for a product end to end.",
+  },
+  callout: {
+    lines: [
+      "Design, engineering and AI under one coordinated roof. Built in Sri Lanka, designed for the world.",
+      "Let’s build what’s next.",
+    ],
+  },
+  connect: {
+    eyebrow: "Let’s Connect",
+    title: "Have a complex problem? We’d love to hear about it.",
+    button: "Connect with a human",
+  },
+  drawer: {
+    title: "Want to start a project, join the studio, or just start a conversation?",
+    body: "Drop us a line, and we’ll get back to you within one business day.",
+  },
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* Testimonials                                                        */
+/* ------------------------------------------------------------------ */
+
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  /** Client name, set as a type-only wordmark on the card. */
+  company: string;
+  /** Card surface, from the site palette (no photography on the site). */
+  tone: "green" | "peach" | "ink" | "pink";
+}
+
+/**
+ * PLACEHOLDERS — these are not real clients. Replace every entry with
+ * approved quotes from real clients before launch.
+ */
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "Muronlabs became a strategic technology partner for us. Their team helped us ship faster without cutting corners on quality or security.",
+    name: "Client Name",
+    role: "Chief Executive Officer",
+    company: "Company One",
+    tone: "green",
+  },
+  {
+    quote:
+      "They built AI workflows that actually moved the needle for our operations, and they explained every decision along the way.",
+    name: "Client Name",
+    role: "Head of Data",
+    company: "Company Two",
+    tone: "peach",
+  },
+  {
+    quote:
+      "Design, engineering and AI in one team meant no hand-off gaps. The product we launched feels as good as it performs.",
+    name: "Client Name",
+    role: "Product Director",
+    company: "Company Three",
+    tone: "ink",
+  },
+  {
+    quote:
+      "From the first prototype to deployment, the process was clear and collaborative. We now run the platform confidently in-house.",
+    name: "Client Name",
+    role: "Chief Technology Officer",
+    company: "Company Four",
+    tone: "pink",
+  },
+];

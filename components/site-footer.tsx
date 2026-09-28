@@ -1,78 +1,95 @@
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
-import { footerColumns, footerTagline, siteConfig, socialItems } from "@/lib/site-config";
+import { footerColumns, homeCopy, primaryCta, siteConfig, socialItems } from "@/lib/site-config";
 import { Wordmark } from "@/components/navigation/wordmark";
+import { LiquidButton } from "@/components/ui/liquid-button";
+import { Reveal } from "@/components/ui/reveal";
+import { CircleMotif } from "@/components/visuals/circle-motif";
 
+/**
+ * Closing band on every page: a "Let's Connect" invitation beside the green
+ * orb, then a frosted bar carrying the wordmark, tagline and link columns.
+ */
 export function SiteFooter() {
   const year = 2026;
+  const connectColumn = {
+    heading: "Connect",
+    links: [...socialItems, { label: "Email", href: `mailto:${siteConfig.contact.email}` }],
+  };
 
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-background">
-      <div className="mx-auto w-full max-w-7xl px-6 pt-16 pb-8 md:px-10">
-        <div className="grid gap-10 sm:gap-12 md:grid-cols-[1.6fr_repeat(3,1fr)]">
-          <div className="space-y-5">
-            <Link href="/" aria-label={`${siteConfig.name} home`} className="inline-block text-2xl text-foreground">
+    <footer className="relative z-[1] overflow-hidden bg-paper">
+      {/* Orb + orbit rings */}
+      <CircleMotif className="absolute -right-[27%] -bottom-[6%] size-[28rem] sm:size-[38rem] md:-right-[17%] md:-bottom-[12%] md:size-[50rem]" />
+      <div aria-hidden="true" className="orbit-dots absolute top-16 -left-[12%] size-[30em] md:-left-[5%] md:size-[40em]" />
+
+      <div className="shell relative z-[3] pt-24 pb-40 md:pt-[125px] md:pb-56">
+        <Reveal>
+          <p className="text-2xl font-normal text-brand-deep">{homeCopy.connect.eyebrow}</p>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <h2 className="mt-8 max-w-[70vw] text-4xl leading-[1.15] font-medium text-ink sm:text-5xl md:mt-10 md:max-w-[50vw] lg:text-6xl">
+            {homeCopy.connect.title}
+          </h2>
+        </Reveal>
+        <Reveal delay={0.12} className="mt-10 flex flex-wrap items-center gap-6">
+          <LiquidButton href={primaryCta.href} tone="outline">
+            {homeCopy.connect.button}
+          </LiquidButton>
+          <a href={`mailto:${siteConfig.contact.email}`} className="link-underline text-muted-foreground hover:text-ink">
+            {siteConfig.contact.email}
+          </a>
+        </Reveal>
+      </div>
+
+      <div className="relative z-10 bg-white/35 backdrop-blur-[4px] md:bg-white/20">
+        <div className="shell flex flex-col gap-10 py-10 md:py-20 lg:flex-row lg:gap-0">
+          <div className="lg:pr-32">
+            <Link href="/" aria-label={`${siteConfig.name} home`} className="inline-block text-ink">
               <Wordmark />
             </Link>
-            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">{footerTagline}</p>
-            <ul className="flex flex-wrap gap-x-5 gap-y-2 pt-1">
-              {socialItems.map((s) => (
-                <li key={s.href}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-underline inline-block py-1 font-mono text-xs uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-3 max-w-[474px] text-[1.625rem] leading-8 text-ink">{siteConfig.tagline}</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-x-8 md:contents">
-            {footerColumns.map((column) => (
-              <nav key={column.heading} aria-label={column.heading} className="space-y-4">
-                <h2 className="font-mono text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
-                  [ {column.heading} ]
-                </h2>
-                <ul className="space-y-1">
-                  {column.links.map((link) => (
-                    <li key={`${column.heading}-${link.label}`}>
-                      <Link
-                        href={link.href}
-                        className="link-underline inline-block py-1.5 text-sm text-foreground transition-colors hover:text-muted-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:flex lg:gap-0">
+            {[...footerColumns, connectColumn].map((column) => (
+              <nav key={column.heading} aria-label={column.heading} className="flex flex-col gap-5 lg:pr-20 xl:pr-28">
+                <h2 className="text-sm font-medium tracking-[2px] text-ink uppercase">{column.heading}</h2>
+                {column.links.map((link) =>
+                  link.href.startsWith("http") || link.href.startsWith("mailto") ? (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                      className="text-base text-ink/70 transition-colors hover:text-brand-deep"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className="text-base text-ink/70 transition-colors hover:text-brand-deep"
+                    >
+                      {link.label}
+                    </Link>
+                  ),
+                )}
               </nav>
             ))}
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 sm:mt-14 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono uppercase tracking-wide">
-            {siteConfig.name} © {year}. All rights reserved.
+        <div className="shell flex flex-col gap-3 border-t border-hairline/70 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {siteConfig.name}. All rights reserved.
           </p>
-          <a
-            href="#top"
-            className="group inline-flex items-center gap-2 font-mono uppercase tracking-wide transition-colors hover:text-foreground"
-          >
+          <a href="#top" className="group inline-flex items-center gap-2 transition-colors hover:text-ink">
             Back to top
-            <ArrowUp className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
+            <ArrowUp className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" strokeWidth={1.5} />
           </a>
         </div>
-      </div>
-
-      {/* Oversized brand watermark */}
-      <div aria-hidden="true" className="select-none px-6 md:px-10">
-        <p className="mx-auto w-full max-w-7xl whitespace-nowrap text-[15vw] font-extrabold uppercase leading-none tracking-tighter text-foreground/4 sm:text-[18vw] lg:text-[14rem]">
-          {siteConfig.name}
-        </p>
       </div>
     </footer>
   );

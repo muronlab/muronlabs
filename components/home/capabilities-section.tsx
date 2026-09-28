@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { FlickerText } from "@/components/ui/flicker-text";
-import { CapabilitiesField } from "./capabilities-field";
 import { DivisionGlyph } from "./division-glyphs";
 
 /**
@@ -129,45 +128,6 @@ export function CapabilitiesSection() {
             );
           })}
         </div>
-
-        {/* Closing band — turns the index above into an invitation. The copy and
-            the particle field never share space: the field is a block above the
-            text on phones and takes the right half from md up, with a gradient
-            that dissolves its near edge into the panel. `dark` flips the design
-            tokens locally, the way the closing CTA does. */}
-        <Reveal className="mt-16 overflow-hidden rounded-3xl border border-border">
-          <div className="dark relative bg-[#05060a]">
-            <div className="relative h-56 sm:h-72 md:absolute md:inset-y-0 md:right-0 md:h-auto md:w-[46%]">
-              <CapabilitiesField />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,#05060a_2%,transparent_65%)] md:bg-[linear-gradient(to_right,#05060a_4%,transparent_60%)]"
-              />
-            </div>
-
-            <div className="relative px-6 pb-12 pt-10 sm:px-10 md:w-[58%] md:py-20 lg:px-14 lg:py-24">
-              <FlickerText
-                as="p"
-                text="[ Bring us the hard part ]"
-                variant="tube"
-                inline
-                className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-brand"
-              />
-
-              <FlickerText
-                as="h3"
-                text="You bring the idea. We bring the specialists."
-                pace="primary"
-                delay={0.12}
-                className="mt-5 max-w-xl text-balance text-2xl font-extrabold uppercase leading-[1.05] tracking-tight text-foreground sm:text-3xl lg:text-4xl"
-              />
-
-              <p className="mt-5 max-w-md text-pretty text-base leading-relaxed text-muted-foreground">
-                Tell us what you are building. We will put the division that does it full time on it.
-              </p>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

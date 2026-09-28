@@ -1,10 +1,7 @@
-import Prism from "@/components/Prism";
-import { PillButton } from "@/components/ui/pill-button";
-import { Reveal } from "@/components/ui/reveal";
-import { FlickerText } from "@/components/ui/flicker-text";
-import { CapabilityTicker } from "@/components/home/capability-ticker";
+import { HeroSection } from "@/components/home/hero-section";
 import { EcosystemSection } from "@/components/home/ecosystem-section";
-import { CapabilitiesSection } from "@/components/home/capabilities-section";
+// import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { CapabilityTicker } from "@/components/home/capability-ticker";
 import { WorkflowSection } from "@/components/home/workflow-section";
 import { DistinctionSection } from "@/components/home/distinction-section";
 import { FaqSection } from "@/components/home/faq-section";
@@ -12,13 +9,6 @@ import { CtaSection } from "@/components/home/cta-section";
 import { SiteFooter } from "@/components/site-footer";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageJsonLd } from "@/lib/seo";
-import { primaryCta } from "@/lib/site-config";
-
-const heroPillars = [
-  { index: "01", label: "Engineering" },
-  { index: "02", label: "Agentic AI" },
-  { index: "03", label: "Digital Artistry" },
-];
 
 export default function Home() {
   return (
@@ -26,102 +16,10 @@ export default function Home() {
       {/* FAQ rich-result data, mirroring the on-page FaqSection */}
       <JsonLd data={faqPageJsonLd()} />
 
-      {/* Hero — above the fold */}
-      <section className="relative flex min-h-svh flex-col overflow-hidden px-6 pt-32 pb-10 md:px-10">
-        {/* Prism animated WebGL background */}
-        <div className="absolute inset-0">
-          <Prism
-            height={3.5}
-            baseWidth={5.5}
-            animationType="rotate"
-            glow={1}
-            noise={0.5}
-            transparent
-            scale={3.6}
-            hueShift={0}
-            colorFrequency={1}
-            hoverStrength={2}
-            inertia={0.05}
-            bloom={1}
-            timeScale={0.5}
-            suspendWhenOffscreen
-          />
-        </div>
-        {/* Legibility overlays: soft wash + grid texture that fades at the edges */}
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-background/30 via-background/45 to-background/70" />
-        <div className="pointer-events-none absolute inset-0 bg-grid mask-radial-fade opacity-60" />
-
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center py-16 text-center">
-          <Reveal>
-            <FlickerText
-              as="p"
-              text="[ Multidisciplinary Technology Studio ]"
-              variant="tube"
-              inline
-              className="font-mono text-[0.6rem] font-medium uppercase tracking-widest text-foreground/70 sm:text-xs sm:tracking-[0.18em]"
-            />
-          </Reveal>
-          <Reveal delay={0.05}>
-            {/* The effect renders one string in one colour, so the two-tone
-                headline is two of them. The real <h1> stays whole for search
-                and screen readers; the visible lines are decorative. */}
-            <h1 className="sr-only">Engineering with precision. Designing with soul.</h1>
-            <div
-              aria-hidden="true"
-              className="mx-auto mt-6 max-w-5xl text-balance text-4xl font-extrabold uppercase leading-[0.95] tracking-tight sm:text-5xl sm:leading-[0.92] md:text-6xl lg:text-8xl"
-            >
-              <FlickerText
-                as="p"
-                text="Engineering with precision."
-                pace="primary"
-                className="text-foreground"
-              />
-              <FlickerText
-                as="p"
-                text="Designing with soul."
-                pace="primary"
-                delay={0.1}
-                className="text-brand"
-              />
-            </div>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <p className="mx-auto mt-8 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Muronlabs is an elite multidisciplinary technology studio. We unify high-performance software
-              engineering, intelligent agentic AI, and immersive digital artistry into a singular, seamless
-              ecosystem.
-            </p>
-          </Reveal>
-          <Reveal delay={0.18}>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <PillButton href={primaryCta.href} variant="accent" arrow>
-                Engage the Studio
-              </PillButton>
-              <PillButton href="/#workflow" variant="outline">
-                View Our Frameworks
-              </PillButton>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Foot of hero: discipline index */}
-        <Reveal
-          delay={0.24}
-          className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 border-t border-border/60 pt-6 sm:grid-cols-3"
-        >
-          {heroPillars.map((pillar) => (
-            <div key={pillar.index} className="flex items-center justify-center gap-3 sm:justify-start">
-              <span className="font-mono text-sm text-brand">/{pillar.index}</span>
-              <span className="text-sm font-semibold uppercase tracking-wide text-foreground">{pillar.label}</span>
-            </div>
-          ))}
-        </Reveal>
-      </section>
-
-      <CapabilityTicker />
-
+      <HeroSection />
+      {/* <TestimonialsSection /> — hidden until real client quotes are ready */}
       <EcosystemSection />
-      <CapabilitiesSection />
+      <CapabilityTicker />
       <WorkflowSection />
       <DistinctionSection />
       <FaqSection />

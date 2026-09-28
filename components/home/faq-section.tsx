@@ -2,53 +2,44 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { faqs, primaryCta } from "@/lib/site-config";
+import { faqs } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
-import { PillButton } from "@/components/ui/pill-button";
+import { GetInTouchButton } from "@/components/contact/contact-drawer";
+import { Reveal } from "@/components/ui/reveal";
 
 /**
- * Common questions — a custom single-open accordion. The active row lifts with
- * a brand accent rule, an oversized index and a morphing plus/minus glyph, while
- * the answer expands with a height + fade transition. Mirrors the page's
- * border-led, monospace-eyebrow design language; reduced motion shows answers
- * without the height animation.
+ * Common questions — a single-open accordion separated by hairlines. The
+ * toggle is a round bead whose plus turns into a minus; answers expand with a
+ * height + fade (static under reduced motion).
  */
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
   const reduceMotion = useReducedMotion();
 
   return (
-    <section
-      id="faq"
-      aria-labelledby="faq-heading"
-      className="scroll-mt-24 border-t border-border px-6 py-24 md:px-10 lg:py-32"
-    >
-      <div className="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-20">
-        {/* Sticky brief */}
-        <div className="lg:sticky lg:top-24 lg:self-start">
+    <section id="faq" aria-labelledby="faq-heading" className="relative z-[1] scroll-mt-24 bg-paper py-24 lg:py-36">
+      <div className="shell grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-24">
+        <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
-            index="05"
+            id="faq-heading"
             eyebrow="FAQ"
             title="Questions, answered."
             description="The things teams ask us most, before the first call."
           />
-          <div className="mt-8 hidden lg:block">
-            <PillButton href={primaryCta.href} variant="outline" arrow>
-              Still curious? Talk to us
-            </PillButton>
-          </div>
+          <Reveal delay={0.18} className="mt-10">
+            <GetInTouchButton tone="outline">Still curious? Ask us</GetInTouchButton>
+          </Reveal>
         </div>
 
-        {/* Accordion */}
-        <ul className="divide-y divide-border border-t border-border">
+        <ul className="border-t border-muted-foreground/70">
           {faqs.map((faq, i) => {
             const isOpen = open === i;
             const panelId = `faq-panel-${i}`;
             const buttonId = `faq-trigger-${i}`;
 
             return (
-              <li key={faq.question}>
+              <li key={faq.question} className="border-b border-muted-foreground/70">
                 <h3>
                   <button
                     id={buttonId}
@@ -56,30 +47,27 @@ export function FaqSection() {
                     aria-expanded={isOpen}
                     aria-controls={panelId}
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="group flex w-full items-start gap-5 py-6 text-left lg:gap-8 lg:py-7"
+                    className="group flex w-full cursor-pointer items-center gap-6 py-7 text-left"
                   >
                     <span
                       className={cn(
-                        "font-mono text-sm font-medium tabular-nums tracking-wide transition-colors duration-300",
-                        isOpen ? "text-brand" : "text-muted-foreground group-hover:text-foreground",
-                      )}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className={cn(
-                        "flex-1 text-lg font-bold tracking-tight transition-colors duration-300 lg:text-xl",
-                        isOpen ? "text-brand" : "text-foreground group-hover:text-brand",
+                        "flex-1 font-display text-xl leading-snug font-medium transition-colors duration-300 lg:text-2xl",
+                        isOpen ? "text-ink" : "text-muted-foreground group-hover:text-ink",
                       )}
                     >
                       {faq.question}
                     </span>
-                    {/* Morphing plus / minus glyph */}
-                    <span className="relative mt-1 size-4 shrink-0" aria-hidden="true">
-                      <span className="absolute left-0 top-1/2 h-px w-4 -translate-y-1/2 bg-current text-foreground" />
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "relative flex size-12 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
+                        isOpen ? "border-brand bg-brand text-ink" : "border-hairline text-ink group-hover:border-ink",
+                      )}
+                    >
+                      <span className="absolute h-px w-4 bg-current" />
                       <span
                         className={cn(
-                          "absolute left-1/2 top-0 h-4 w-px -translate-x-1/2 bg-current text-brand transition-transform duration-300",
+                          "absolute h-4 w-px bg-current transition-transform duration-300",
                           isOpen ? "scale-y-0" : "scale-y-100",
                         )}
                       />
@@ -97,25 +85,16 @@ export function FaqSection() {
                       initial={reduceMotion ? false : { height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="max-w-2xl border-l-2 border-brand pb-7 pl-5 text-base leading-relaxed text-muted-foreground lg:ml-[3.25rem]">
-                        {faq.answer}
-                      </p>
+                      <p className="max-w-2xl pb-8 text-base leading-7 text-muted-foreground">{faq.answer}</p>
                     </motion.div>
                   ) : null}
                 </AnimatePresence>
               </li>
             );
           })}
-
-          {/* Mobile CTA (the sticky one is hidden on small screens) */}
-          <li className="pt-8 lg:hidden">
-            <PillButton href={primaryCta.href} variant="outline" arrow>
-              Still curious? Talk to us
-            </PillButton>
-          </li>
         </ul>
       </div>
     </section>

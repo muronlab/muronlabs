@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { Check } from "lucide-react";
+import { LiquidButton } from "@/components/ui/liquid-button";
 import { squadOptions } from "@/lib/site-config";
 
 interface FormState {
@@ -20,10 +21,9 @@ const initialState: FormState = {
   brief: "",
 };
 
-const fieldClass =
-  "w-full rounded-xl border border-border bg-background/60 px-4 py-3.5 text-base text-foreground outline-none transition-all duration-200 placeholder:text-muted-foreground hover:border-foreground/30 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/30";
+const fieldClass = "field-pill";
 
-const labelClass = "block font-mono text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground";
+const labelClass = "block pl-1 text-sm font-medium text-muted-foreground";
 
 /**
  * Project engagement form. Performs client-side validation and surfaces a
@@ -54,14 +54,14 @@ export function ProjectForm() {
   if (status === "success") {
     return (
       <div
-        className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-background/60 p-8 lg:p-10"
+        className="flex flex-col items-start gap-4 rounded-[22px] border border-hairline bg-white/40 p-8 lg:p-10"
         role="status"
         aria-live="polite"
       >
-        <span className="flex size-12 items-center justify-center rounded-full bg-brand/15 text-brand">
+        <span className="flex size-12 items-center justify-center rounded-full bg-brand text-ink">
           <Check className="size-6" />
         </span>
-        <h3 className="text-2xl font-bold tracking-tight text-foreground">Engagement initialised.</h3>
+        <h3 className="text-3xl font-medium text-ink">Thank you! Your brief has been received.</h3>
         <p className="text-base leading-relaxed text-muted-foreground">
           Thanks, {form.name.split(" ")[0] || "there"}. We&rsquo;ve received your brief and our engineers will be
           in touch shortly.
@@ -72,7 +72,7 @@ export function ProjectForm() {
             setForm(initialState);
             setStatus("idle");
           }}
-          className="link-underline mt-2 font-mono text-sm uppercase tracking-wide text-foreground"
+          className="link-underline mt-2 cursor-pointer text-base text-ink"
         >
           Submit another brief
         </button>
@@ -148,7 +148,7 @@ export function ProjectForm() {
             required
             value={form.squad}
             onChange={(e) => update("squad", e.target.value)}
-            className={`${fieldClass} appearance-none bg-background`}
+            className={fieldClass}
           >
             <option value="" disabled>
               Select a squad
@@ -173,19 +173,14 @@ export function ProjectForm() {
           rows={6}
           value={form.brief}
           onChange={(e) => update("brief", e.target.value)}
-          className={`${fieldClass} resize-y`}
+          className={fieldClass}
           placeholder="Tell us what you're building, the problem it solves, and any constraints we should know about."
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand px-8 text-sm font-semibold uppercase tracking-wide text-brand-foreground transition-all duration-300 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
-      >
-        {submitting ? "Initialising…" : "Initialize Project Engagement"}
-        {submitting ? <Loader2 className="size-4 animate-spin" /> : <ArrowRight className="size-4" />}
-      </button>
+      <LiquidButton type="submit" tone="ink" disabled={submitting}>
+        {submitting ? "Sending…" : "Send project brief"}
+      </LiquidButton>
     </form>
   );
 }
