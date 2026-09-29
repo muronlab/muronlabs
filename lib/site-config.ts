@@ -163,51 +163,6 @@ export const divisions: Division[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Capabilities — the service matrix                                   */
-/* ------------------------------------------------------------------ */
-
-export interface Capability {
-  capability: string;
-  outcome: string;
-}
-
-export interface CapabilityGroup {
-  division: string;
-  divisionId: string;
-  items: Capability[];
-}
-
-export const capabilityGroups: CapabilityGroup[] = [
-  {
-    division: "Muron Dev",
-    divisionId: "muron-dev",
-    items: [
-      { capability: "Full-Stack Web Applications", outcome: "Scalable, accessible web software built for speed." },
-      { capability: "Modern Frontend Ecosystems", outcome: "Component-driven frontend architectures optimised for SEO." },
-      { capability: "Robust Cloud Backends & APIs", outcome: "Secure microservices capable of processing parallel traffic loads." },
-    ],
-  },
-  {
-    division: "Muron AI",
-    divisionId: "muron-ai",
-    items: [
-      { capability: "Autonomous Workflow Agents", outcome: "Custom agents that execute complex business steps automatically." },
-      { capability: "Custom AI Model Integration", outcome: "Fine-tuned intelligence tailored to your proprietary data structures." },
-      { capability: "Intelligent Search Systems", outcome: "Deep contextual search and retrieval models for enterprise documentation." },
-    ],
-  },
-  {
-    division: "Muron Arts",
-    divisionId: "muron-arts",
-    items: [
-      { capability: "High-Fidelity UI/UX Systems", outcome: "Fluid, human-centric design interfaces mapped from real user research." },
-      { capability: "Scale Design Systems", outcome: "Centralised component tokens ensuring visual unity across software suites." },
-      { capability: "Branding & Visual Identity", outcome: "Distinctive corporate identity guidelines and modern digital assets." },
-    ],
-  },
-];
-
-/* ------------------------------------------------------------------ */
 /* Execution framework — the workflow                                  */
 /* ------------------------------------------------------------------ */
 
@@ -368,7 +323,6 @@ export const footerColumns: FooterColumn[] = [
   },
 ];
 
-export const footerTagline = "Engineering the future, defining the aesthetic.";
 
 /* ------------------------------------------------------------------ */
 /* Homepage narrative copy                                             */
@@ -403,56 +357,3 @@ export const homeCopy = {
     body: "Drop us a line, and we’ll get back to you within one business day.",
   },
 } as const;
-
-/* ------------------------------------------------------------------ */
-/* Testimonials                                                        */
-/* ------------------------------------------------------------------ */
-
-export interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-  /** Client name, set as a type-only wordmark on the card. */
-  company: string;
-  /** Card surface, from the site palette (no photography on the site). */
-  tone: "green" | "peach" | "ink" | "pink";
-}
-
-/**
- * PLACEHOLDERS — these are not real clients. Replace every entry with
- * approved quotes from real clients before launch.
- */
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Muronlabs became a strategic technology partner for us. Their team helped us ship faster without cutting corners on quality or security.",
-    name: "Client Name",
-    role: "Chief Executive Officer",
-    company: "Company One",
-    tone: "green",
-  },
-  {
-    quote:
-      "They built AI workflows that actually moved the needle for our operations, and they explained every decision along the way.",
-    name: "Client Name",
-    role: "Head of Data",
-    company: "Company Two",
-    tone: "peach",
-  },
-  {
-    quote:
-      "Design, engineering and AI in one team meant no hand-off gaps. The product we launched feels as good as it performs.",
-    name: "Client Name",
-    role: "Product Director",
-    company: "Company Three",
-    tone: "ink",
-  },
-  {
-    quote:
-      "From the first prototype to deployment, the process was clear and collaborative. We now run the platform confidently in-house.",
-    name: "Client Name",
-    role: "Chief Technology Officer",
-    company: "Company Four",
-    tone: "pink",
-  },
-];

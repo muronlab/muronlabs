@@ -115,7 +115,7 @@ export default function AboutPage() {
                     <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
                       <FlowGradient palette={divisionPalette[i]} resolution={0.35} interactive={false} />
                     </div>
-                    <span className="absolute bottom-4 left-5 font-sans text-3xl font-light text-white">{division.mark}</span>
+                    <span className="absolute bottom-4 left-5 font-pixel text-3xl leading-none text-white">{division.mark}</span>
                   </div>
                 </Reveal>
                 <LineBreaker />

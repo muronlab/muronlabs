@@ -1,6 +1,5 @@
 import { HeroSection } from "@/components/home/hero-section";
 import { EcosystemSection } from "@/components/home/ecosystem-section";
-// import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { CapabilityTicker } from "@/components/home/capability-ticker";
 import { WorkflowSection } from "@/components/home/workflow-section";
 import { DistinctionSection } from "@/components/home/distinction-section";
@@ -17,7 +16,6 @@ export default function Home() {
       <JsonLd data={faqPageJsonLd()} />
 
       <HeroSection />
-      {/* <TestimonialsSection /> — hidden until real client quotes are ready */}
       <EcosystemSection />
       <CapabilityTicker />
       <WorkflowSection />

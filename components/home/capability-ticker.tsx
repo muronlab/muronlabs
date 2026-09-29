@@ -26,7 +26,7 @@ export function CapabilityTicker() {
         {[...items, ...items].map((item, i) => (
           <span
             key={i}
-            className="flex items-center gap-10 font-display text-4xl leading-none font-medium whitespace-nowrap text-ink md:text-6xl"
+            className="flex items-center gap-10 font-pixel text-4xl leading-none font-medium whitespace-nowrap text-ink md:text-6xl"
           >
             {item}
             <span className={i % 3 === 1 ? "size-3 rounded-full bg-pink md:size-4" : "size-3 rounded-full bg-brand md:size-4"} />

@@ -65,7 +65,7 @@ export function HeroSection() {
           {/* Desktop: the two headline lines interlock with the lead and CTA. */}
           <div className="mb-14 hidden flex-col items-center lg:flex xl:mb-[4.5rem]">
             <div className="flex items-center">
-              <span aria-hidden="true" className="font-display text-[7.5rem] leading-none font-medium whitespace-nowrap text-white">
+              <span aria-hidden="true" className="font-pixel text-[7.5rem] leading-none font-medium whitespace-nowrap text-white">
                 {lineOne}
               </span>
               <p aria-hidden="true" className="mt-5 ml-6 w-[21rem] font-display text-xl leading-[1.2] text-white">{homeCopy.heroLead}</p>
@@ -76,7 +76,7 @@ export function HeroSection() {
                   Start a project
                 </LiquidButton>
               </div>
-              <span aria-hidden="true" className="font-display text-[7.5rem] leading-none font-medium whitespace-nowrap text-white">
+              <span aria-hidden="true" className="font-pixel text-[7.5rem] leading-none font-medium whitespace-nowrap text-white">
                 {lineTwo}
               </span>
             </div>
@@ -84,7 +84,7 @@ export function HeroSection() {
 
           {/* Small screens: stacked */}
           <div className="mb-10 flex flex-col items-start gap-6 lg:hidden">
-            <p aria-hidden="true" className="font-display text-[3.75rem] leading-[0.95] font-medium text-white sm:text-[5.375rem]">
+            <p aria-hidden="true" className="font-pixel text-[3.75rem] leading-[0.95] font-medium text-white sm:text-[5.375rem]">
               {lineOne} {lineTwo}
             </p>
             <p className="max-w-md font-display text-2xl leading-[1.2] text-white">{homeCopy.heroLead}</p>
@@ -98,7 +98,7 @@ export function HeroSection() {
             {divisions.map((division, i) => {
               const top = (
                 <div className="flex w-full items-start justify-between gap-4">
-                  <span className="font-sans text-[4.5rem] leading-none font-light text-white md:text-[5.875rem]">
+                  <span className="font-pixel text-[4.5rem] leading-none text-white md:text-[5.875rem]">
                     {division.mark}
                   </span>
                   {i === 2 ? null : (

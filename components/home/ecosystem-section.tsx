@@ -34,7 +34,7 @@ function Column({ division, i, progress }: { division: Division; i: number; prog
         <FlowGradient palette={columnPalette[i]} resolution={0.4} speed={0.8 + i * 0.15} />
       </motion.div>
       <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
-      <span className="absolute bottom-4 left-4 font-sans text-3xl font-light text-white md:bottom-6 md:left-6 md:text-5xl">
+      <span className="absolute bottom-4 left-4 font-pixel text-3xl leading-none text-white md:bottom-6 md:left-6 md:text-5xl">
         {division.mark}
       </span>
     </div>

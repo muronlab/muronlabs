@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Google_Sans, Google_Sans_Flex } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
@@ -23,6 +24,14 @@ const googleSans = Google_Sans({
   adjustFontFallback: false,
   fallback: ["system-ui", "sans-serif"],
   subsets: ["latin"],
+});
+
+/** Pixel display face for the large headlines — undefined medium (OFL), self-hosted. */
+const undefinedMedium = localFont({
+  src: "./fonts/undefined-medium.woff2",
+  variable: "--font-undefined",
+  weight: "500",
+  fallback: ["ui-monospace", "monospace"],
 });
 
 const geistMono = Geist_Mono({
@@ -89,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full antialiased", googleSansFlex.variable, googleSans.variable, geistMono.variable, "font-sans")}
+      className={cn("h-full antialiased", googleSansFlex.variable, googleSans.variable, undefinedMedium.variable, geistMono.variable, "font-sans")}
     >
       <body id="top" className="flex min-h-full flex-col">
         <JsonLd data={[organizationJsonLd, websiteJsonLd]} />

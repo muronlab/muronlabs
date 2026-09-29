@@ -30,7 +30,7 @@ export function SectionHeading({ index, eyebrow, title, description, className, 
         </p>
       </Reveal>
       <Reveal delay={0.06}>
-        <h2 id={id} className="mt-6 text-4xl leading-[1.15] font-medium text-balance text-ink sm:text-5xl lg:mt-8 lg:text-6xl">
+        <h2 id={id} className="mt-6 font-pixel text-4xl leading-[1.15] font-medium text-balance text-ink sm:text-5xl lg:mt-8 lg:text-6xl">
           {title}
         </h2>
       </Reveal>
