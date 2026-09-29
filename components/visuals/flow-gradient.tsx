@@ -66,6 +66,15 @@ const FALLBACK: Record<FlowPalette, string> = {
   arts: "radial-gradient(60% 60% at 30% 70%, #f7c79e 0%, transparent 60%), linear-gradient(160deg, #c77585, #f5a6af 60%, #9e7099)",
 };
 
+/**
+ * The shader clock swings back and forth within ±TIME_SWING seconds instead of
+ * growing forever. Noise inputs scale with time, and past a few minutes the
+ * float precision runs out: the field turns faceted and streaky (the liquid
+ * mode's slope lighting magnifies it most). A sine keeps the motion smooth —
+ * the field eases to a stop and drifts back, once every ~12 minutes.
+ */
+const TIME_SWING = 120;
+
 const LIQUID_FALLBACK =
   "radial-gradient(120% 90% at 55% 115%, transparent 52%, #2f9c84 58%, #5fb98a 63%, transparent 70%), linear-gradient(120deg, #c8b186, #d6a187 55%, #cda585)";
 
@@ -298,7 +307,8 @@ export function FlowGradient({
     const draw = (now: number) => {
       pointer.x += (pointer.tx - pointer.x) * 0.04;
       pointer.y += (pointer.ty - pointer.y) * 0.04;
-      gl.uniform1f(uTime, ((now - startedAt) / 1000) * speed);
+      const elapsed = ((now - startedAt) / 1000) * speed;
+      gl.uniform1f(uTime, TIME_SWING * Math.sin(elapsed / TIME_SWING));
       gl.uniform2f(uPointer, pointer.x, pointer.y);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
