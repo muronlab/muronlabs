@@ -48,7 +48,7 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
             <div>
               <Link href="/" aria-label={`${siteConfig.name} home`} className="inline-block text-white">
-                <Wordmark className="text-[2.5rem]" />
+                <Wordmark id="footer" className="text-[2.5rem]" />
               </Link>
               <p className="mt-4 max-w-[18rem] text-[15px] leading-6 text-white/55">{siteConfig.shortDescription}</p>
             </div>

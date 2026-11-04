@@ -20,10 +20,6 @@ const tiles: { top: number; left: number; w: number; h: number; bg: string }[] =
 ];
 
 export default function OpengraphImage() {
-  const { text, dotIndex } = siteConfig.wordmark;
-  const before = text.slice(0, dotIndex);
-  const after = text.slice(dotIndex + 1);
-
   return new ImageResponse(
     (
       <div
@@ -56,25 +52,32 @@ export default function OpengraphImage() {
               padding: 64,
             }}
           >
+            {/* Logo: the μ mark + "muronlabs." */}
             <div style={{ display: "flex", alignItems: "center", fontSize: 44, fontWeight: 700, letterSpacing: "-0.04em" }}>
-              {before}
-              <div
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: 999,
-                  margin: "0 2px",
-                  background: "linear-gradient(135deg,#934bf0,#fa7fd8 60%,#fa7465)",
-                }}
-              />
-              {after}
+              <svg width="56" height="56" viewBox="0 0 240 240" style={{ marginRight: 14 }}>
+                <defs>
+                  <linearGradient id="og-mu" x1="30" y1="20" x2="210" y2="220" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#934BF0" />
+                    <stop offset=".55" stopColor="#FA7FD8" />
+                    <stop offset="1" stopColor="#FA7465" />
+                  </linearGradient>
+                </defs>
+                <circle cx="120" cy="120" r="120" fill="url(#og-mu)" />
+                <g fill="none" stroke="#FFFFFF" strokeWidth="28" strokeLinecap="butt" strokeLinejoin="round">
+                  <path d="M70 60 V182" />
+                  <path d="M70 104 A38 38 0 0 0 146 104 V60" />
+                </g>
+                <circle cx="176" cy="128" r="13" fill="#FFFFFF" />
+              </svg>
+              {siteConfig.wordmark.text}
+              <span style={{ color: "#fa7465" }}>.</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", fontSize: 72, letterSpacing: "-0.045em", lineHeight: 1.05, maxWidth: 680 }}>
                 {siteConfig.tagline}
               </div>
               <div style={{ display: "flex", marginTop: 28, fontSize: 26, color: "#5c666d" }}>
-                Software engineering · Agentic AI · Digital artistry
+                Software · AI & Data · Design
               </div>
             </div>
           </div>

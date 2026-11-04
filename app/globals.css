@@ -369,11 +369,12 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Brand wordmark — "Mur●nlabs": the "o" becomes a gradient dot.       */
+/* Brand logo — the μ mark + "muronlabs." with a coral full stop.      */
 /* ------------------------------------------------------------------ */
 .wordmark {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
+  gap: 0.3em;
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 1.5rem;
@@ -381,15 +382,12 @@
   line-height: 1;
   color: inherit;
 }
-.wordmark-dot {
-  display: inline-block;
-  width: 0.56em;
-  height: 0.56em;
-  margin: 0 0.04em;
-  border-radius: 9999px;
-  align-self: center;
-  transform: translateY(0.02em);
-  background: var(--wordmark-dot, linear-gradient(135deg, #934bf0, #fa7fd8 60%, #fa7465));
+.wordmark-mark {
+  width: 1.2em;
+  height: 1.2em;
+}
+.wordmark-period {
+  color: #fa7465;
 }
 
 /* ------------------------------------------------------------------ */

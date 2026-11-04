@@ -7,8 +7,8 @@
 export const siteConfig = {
   name: "Muronlabs",
   tagline: "Engineering with precision. Designing with soul.",
-  /** Used in the wordmark: the letter at `dotIndex` is replaced by the gradient dot. */
-  wordmark: { text: "Muronlabs", dotIndex: 3 },
+  /** The lowercase name shown beside the μ mark in the logo ("muronlabs."). */
+  wordmark: { text: "muronlabs" },
   description:
     "Muronlabs is an elite multidisciplinary technology studio. We unify high-performance software engineering, intelligent agentic AI and data science — including neuroscience data — and immersive digital artistry into a singular, seamless ecosystem.",
   /** Shorter blurb for cards, footers and meta where the full description is too long. */
