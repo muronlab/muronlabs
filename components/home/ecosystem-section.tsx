@@ -5,6 +5,7 @@ import { ArrowLink } from "@/components/ui/arrow-link";
 import { Chip } from "@/components/ui/chip";
 import { Reveal } from "@/components/ui/reveal";
 import { ArtPanel } from "@/components/visuals/art-panel";
+import { StaggerList, StaggerItem } from "@/components/motion/stagger-list";
 
 /**
  * The three divisions as stacked service cards: copy on the left, an abstract
@@ -33,13 +34,13 @@ export function EcosystemSection() {
                       </p>
                       <h3 className="display mt-4 max-w-[22rem] text-[1.75rem] text-balance text-ink lg:text-[2rem]">{division.headline}</h3>
                       <p className="mt-4 max-w-[24rem] text-[15px] leading-6 text-muted-foreground">{division.body}</p>
-                      <ul className="mt-6 flex flex-wrap gap-2" aria-label="Focus areas">
+                      <StaggerList className="mt-6 flex flex-wrap gap-2" aria-label="Focus areas">
                         {division.focus.slice(0, 3).map((area) => (
-                          <li key={area}>
+                          <StaggerItem key={area}>
                             <Chip>{area}</Chip>
-                          </li>
+                          </StaggerItem>
                         ))}
-                      </ul>
+                      </StaggerList>
                     </div>
                     <ArrowLink href={`/ecosystem#${division.id}`} className="mt-14 md:mt-20">
                       {division.cta}

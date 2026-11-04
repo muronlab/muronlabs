@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
+import { SplitWords } from "@/components/motion/split-words";
 
 interface SectionHeadingProps {
   eyebrow: string;
@@ -37,18 +38,16 @@ export function SectionHeading({
       <Reveal>
         <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
       </Reveal>
-      <Reveal delay={0.08}>
-        <h2
-          id={id}
-          className={cn(
-            "display mt-6 text-balance",
-            compact ? "text-[2.5rem] lg:text-[3.25rem]" : "text-[2.5rem] sm:text-[3rem] lg:text-[3.5rem]",
-            dark ? "text-white" : "text-ink",
-          )}
-        >
-          {title}
-        </h2>
-      </Reveal>
+      <h2
+        id={id}
+        className={cn(
+          "display mt-6 text-balance",
+          compact ? "text-[2.5rem] lg:text-[3.25rem]" : "text-[2.5rem] sm:text-[3rem] lg:text-[3.5rem]",
+          dark ? "text-white" : "text-ink",
+        )}
+      >
+        <SplitWords text={title} delay={0.1} />
+      </h2>
       {description ? (
         <Reveal delay={0.16}>
           <p className={cn("mt-6 max-w-[30rem] text-[17px] leading-7 text-pretty", dark ? "text-white/75" : "text-muted-foreground")}>

@@ -21,7 +21,7 @@ export function Eyebrow({ children, tone = "surface", className, id }: EyebrowPr
         className,
       )}
     >
-      <span aria-hidden="true" className="size-1.5 rounded-full bg-current" />
+      <span aria-hidden="true" className="eyebrow-dot relative size-1.5 rounded-full bg-current" />
       {children}
     </span>
   );

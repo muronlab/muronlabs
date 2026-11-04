@@ -12,6 +12,8 @@ import { GradientArt } from "@/components/visuals/gradient-art";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl, buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { divisions, siteConfig } from "@/lib/site-config";
+import { SplitWords } from "@/components/motion/split-words";
+import { StaggerList, StaggerItem } from "@/components/motion/stagger-list";
 
 export const metadata = buildPageMetadata({
   title: "Services | Software, AI Agents & Design",
@@ -78,7 +80,7 @@ export default function EcosystemPage() {
       <section aria-label="Divisions at a glance" className="px-6 pt-2">
         <ul className="grid gap-2 md:grid-cols-3">
           {divisions.map((d, i) => (
-            <Reveal as="li" key={d.id} delay={i * 0.08}>
+            <Reveal as="li" lift key={d.id} delay={i * 0.08}>
               <Link href={`#${d.id}`} className="sheet group flex h-full flex-col p-2">
                 <ArtPanel kind={d.art} className="aspect-[4/3]" />
                 <div className="flex flex-1 flex-col p-5 pt-6">
@@ -115,22 +117,22 @@ export default function EcosystemPage() {
                     </Reveal>
                     <Reveal delay={0.08}>
                       <h2 id={`${d.id}-heading`} className={`display mt-6 text-[2.25rem] text-balance lg:text-[2.75rem] ${dark ? "text-white" : "text-ink"}`}>
-                        {d.headline}
+                        <SplitWords text={d.headline} />
                       </h2>
                     </Reveal>
                     <Reveal delay={0.14}>
                       <p className={`mt-6 text-[15px] leading-6 ${dark ? "text-white/75" : "text-muted-foreground"}`}>{d.body}</p>
                     </Reveal>
                     <Reveal delay={0.2}>
-                      <ul className="mt-6 flex flex-wrap gap-2" aria-label="Focus areas">
+                      <StaggerList className="mt-6 flex flex-wrap gap-2" aria-label="Focus areas">
                         {d.focus.map((f) => (
-                          <li key={f}>
+                          <StaggerItem key={f}>
                             <Chip tone={dark ? "dark" : "light"} className={dark ? "" : "bg-surface"}>
                               {f}
                             </Chip>
-                          </li>
+                          </StaggerItem>
                         ))}
-                      </ul>
+                      </StaggerList>
                     </Reveal>
                     <Reveal delay={0.24} className="mt-8 hidden lg:block">
                       {dark ? (
@@ -145,6 +147,7 @@ export default function EcosystemPage() {
                   <ul className="grid gap-2 sm:grid-cols-2" aria-label={`${d.name} services`}>
                     {d.services.map((s, j) => (
                       <Reveal
+                        lift
                         as="li"
                         key={s.title}
                         delay={(j % 2) * 0.06}
@@ -157,13 +160,13 @@ export default function EcosystemPage() {
                           <h3 className={`display mt-3 text-[1.5rem] ${dark ? "text-white" : "text-ink"}`}>{s.title}</h3>
                           <p className={`mt-3 text-[15px] leading-6 ${dark ? "text-white/70" : "text-muted-foreground"}`}>{s.body}</p>
                         </div>
-                        <ul className="mt-6 flex flex-wrap gap-2" aria-label="Typical outputs">
+                        <StaggerList className="mt-6 flex flex-wrap gap-2" aria-label="Typical outputs">
                           {s.outputs.map((o) => (
-                            <li key={o}>
+                            <StaggerItem key={o}>
                               <Chip tone={dark ? "dark" : "light"}>{o}</Chip>
-                            </li>
+                            </StaggerItem>
                           ))}
-                        </ul>
+                        </StaggerList>
                       </Reveal>
                     ))}
                   </ul>
@@ -185,18 +188,18 @@ export default function EcosystemPage() {
           />
           <ul className="mt-14 grid gap-2 md:grid-cols-3">
             {combos.map((c, i) => (
-              <Reveal as="li" key={c.title} delay={i * 0.08} className="sheet flex min-h-[18rem] flex-col justify-between p-8">
+              <Reveal as="li" lift key={c.title} delay={i * 0.08} className="sheet flex min-h-[18rem] flex-col justify-between p-8">
                 <div>
                   <h3 className="display text-[1.5rem] text-ink">{c.title}</h3>
                   <p className="mt-3 text-[15px] leading-6 text-muted-foreground">{c.body}</p>
                 </div>
-                <ul className="mt-8 flex flex-wrap gap-2" aria-label="Divisions involved">
+                <StaggerList className="mt-8 flex flex-wrap gap-2" aria-label="Divisions involved">
                   {c.teams.map((t) => (
-                    <li key={t}>
+                    <StaggerItem key={t}>
                       <Chip>{t}</Chip>
-                    </li>
+                    </StaggerItem>
                   ))}
-                </ul>
+                </StaggerList>
               </Reveal>
             ))}
           </ul>

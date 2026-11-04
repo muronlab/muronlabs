@@ -5,6 +5,7 @@ import { ArrowLink } from "@/components/ui/arrow-link";
 import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
 import { GradientArt } from "@/components/visuals/gradient-art";
+import { SplitWords } from "@/components/motion/split-words";
 
 const icons = { layers: Layers, route: Route, clock: Clock };
 
@@ -25,7 +26,7 @@ export function AboutPreview() {
           </Reveal>
           <Reveal delay={0.08}>
             <h2 id="about-heading" className="display text-[2.25rem] text-balance text-ink sm:text-[2.75rem] lg:text-[3rem]">
-              {about.title}
+              <SplitWords text={about.title} />
             </h2>
           </Reveal>
         </div>
@@ -45,7 +46,7 @@ export function AboutPreview() {
         {stats.map((stat, i) => {
           const Icon = icons[stat.icon];
           return (
-            <Reveal as="li" key={stat.label} delay={i * 0.08} className="sheet flex min-h-[15rem] flex-col justify-between p-8">
+            <Reveal as="li" lift key={stat.label} delay={i * 0.08} className="sheet flex min-h-[15rem] flex-col justify-between p-8">
               <div className="flex items-start justify-between">
                 <CountUp
                   value={stat.value}

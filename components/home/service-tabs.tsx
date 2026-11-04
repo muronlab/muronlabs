@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface ServiceTabsProps {
@@ -37,11 +38,19 @@ export function ServiceTabs({ items }: ServiceTabsProps) {
               href={`#${item.id}`}
               aria-current={isActive ? "true" : undefined}
               className={cn(
-                "block rounded-[3px] px-3 py-2.5 text-[13px] font-medium tracking-[0.06em] uppercase transition-colors duration-300",
-                isActive ? "bg-surface text-ink" : "text-muted-foreground hover:text-ink",
+                "relative block rounded-[3px] px-3 py-2.5 text-[13px] font-medium tracking-[0.06em] uppercase transition-colors duration-300",
+                isActive ? "text-ink" : "text-muted-foreground hover:text-ink",
               )}
             >
-              {item.label}
+              {/* The white highlight slides between tabs as the active one changes. */}
+              {isActive ? (
+                <motion.span
+                  layoutId="service-tab-highlight"
+                  className="absolute inset-0 rounded-[3px] bg-surface"
+                  transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                />
+              ) : null}
+              <span className="relative">{item.label}</span>
             </a>
           </li>
         );

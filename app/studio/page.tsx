@@ -10,6 +10,7 @@ import { ArtPanel } from "@/components/visuals/art-panel";
 import { JsonLd } from "@/components/json-ld";
 import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { divisions, siteConfig } from "@/lib/site-config";
+import { SplitWords } from "@/components/motion/split-words";
 
 export const metadata = buildPageMetadata({
   title: "About Us | Technology Studio in Sri Lanka",
@@ -58,7 +59,7 @@ export default function AboutPage() {
             <div>
               <Reveal delay={0.08}>
                 <h2 id="story-heading" className="display text-[2.25rem] text-balance text-ink sm:text-[2.75rem] lg:text-[3rem]">
-                  We started Muronlabs so products could ship as one coordinated whole.
+                  <SplitWords text="We started Muronlabs so products could ship as one coordinated whole." />
                 </h2>
               </Reveal>
               <Reveal delay={0.16} className="mt-8 grid gap-6 text-[15px] leading-6 text-muted-foreground md:grid-cols-2">
@@ -74,7 +75,7 @@ export default function AboutPage() {
 
           <ul className="mt-12 grid gap-2 md:grid-cols-3 lg:mt-16">
             {principles.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 0.08} className="flex min-h-[14rem] flex-col justify-between rounded-[4px] bg-canvas p-7">
+              <Reveal as="li" lift key={p.title} delay={i * 0.08} className="flex min-h-[14rem] flex-col justify-between rounded-[4px] bg-canvas p-7">
                 <span className="text-[13px] font-medium text-muted-foreground">/0{i + 1}</span>
                 <div>
                   <h3 className="display text-[1.5rem] text-ink">{p.title}</h3>
@@ -95,7 +96,7 @@ export default function AboutPage() {
             </Reveal>
             <Reveal delay={0.08}>
               <h2 id="divisions-heading" className="display mt-6 text-[2.5rem] text-balance text-ink sm:text-[3rem] lg:text-[3.5rem]">
-                Three specialist divisions. One coordinated roof.
+                <SplitWords text="Three specialist divisions. One coordinated roof." />
               </h2>
             </Reveal>
           </div>

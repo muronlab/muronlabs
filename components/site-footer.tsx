@@ -4,6 +4,9 @@ import { Wordmark } from "@/components/navigation/wordmark";
 import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
 import { GradientArt } from "@/components/visuals/gradient-art";
+import { SplitWords } from "@/components/motion/split-words";
+import { Magnetic } from "@/components/motion/magnetic";
+import { FooterWatermark } from "@/components/motion/footer-watermark";
 
 interface SiteFooterProps {
   /** Hide the closing call to action (e.g. on the contact page). */
@@ -30,14 +33,16 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
             <div className="flex flex-col gap-10 px-6 py-14 sm:px-10 lg:flex-row lg:items-start lg:justify-between lg:px-[9%] lg:pt-24 lg:pb-28">
               <Reveal>
                 <h2 id="final-cta" className="display max-w-[34rem] text-[2.75rem] text-balance sm:text-[3.5rem] lg:text-[4.25rem]">
-                  {homeCopy.finalCta.title}
+                  <SplitWords text={homeCopy.finalCta.title} />
                 </h2>
               </Reveal>
               <Reveal delay={0.1} className="max-w-[20rem] lg:pt-2">
                 <p className="text-[15px] leading-6 text-ink/75">{homeCopy.finalCta.body}</p>
-                <PillButton href={primaryCta.href} size="sm" className="mt-6" aria-label={primaryCta.ariaLabel}>
+                <Magnetic className="mt-6">
+                <PillButton href={primaryCta.href} size="sm" aria-label={primaryCta.ariaLabel}>
                   {primaryCta.label}
                 </PillButton>
+                </Magnetic>
               </Reveal>
             </div>
             <GradientArt variant="band" className="mx-2 mb-2 h-48 sm:h-60 lg:h-[19.5rem]" />
@@ -80,7 +85,7 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           </div>
 
           <div className="mt-14 overflow-hidden border-t border-white/10 pt-8">
-            <div aria-hidden="true" data-watermark={siteConfig.wordmark.text} className="footer-watermark display -mb-[0.18em] text-[21vw] leading-[0.8] font-semibold tracking-[-0.06em] text-white/[0.055] select-none lg:text-[19vw]" />
+            <FooterWatermark text={siteConfig.wordmark.text} className="footer-watermark display -mb-[0.18em] text-[21vw] leading-[0.8] font-semibold tracking-[-0.06em] text-white/[0.055] select-none lg:text-[19vw]" />
           </div>
 
           <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-[14px] text-white/50 sm:flex-row sm:items-center sm:justify-between">

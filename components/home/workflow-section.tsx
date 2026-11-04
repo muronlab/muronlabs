@@ -3,6 +3,7 @@ import { PhaseAccordion } from "./phase-accordion";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
+import { SplitWords } from "@/components/motion/split-words";
 
 /**
  * The execution framework on a charcoal panel: statement and call to action
@@ -21,7 +22,7 @@ export function WorkflowSection() {
             </Reveal>
             <Reveal delay={0.08}>
               <h2 id="workflow-heading" className="display mt-6 max-w-[34rem] text-[2.5rem] text-balance sm:text-[3rem] lg:text-[3.5rem]">
-                {workflow.title}
+                <SplitWords text={workflow.title} />
               </h2>
             </Reveal>
             <Reveal delay={0.16}>

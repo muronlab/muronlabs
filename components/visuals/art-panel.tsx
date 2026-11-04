@@ -1,14 +1,30 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import type { ArtKind } from "@/lib/site-config";
 
-/** Four gradient quadrants — the shared core of every panel. */
+/**
+ * Four gradient quadrants — the shared core of every panel. The outer frame
+ * holds position, tilt and clipping; the inner grid spins and scales into
+ * place with a spring as the panel scrolls into view.
+ */
 function GradientQuad({ className }: { className?: string }) {
+  const reduceMotion = useReducedMotion();
   return (
-    <div className={cn("grid grid-cols-2 grid-rows-2 overflow-hidden", className)}>
-      <div className="tile grain art-grain relative g-11" style={{ ["--delay" as string]: "0s" }} />
-      <div className="tile grain art-grain relative g-15" style={{ ["--delay" as string]: "2s" }} />
-      <div className="tile grain art-grain relative g-3" style={{ ["--delay" as string]: "4s" }} />
-      <div className="tile grain art-grain relative g-16" style={{ ["--delay" as string]: "1s" }} />
+    <div className={cn("overflow-hidden", className)}>
+      <motion.div
+        className="grid size-full grid-cols-2 grid-rows-2"
+        initial={reduceMotion ? false : { rotate: -90, scale: 0.55, opacity: 0 }}
+        whileInView={{ rotate: 0, scale: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+        transition={{ type: "spring", stiffness: 70, damping: 14, mass: 0.9, delay: 0.15 }}
+      >
+        <div className="tile grain art-grain relative g-11" style={{ ["--delay" as string]: "0s" }} />
+        <div className="tile grain art-grain relative g-15" style={{ ["--delay" as string]: "2s" }} />
+        <div className="tile grain art-grain relative g-3" style={{ ["--delay" as string]: "4s" }} />
+        <div className="tile grain art-grain relative g-16" style={{ ["--delay" as string]: "1s" }} />
+      </motion.div>
     </div>
   );
 }

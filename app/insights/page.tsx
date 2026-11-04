@@ -63,7 +63,7 @@ export default function InsightsPage() {
       <section aria-label="Articles" className="px-6">
         <ul className="mx-auto grid max-w-[80rem] gap-6 md:grid-cols-2 lg:px-12">
           {insights.map((post, i) => (
-            <Reveal as="li" key={post.slug} delay={(i % 2) * 0.08}>
+            <Reveal as="li" lift key={post.slug} delay={(i % 2) * 0.08}>
               <PostCard post={post} className="h-full" />
             </Reveal>
           ))}

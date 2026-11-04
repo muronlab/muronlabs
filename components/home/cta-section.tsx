@@ -2,6 +2,8 @@ import { homeCopy, primaryCta } from "@/lib/site-config";
 import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
 import { GradientArt } from "@/components/visuals/gradient-art";
+import { SplitWords } from "@/components/motion/split-words";
+import { Magnetic } from "@/components/motion/magnetic";
 
 interface CtaSectionProps {
   /** Override the two headline lines; the second is set in italic. */
@@ -22,9 +24,11 @@ export function CtaSection({ lines = homeCopy.callout.lines, body = homeCopy.cal
         <div className="flex flex-col justify-between p-7 sm:p-10 lg:min-h-[36rem] lg:p-12">
           <Reveal>
             <h2 className="display max-w-[30rem] text-[2.5rem] text-balance sm:text-[3rem] lg:text-[3.5rem]">
-              {first}
+              <SplitWords text={first} />
               <br />
-              <em className="italic">{second}</em>
+              <em className="italic">
+                <SplitWords text={second} delay={0.35} />
+              </em>
             </h2>
           </Reveal>
           <div className="mt-16">
@@ -32,9 +36,11 @@ export function CtaSection({ lines = homeCopy.callout.lines, body = homeCopy.cal
               <p className="max-w-[22rem] text-[15px] leading-6 text-white/80">{body}</p>
             </Reveal>
             <Reveal delay={0.16}>
-              <PillButton href={primaryCta.href} tone="white" className="mt-8" aria-label={primaryCta.ariaLabel}>
+              <Magnetic className="mt-8">
+              <PillButton href={primaryCta.href} tone="white" aria-label={primaryCta.ariaLabel}>
                 {primaryCta.label}
               </PillButton>
+              </Magnetic>
             </Reveal>
           </div>
         </div>

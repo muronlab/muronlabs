@@ -9,6 +9,7 @@ import { Wordmark } from "./wordmark";
 import { PillButton } from "@/components/ui/pill-button";
 import { ecosystemNav, navItems, primaryCta, siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 
 /** Nav link type: Inter 14/500 in slate grey, as on the reference (see `.nav-type`). */
 const linkClass = "nav-type py-2 text-[#4e565e] transition-colors hover:text-ink";
@@ -93,6 +94,7 @@ export function SiteHeader() {
           scrolled ? "rounded-none" : "rounded-md",
         )}
       >
+        <ScrollProgress />
         <Link href="/" aria-label={`${siteConfig.name} home`} className="text-ink">
           <Wordmark />
         </Link>
@@ -133,8 +135,13 @@ export function SiteHeader() {
               )}
             >
               <ul className="overflow-hidden rounded-lg border border-hairline bg-surface p-1.5">
-                {ecosystemNav.map((item) => (
-                  <li key={item.href}>
+                {ecosystemNav.map((item, i) => (
+                  <motion.li
+                    key={item.href}
+                    initial={false}
+                    animate={ecoOpen || reduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                    transition={{ type: "spring", stiffness: 380, damping: 28, delay: ecoOpen ? 0.05 + i * 0.05 : 0 }}
+                  >
                     <Link
                       href={item.href}
                       aria-label={item.ariaLabel}
@@ -144,7 +151,7 @@ export function SiteHeader() {
                       <span className="nav-type block text-ink">{item.label}</span>
                       <span className="mt-0.5 block font-nav text-[13px] tracking-[-0.01em] text-muted-foreground">{item.tagline}</span>
                     </Link>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </div>

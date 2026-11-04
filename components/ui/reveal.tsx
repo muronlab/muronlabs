@@ -23,6 +23,8 @@ interface RevealProps {
    * place without fading, so the text counts as painted straight away.
    */
   lcp?: boolean;
+  /** Spring the element up slightly on hover (for cards). */
+  lift?: boolean;
 }
 
 /**
@@ -30,7 +32,7 @@ interface RevealProps {
  * (`immediate`, CSS) or as it scrolls into view (default, motion). Honours
  * `prefers-reduced-motion`.
  */
-export function Reveal({ children, delay = 0, y = 24, className, as = "div", immediate = false, lcp = false }: RevealProps) {
+export function Reveal({ children, delay = 0, y = 24, className, as = "div", immediate = false, lcp = false, lift = false }: RevealProps) {
   const reduceMotion = useReducedMotion();
 
   if (immediate) {
@@ -51,6 +53,7 @@ export function Reveal({ children, delay = 0, y = 24, className, as = "div", imm
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={target}
+      whileHover={lift && !reduceMotion ? { y: -6, transition: { type: "spring", stiffness: 320, damping: 22 } } : undefined}
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}
       transition={reduceMotion ? { duration: 0 } : { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     >

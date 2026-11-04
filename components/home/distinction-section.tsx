@@ -33,6 +33,7 @@ export function DistinctionSection({
             const dark = i === 0 || i === 3;
             return (
               <Reveal
+                lift
                 as="li"
                 key={item.title}
                 delay={i * 0.08}

@@ -5,6 +5,7 @@ import { insightsCopy } from "@/lib/insights";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { GradientArt } from "@/components/visuals/gradient-art";
+import { SplitWords } from "@/components/motion/split-words";
 
 /**
  * Charcoal newsletter panel: statement and email form on the left, a stack of
@@ -35,7 +36,7 @@ export function Newsletter() {
             </Reveal>
             <Reveal delay={0.08}>
               <h2 id="newsletter-heading" className="display mt-6 max-w-[30rem] text-[2.5rem] text-balance sm:text-[3rem]">
-                {newsletter.title}
+                <SplitWords text={newsletter.title} />
               </h2>
             </Reveal>
             <Reveal delay={0.16}>
