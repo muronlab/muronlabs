@@ -45,26 +45,27 @@ const LAYOUTS: Record<"mosaic" | "mosaicRight" | "strip" | "band" | "bars" | "st
     { x: 0, y: 91, w: 69.5, h: 9, g: 0, bg: lg("#fc978f", "#fb8bb7 25%", "#f081dc 45%", "#a664f0 75%", "#9f5ff2") },
     { x: 69.5, y: 91, w: 30.5, h: 9, g: 0, bg: lg("#fb8881", "#fb8bc6 35%", "#b564ea 70%", "#9a57f1") },
   ],
+  /* Hero left column — sizes and colours measured from the reference. */
   mosaic: [
-    { x: 0, y: 0, w: 100, h: 17, g: 1 },
-    { x: 0, y: 17, w: 62, h: 18, g: 2 },
-    { x: 0, y: 35, w: 20, h: 6, g: 3 },
-    { x: 0, y: 41, w: 33, h: 10, g: 1 },
-    { x: 0, y: 51, w: 23, h: 4, g: 5 },
-    { x: 0, y: 55, w: 48, h: 20, g: 4 },
-    { x: 0, y: 75, w: 73, h: 8, g: 6 },
-    { x: 0, y: 83, w: 100, h: 17, g: 2 },
+    { x: 0, y: 0.0, w: 100, h: 17.3, g: 0, bg: lg("#d677e4", "#b867ea 50%", "#9b58f1") },
+    { x: 0, y: 17.3, w: 62, h: 17.3, g: 0, bg: lg("#ba67cb", "#de84ab 50%", "#fbaea7") },
+    { x: 0, y: 34.61, w: 20, h: 6.68, g: 0, bg: lg("#fa7f7c", "#fa8078 50%", "#fa7f72") },
+    { x: 0, y: 41.29, w: 33, h: 10.5, g: 0, bg: lg("#9c59f1", "#9a56f1 50%", "#9c59f1") },
+    { x: 0, y: 51.79, w: 23, h: 3.58, g: 0, bg: lg("#fa7f81", "#fa7f79 50%", "#fa7e72") },
+    { x: 0, y: 55.37, w: 48, h: 20.05, g: 0, bg: lg("#b465eb", "#9b58f1 50%", "#9b58f1") },
+    { x: 0, y: 75.42, w: 74, h: 7.28, g: 0, bg: lg("#fa84a9", "#fa828e 50%", "#fa7f73") },
+    { x: 0, y: 82.7, w: 100, h: 17.3, g: 0, bg: lg("#bd73ec", "#fa87c8 50%", "#fa7e72") },
   ],
-  /* The right-hand column: anchored to the right edge, with its own colours. */
+  /* Hero right column — the mirror image, anchored to the right edge. */
   mosaicRight: [
-    { x: 0, y: 0, w: 100, h: 17, g: 7 },
-    { x: 0, y: 17, w: 73, h: 7, g: 5 },
-    { x: 0, y: 24, w: 48, h: 20, g: 1 },
-    { x: 0, y: 44, w: 23, h: 4, g: 3 },
-    { x: 0, y: 48, w: 33, h: 10, g: 1 },
-    { x: 0, y: 58, w: 20, h: 6, g: 3 },
-    { x: 0, y: 65, w: 62, h: 18, g: 12 },
-    { x: 0, y: 83, w: 100, h: 17, g: 16 },
+    { x: 0, y: 0.0, w: 100, h: 17.3, g: 0, bg: lg("#fa8176", "#fa86c8 50%", "#bd75ed") },
+    { x: 0, y: 17.3, w: 74, h: 7.28, g: 0, bg: lg("#fa7f73", "#fa828f 50%", "#fa83a9") },
+    { x: 0, y: 24.58, w: 48, h: 20.05, g: 0, bg: lg("#b788f5", "#cfaff8 50%", "#d5a9f4") },
+    { x: 0, y: 44.63, w: 23, h: 3.58, g: 0, bg: lg("#fca69d", "#fb9d9a 50%", "#fb9798") },
+    { x: 0, y: 48.21, w: 33, h: 10.5, g: 0, bg: lg("#a365f2", "#9f5ff2 50%", "#9d5cf1") },
+    { x: 0, y: 58.71, w: 20, h: 6.68, g: 0, bg: lg("#fb9990", "#fba09b 50%", "#fca6a4") },
+    { x: 0, y: 65.39, w: 62, h: 17.3, g: 0, bg: lg("#f97e74", "#d8719f 50%", "#b763cb") },
+    { x: 0, y: 82.7, w: 100, h: 17.3, g: 0, bg: lg("#9e5cf1", "#cc91f0 50%", "#db89e7") },
   ],
   bars: [
     { x: 0, y: 0, w: 15, h: 100, g: 10 },
@@ -157,7 +158,7 @@ export function GradientArt({ variant = "mosaic", mirror = false, className, del
         return (
           <motion.div
             key={i}
-            className={cn("tile grain absolute", t.bg ? "band-tile" : `g-${t.g}`, sweep && "tile-sweep", tileClassName)}
+            className={cn("tile grain absolute", t.bg ? (sweep ? "band-tile" : "") : `g-${t.g}`, sweep && "tile-sweep", tileClassName)}
             // Each bar grows out from the edge it is anchored to, row by row.
             style={{ ...style, originX: mirror ? 1 : 0 }}
             initial={{ opacity: 0, scaleX: 0.15 }}

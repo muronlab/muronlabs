@@ -17,11 +17,11 @@ export function HeroSection() {
 
   return (
     <section aria-label="Introduction" className="px-2 pt-[4.5rem]">
-      <div className="sheet relative flex flex-col overflow-hidden md:block md:h-[46.5rem]">
-        <Parallax range="leave" distance={90} className="absolute top-2 bottom-2 left-2 hidden w-[21.5%] max-w-[310px] md:block">
+      <div className="sheet relative flex flex-col overflow-hidden md:block md:h-[43rem]">
+        <Parallax range="leave" distance={90} className="absolute top-2 bottom-2 left-2 hidden w-[19.2%] max-w-[360px] md:block">
           <GradientArt variant="mosaic" className="size-full" delay={0.4} tileClassName="hero-bar" flowSeed={1} />
         </Parallax>
-        <Parallax range="leave" distance={140} className="absolute top-2 right-2 bottom-2 hidden w-[21.5%] max-w-[310px] md:block">
+        <Parallax range="leave" distance={140} className="absolute top-2 right-2 bottom-2 hidden w-[19.2%] max-w-[360px] md:block">
           <GradientArt variant="mosaicRight" mirror className="size-full" delay={0.5} tileClassName="hero-bar" flowSeed={4} />
         </Parallax>
 

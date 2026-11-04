@@ -283,7 +283,8 @@
 }
 .tile.hero-bar {
   overflow: hidden;
-  background-size: 300% 100%;
+  /* 140%: the colours drift gently but stay close to the reference. */
+  background-size: 140% 100%;
   will-change: background-position;
   /* Speed: per-bar duration (6–14s) and delay come from --flow-dur / --flow-delay,
      set in gradient-art.tsx. Change the fallbacks here to retime globally. */
