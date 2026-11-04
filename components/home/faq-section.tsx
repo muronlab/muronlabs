@@ -2,44 +2,36 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { faqs } from "@/lib/site-config";
+import { faqs, homeCopy } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
-import { GetInTouchButton } from "@/components/contact/contact-drawer";
 import { Reveal } from "@/components/ui/reveal";
 
 /**
- * Common questions — a single-open accordion separated by hairlines. The
- * toggle is a round bead whose plus turns into a minus; answers expand with a
- * height + fade (static under reduced motion).
+ * Common questions — a sticky heading on the left and a stack of white cards
+ * on the right. One question opens at a time; the plus turns into a minus and
+ * the answer expands with a height + fade (static under reduced motion).
  */
 export function FaqSection() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
+  const { faq } = homeCopy;
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="relative z-[1] scroll-mt-24 bg-paper py-24 lg:py-36">
-      <div className="shell grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-24">
+    <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 py-20 lg:py-28">
+      <div className="shell grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <SectionHeading
-            id="faq-heading"
-            eyebrow="FAQ"
-            title="Questions, answered."
-            description="The things teams ask us most, before the first call."
-          />
-          <Reveal delay={0.18} className="mt-10">
-            <GetInTouchButton tone="outline">Still curious? Ask us</GetInTouchButton>
-          </Reveal>
+          <SectionHeading id="faq-heading" align="left" compact eyebrow={faq.eyebrow} title={faq.title} description={faq.intro} />
         </div>
 
-        <ul className="border-t border-muted-foreground/70">
-          {faqs.map((faq, i) => {
+        <ul className="flex flex-col gap-2">
+          {faqs.map((item, i) => {
             const isOpen = open === i;
             const panelId = `faq-panel-${i}`;
             const buttonId = `faq-trigger-${i}`;
 
             return (
-              <li key={faq.question} className="border-b border-muted-foreground/70">
+              <Reveal as="li" key={item.question} delay={Math.min(i, 4) * 0.05} className="sheet">
                 <h3>
                   <button
                     id={buttonId}
@@ -47,30 +39,12 @@ export function FaqSection() {
                     aria-expanded={isOpen}
                     aria-controls={panelId}
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="group flex w-full cursor-pointer items-center gap-6 py-7 text-left"
+                    className="group flex w-full cursor-pointer items-center justify-between gap-6 px-6 py-6 text-left"
                   >
-                    <span
-                      className={cn(
-                        "flex-1 font-display text-xl leading-snug font-medium transition-colors duration-300 lg:text-2xl",
-                        isOpen ? "text-ink" : "text-muted-foreground group-hover:text-ink",
-                      )}
-                    >
-                      {faq.question}
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        "relative flex size-12 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
-                        isOpen ? "border-brand bg-brand text-ink" : "border-hairline text-ink group-hover:border-ink",
-                      )}
-                    >
+                    <span className="text-[16px] font-medium text-ink">{item.question}</span>
+                    <span aria-hidden="true" className="relative flex size-6 shrink-0 items-center justify-center text-ink">
                       <span className="absolute h-px w-4 bg-current" />
-                      <span
-                        className={cn(
-                          "absolute h-4 w-px bg-current transition-transform duration-300",
-                          isOpen ? "scale-y-0" : "scale-y-100",
-                        )}
-                      />
+                      <span className={cn("absolute h-4 w-px bg-current transition-transform duration-300", isOpen ? "scale-y-0" : "scale-y-100")} />
                     </span>
                   </button>
                 </h3>
@@ -88,11 +62,11 @@ export function FaqSection() {
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="max-w-2xl pb-8 text-base leading-7 text-muted-foreground">{faq.answer}</p>
+                      <p className="max-w-[40rem] px-6 pb-7 text-[15px] leading-6 text-muted-foreground">{item.answer}</p>
                     </motion.div>
                   ) : null}
                 </AnimatePresence>
-              </li>
+              </Reveal>
             );
           })}
         </ul>

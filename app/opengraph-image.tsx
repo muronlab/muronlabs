@@ -4,13 +4,20 @@ import { siteConfig } from "@/lib/site-config";
 /**
  * Default social-share card for every route (overridable by a deeper
  * `opengraph-image` file). Rendered at build time via `next/og` — flexbox and a
- * subset of CSS only. Mirrors the site's dark-on-brand wordmark language.
+ * subset of CSS only. Mirrors the site: grey canvas, ink type, gradient tiles.
  */
 export const alt = `${siteConfig.name} — ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const BRAND = "#70b494";
+const tiles: { top: number; left: number; w: number; h: number; bg: string }[] = [
+  { top: 0, left: 0, w: 100, h: 18, bg: "linear-gradient(100deg,#b57cf5,#8f45ee)" },
+  { top: 18, left: 0, w: 60, h: 18, bg: "linear-gradient(100deg,#9a5cf2,#fa7fd8 55%,#fa7465)" },
+  { top: 36, left: 0, w: 30, h: 10, bg: "linear-gradient(100deg,#fa7465,#fb9a8a)" },
+  { top: 46, left: 0, w: 45, h: 22, bg: "linear-gradient(100deg,#e6dcff,#a98bff)" },
+  { top: 68, left: 0, w: 72, h: 8, bg: "linear-gradient(100deg,#fa7fd8,#fa7465)" },
+  { top: 76, left: 0, w: 100, h: 24, bg: "linear-gradient(100deg,#9a5cf2,#fa7fd8 55%,#fa7465)" },
+];
 
 export default function OpengraphImage() {
   const { text, dotIndex } = siteConfig.wordmark;
@@ -24,68 +31,68 @@ export default function OpengraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: "#5f9a8c",
-          backgroundImage: `radial-gradient(700px circle at 12% 30%, #d19a7e, transparent 60%), radial-gradient(800px circle at 75% 15%, ${BRAND}, transparent 60%), radial-gradient(700px circle at 85% 95%, #cfa27f, transparent 60%)`,
-          padding: "80px",
+          background: "#f4f6f6",
+          padding: 24,
           fontFamily: "sans-serif",
-          color: "#ffffff",
+          color: "#121211",
         }}
       >
         <div
           style={{
             display: "flex",
-            fontSize: 30,
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.8)",
+            width: "100%",
+            height: "100%",
+            background: "#ffffff",
+            borderRadius: 12,
+            overflow: "hidden",
           }}
         >
-          [ Multidisciplinary Technology Studio ]
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
               display: "flex",
-              fontSize: 150,
-              fontWeight: 600,
-              letterSpacing: "-0.04em",
-              textTransform: "uppercase",
-              lineHeight: 1,
+              flexDirection: "column",
+              justifyContent: "space-between",
+              flex: 1,
+              padding: 64,
             }}
           >
-            {before}
-            <span style={{ color: "#242422" }}>•</span>
-            {after}
+            <div style={{ display: "flex", alignItems: "center", fontSize: 44, fontWeight: 700, letterSpacing: "-0.04em" }}>
+              {before}
+              <div
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 999,
+                  margin: "0 2px",
+                  background: "linear-gradient(135deg,#934bf0,#fa7fd8 60%,#fa7465)",
+                }}
+              />
+              {after}
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", fontSize: 72, letterSpacing: "-0.045em", lineHeight: 1.05, maxWidth: 680 }}>
+                {siteConfig.tagline}
+              </div>
+              <div style={{ display: "flex", marginTop: 28, fontSize: 26, color: "#5c666d" }}>
+                Software engineering · Agentic AI · Digital artistry
+              </div>
+            </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              marginTop: 28,
-              fontSize: 52,
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Engineering with precision.
-            <span style={{ marginLeft: 16, opacity: 0.8 }}>Designing with soul.</span>
+          <div style={{ display: "flex", position: "relative", width: 300, margin: 12 }}>
+            {tiles.map((t, i) => (
+              <div
+                key={i}
+                style={{
+                  position: "absolute",
+                  top: `${t.top}%`,
+                  left: `${t.left}%`,
+                  width: `${t.w}%`,
+                  height: `${t.h}%`,
+                  backgroundImage: t.bg,
+                }}
+              />
+            ))}
           </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 28,
-            color: "rgba(255,255,255,0.8)",
-            borderTop: "1px solid rgba(255,255,255,0.4)",
-            paddingTop: 32,
-          }}
-        >
-          <span>Engineering · Agentic AI · Digital Artistry</span>
-          <span style={{ color: "#ffffff" }}>muronlabs.com</span>
         </div>
       </div>
     ),

@@ -1,61 +1,67 @@
-import { distinctions } from "@/lib/site-config";
+import { distinctions, homeCopy } from "@/lib/site-config";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { GradientArt } from "@/components/visuals/gradient-art";
+import { LineMotif } from "@/components/visuals/line-motif";
 import { cn } from "@/lib/utils";
 
 interface DistinctionSectionProps {
-  /** Section number in the running order. Differs per page. */
-  index?: string;
+  eyebrow?: string;
+  title?: string;
+  /** Closing paragraph beneath the cards. Omit to hide. */
+  body?: string | null;
 }
 
-/** Card surfaces, in the same family as the hero cards. */
-const tones = [
-  { card: "bg-ink text-white", body: "text-white/75", num: "text-white/90" },
-  { card: "bg-brand text-ink", body: "text-ink/75", num: "text-white" },
-  { card: "border border-hairline bg-card text-ink", body: "text-muted-foreground", num: "text-hairline" },
-  { card: "bg-pink text-ink", body: "text-ink/75", num: "text-white" },
-];
+const motifs = ["venn", "rings", "orbit", "dots"] as const;
 
 /**
- * The Muronlabs distinction — the value statements that set the studio apart,
- * as four tall cards. Reused on the homepage and the Studio page.
+ * Why Muronlabs — the studio's four standards as a 2×2 of cards, alternating
+ * charcoal (with gradient artwork) and white (with a line drawing).
  */
-export function DistinctionSection({ index }: DistinctionSectionProps) {
+export function DistinctionSection({
+  eyebrow = homeCopy.why.eyebrow,
+  title = homeCopy.why.title,
+  body = homeCopy.why.body,
+}: DistinctionSectionProps) {
   return (
-    <section aria-labelledby="distinction-heading" className="relative z-[1] bg-paper py-24 lg:py-36">
+    <section aria-labelledby="distinction-heading" className="py-20 lg:py-28">
       <div className="shell">
-        <SectionHeading
-          id="distinction-heading"
-          index={index}
-          eyebrow="Why Muronlabs"
-          title="Not a software factory. A studio."
-          description="The standards every engagement is held to, whichever squad you work with."
-        />
+        <SectionHeading id="distinction-heading" eyebrow={eyebrow} title={title} />
 
-        <ul className="group/cards mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-[1.875rem]">
+        <ul className="mx-auto mt-14 grid max-w-[54rem] gap-2 md:grid-cols-2">
           {distinctions.map((item, i) => {
-            const tone = tones[i % tones.length];
+            const dark = i === 0 || i === 3;
             return (
               <Reveal
                 as="li"
                 key={item.title}
                 delay={i * 0.08}
                 className={cn(
-                  "flex min-h-[20rem] flex-col justify-between gap-10 rounded-xl p-8 transition-[opacity,transform] duration-500 group-hover/cards:opacity-75 hover:-translate-y-1 hover:!opacity-100 lg:min-h-[26rem]",
-                  tone.card,
+                  "flex min-h-[26rem] flex-col justify-between overflow-hidden rounded-[4px] p-2",
+                  dark ? "bg-ink-2 text-white" : "bg-surface text-ink",
                 )}
               >
-                <span aria-hidden="true" className={cn("font-sans text-[5.875rem] leading-none font-light", tone.num)}>
-                  0{i + 1}
-                </span>
-                <div>
-                  <h3 className="text-[1.75rem] leading-tight font-medium">{item.title}</h3>
-                  <p className={cn("mt-3 text-base leading-6", tone.body)}>{item.body}</p>
+                {dark ? (
+                  <GradientArt variant="stack" className="h-40 w-full rounded-[2px]" />
+                ) : (
+                  <div className="flex h-40 items-center justify-start px-6 text-ink">
+                    <LineMotif kind={motifs[i]} className="h-28" />
+                  </div>
+                )}
+                <div className="p-6 pt-8">
+                  <h3 className="display text-[1.75rem]">{item.title}</h3>
+                  <p className={cn("mt-3 max-w-[18rem] text-[15px] leading-6", dark ? "text-white/70" : "text-muted-foreground")}>{item.body}</p>
                 </div>
               </Reveal>
             );
           })}
         </ul>
+
+        {body ? (
+          <Reveal delay={0.1}>
+            <p className="mx-auto mt-14 max-w-[36rem] text-center text-[17px] leading-7 text-pretty text-muted-foreground">{body}</p>
+          </Reveal>
+        ) : null}
       </div>
     </section>
   );

@@ -21,31 +21,29 @@ interface LegalPageProps {
 export function LegalPage({ eyebrow, title, lastUpdated, intro, sections }: LegalPageProps) {
   return (
     <main className="flex flex-1 flex-col">
-      <PageHero glow eyebrow={eyebrow} title={title} narrow />
+      <PageHero eyebrow={eyebrow} title={title} narrow />
 
-      <section className="relative z-[1] bg-paper pb-28">
-        <div className="shell">
-          <div className="max-w-3xl">
-          <p className="text-sm font-medium tracking-[2px] text-ink uppercase">
-            Last updated: {lastUpdated}
-          </p>
-          <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground">{intro}</p>
+      <section className="px-6 pt-2">
+        <div className="sheet mx-auto px-6 py-12 sm:px-12 lg:py-16">
+          <div className="mx-auto max-w-[40rem]">
+            <p className="text-[12px] font-medium tracking-[0.12em] text-muted-foreground uppercase">Last updated: {lastUpdated}</p>
+            <p className="mt-6 text-[17px] leading-7 text-pretty text-muted-foreground">{intro}</p>
 
-          <div className="mt-14 space-y-12">
-            {sections.map((section, i) => (
-              <section key={section.heading} className="space-y-3 border-t border-muted-foreground/70 pt-8">
-                <h2 className="flex items-baseline gap-3 text-2xl font-medium text-ink">
-                  <span className="text-base text-brand-deep">/0{i + 1}</span>
-                  {section.heading}
-                </h2>
-                {section.body.map((paragraph, j) => (
-                  <p key={j} className="text-base leading-relaxed text-muted-foreground">
-                    {paragraph}
-                  </p>
-                ))}
-              </section>
-            ))}
-          </div>
+            <div className="mt-12 space-y-10">
+              {sections.map((section, i) => (
+                <section key={section.heading} className="space-y-3 border-t border-hairline pt-8">
+                  <h2 className="flex items-baseline gap-3 text-[1.375rem] font-medium text-ink">
+                    <span className="text-[13px] text-muted-foreground">/0{i + 1}</span>
+                    {section.heading}
+                  </h2>
+                  {section.body.map((paragraph, j) => (
+                    <p key={j} className="text-[15px] leading-6 text-muted-foreground">
+                      {paragraph}
+                    </p>
+                  ))}
+                </section>
+              ))}
+            </div>
           </div>
         </div>
       </section>

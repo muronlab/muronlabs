@@ -1,61 +1,43 @@
-import { workflowPhases } from "@/lib/site-config";
-import { SectionHeading } from "./section-heading";
-import { GetInTouchButton } from "@/components/contact/contact-drawer";
-import { LineBreaker } from "@/components/ui/line-breaker";
+import { homeCopy, workflowPhases } from "@/lib/site-config";
+import { PhaseAccordion } from "./phase-accordion";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
 
 /**
- * The execution framework as an editorial index: a sticky brief on the left,
- * and the four phases on the right, each with an oversized light numeral that
- * turns green on hover.
+ * The execution framework on a charcoal panel: statement and call to action
+ * up top, the four phases as a horizontal accordion beneath.
  */
 export function WorkflowSection() {
+  const { workflow } = homeCopy;
+
   return (
-    <section id="workflow" aria-labelledby="workflow-heading" className="relative z-[1] scroll-mt-24 bg-paper py-24 lg:py-36">
-      <div className="shell grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-24">
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <SectionHeading
-            id="workflow-heading"
-            eyebrow="Our Workflow"
-            title="From first sketch to secure launch."
-            description="A structured four-phase framework. You see working software early and stay in the loop at every step."
-          />
-          <Reveal delay={0.18} className="mt-10">
-            <GetInTouchButton tone="outline">Plan your build</GetInTouchButton>
+    <section id="workflow" aria-labelledby="workflow-heading" className="scroll-mt-20 px-6">
+      <div className="rounded-md bg-ink-2 px-5 py-12 text-white sm:px-10 lg:px-12 lg:py-16">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <Reveal>
+              <Eyebrow tone="dark">{workflow.eyebrow}</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h2 id="workflow-heading" className="display mt-6 max-w-[34rem] text-[2.5rem] text-balance sm:text-[3rem] lg:text-[3.5rem]">
+                {workflow.title}
+              </h2>
+            </Reveal>
+            <Reveal delay={0.16}>
+              <p className="mt-6 max-w-[22rem] text-[15px] leading-6 text-white/80">{workflow.intro}</p>
+            </Reveal>
+          </div>
+          <Reveal delay={0.2}>
+            <PillButton href="/contact" tone="white">
+              {workflow.cta}
+            </PillButton>
           </Reveal>
         </div>
 
-        <ol>
-          <LineBreaker />
-          {workflowPhases.map((phase, i) => (
-            <li key={phase.phase}>
-              <Reveal delay={i * 0.05} className="group grid gap-6 py-10 sm:grid-cols-[7rem_1fr] sm:gap-10 lg:py-12">
-                <span
-                  aria-hidden="true"
-                  className="font-sans text-[4.5rem] leading-none font-light text-hairline transition-colors duration-500 group-hover:text-brand md:text-[5.875rem]"
-                >
-                  0{i + 1}
-                </span>
-                <div>
-                  <p className="text-base text-brand-deep">{phase.phase}</p>
-                  <h3 className="mt-2 text-[1.75rem] leading-tight font-medium text-ink">{phase.title}</h3>
-                  <p className="mt-4 max-w-xl text-base leading-6 text-muted-foreground">{phase.body}</p>
-                  <ul className="mt-5 flex flex-wrap gap-2" aria-label="Deliverables">
-                    {phase.deliverables.map((d) => (
-                      <li
-                        key={d}
-                        className="rounded-full border border-hairline px-3 py-1 text-sm text-muted-foreground transition-colors duration-300 group-hover:border-muted-foreground"
-                      >
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-              <LineBreaker />
-            </li>
-          ))}
-        </ol>
+        <Reveal delay={0.1} className="mt-12 lg:mt-14">
+          <PhaseAccordion phases={workflowPhases} />
+        </Reveal>
       </div>
     </section>
   );

@@ -7,18 +7,24 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-brand: var(--brand);
-  --color-brand-foreground: var(--brand-foreground);
-  --color-brand-deep: var(--brand-deep);
-  --color-pink: var(--pink);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
   --color-ink: var(--ink);
-  --color-paper: var(--paper);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
   --color-hairline: var(--hairline);
-  --font-sans: var(--font-flex), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-gsans), var(--font-flex), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono);
-  --font-pixel: var(--font-undefined), ui-monospace, monospace;
-  --font-heading: var(--font-gsans), ui-sans-serif, system-ui, sans-serif;
+  --color-chip: var(--chip);
+  --color-sky: var(--sky);
+  --color-art: var(--art);
+  --color-art-2: var(--art-2);
+  --color-grad-purple: #934bf0;
+  --color-grad-violet: #8e94ff;
+  --color-grad-pink: #fa7fd8;
+  --color-grad-coral: #fa7465;
+  --color-grad-orange: #f08651;
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-nav: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -55,112 +61,105 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --animate-ripple: ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite;
-  @keyframes ripple {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    }
-  50% {
-    transform: translate(-50%, -50%) scale(0.9);
-    }
-  }
 }
 
-/* Palette — soft grey canvas, warm ink, a signature green and a blush pink.
-   Mirrors the flow-gradient artwork that anchors the hero. */
+/* Palette — a cool grey canvas, white sheets, charcoal panels and near-black
+   ink. Colour lives only in the grainy gradient artwork. */
 :root {
-  --paper: #ededed;
-  --ink: #242422;
-  --hairline: #c9c8c7;
-  --brand-deep: #5c9376;
-  --pink: #f5a6af;
+  --canvas: #f4f6f6;
+  --surface: #ffffff;
+  --ink: #121211;
+  --ink-2: #1c1c1c;
+  --ink-3: #262626;
+  --hairline: #e6eaea;
+  --chip: #f1f4f4;
+  --sky: #e2eaf0;
+  --art: #eef1f3;
+  --art-2: #e2e6e9;
 
-  --background: #ededed;
-  --foreground: #242422;
-  --brand: #70b494;
-  --brand-foreground: #242422;
-  --card: #f8f8f8;
-  --card-foreground: #242422;
-  --popover: #f8f8f8;
-  --popover-foreground: #242422;
-  --primary: #242422;
+  --background: #f4f6f6;
+  --foreground: #121211;
+  --card: #ffffff;
+  --card-foreground: #121211;
+  --popover: #ffffff;
+  --popover-foreground: #121211;
+  --primary: #121211;
   --primary-foreground: #ffffff;
-  --secondary: #e4e4e3;
-  --secondary-foreground: #242422;
-  --muted: #e4e4e3;
-  --muted-foreground: #6a6a6a;
-  --accent: #e4e4e3;
-  --accent-foreground: #242422;
+  --secondary: #f1f4f4;
+  --secondary-foreground: #121211;
+  --muted: #f1f4f4;
+  --muted-foreground: #5c666d;
+  --accent: #f1f4f4;
+  --accent-foreground: #121211;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #c9c8c7;
-  --input: #c9c8c7;
-  --ring: #70b494;
-  --chart-1: #70b494;
-  --chart-2: #5c9376;
-  --chart-3: #f5a6af;
-  --chart-4: #6a6a6a;
-  --chart-5: #242422;
-  --radius: 0.75rem;
-  --sidebar: #ededed;
-  --sidebar-foreground: #242422;
-  --sidebar-primary: #242422;
+  --border: #e6eaea;
+  --input: #e6eaea;
+  --ring: #121211;
+  --chart-1: #934bf0;
+  --chart-2: #fa7fd8;
+  --chart-3: #fa7465;
+  --chart-4: #8e94ff;
+  --chart-5: #121211;
+  --radius: 0.625rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #121211;
+  --sidebar-primary: #121211;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e4e4e3;
-  --sidebar-accent-foreground: #242422;
-  --sidebar-border: #c9c8c7;
-  --sidebar-ring: #70b494;
+  --sidebar-accent: #f1f4f4;
+  --sidebar-accent-foreground: #121211;
+  --sidebar-border: #e6eaea;
+  --sidebar-ring: #121211;
 }
 
-/* Local inversion for ink panels (cards, drawers) — not a site-wide theme. */
+/* Local inversion for charcoal panels — not a site-wide theme. */
 .dark {
-  --background: #242422;
+  --background: #1c1c1c;
   --foreground: #ffffff;
-  --brand: #70b494;
-  --brand-foreground: #242422;
-  --card: #2e2e2c;
+  --card: #262626;
   --card-foreground: #ffffff;
-  --popover: #2e2e2c;
+  --popover: #262626;
   --popover-foreground: #ffffff;
   --primary: #ffffff;
-  --primary-foreground: #242422;
-  --secondary: #3a3a38;
+  --primary-foreground: #121211;
+  --secondary: #2b2b2b;
   --secondary-foreground: #ffffff;
-  --muted: #3a3a38;
+  --muted: #2b2b2b;
   --muted-foreground: rgb(255 255 255 / 0.7);
-  --accent: #3a3a38;
+  --accent: #2b2b2b;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: rgb(255 255 255 / 0.2);
-  --input: rgb(255 255 255 / 0.3);
-  --ring: #70b494;
-  --sidebar: #242422;
+  --border: rgb(255 255 255 / 0.12);
+  --input: rgb(255 255 255 / 0.2);
+  --ring: #ffffff;
+  --sidebar: #1c1c1c;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #70b494;
-  --sidebar-primary-foreground: #242422;
-  --sidebar-accent: #3a3a38;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #121211;
+  --sidebar-accent: #2b2b2b;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgb(255 255 255 / 0.2);
-  --sidebar-ring: #70b494;
+  --sidebar-border: rgb(255 255 255 / 0.12);
+  --sidebar-ring: #ffffff;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-  }
-  html {
-    @apply font-sans;
-    /* Smooth in-page anchor scrolling, offset for the fixed header. */
-    scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    font-size: 1rem;
+    line-height: 1.5;
   }
   ::selection {
-    background: var(--brand);
-    color: var(--ink);
+    background: var(--ink);
+    color: #ffffff;
   }
   h1,
   h2,
@@ -176,23 +175,168 @@
   }
 }
 
-/* Pixel headlines (undefined medium) — set the way Magnetto sets it:
-   uppercase, tightened tracking and case-sensitive punctuation. */
-.font-pixel {
-  text-transform: uppercase;
-  letter-spacing: -0.04em;
-  font-feature-settings: "case" on;
+/* ------------------------------------------------------------------ */
+/* Layout primitives                                                   */
+/* ------------------------------------------------------------------ */
+
+/* Content column: 1392px wide with a 24px gutter, as on the reference. */
+.shell {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (max-width: 767px) {
+  .shell {
+    padding-inline: 1.25rem;
+  }
 }
 
-/* ------------------------------------------------------------------ */
-/* Display typography helpers                                          */
-/* ------------------------------------------------------------------ */
+/* A white section card sitting on the grey canvas. */
+.sheet {
+  background: var(--surface);
+  border-radius: 0.375rem;
+}
+
+/* Display type: tight tracking, short leading, regular weight. */
+.display {
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
 .text-balance {
   text-wrap: balance;
 }
 .text-pretty {
   text-wrap: pretty;
 }
+
+/* ------------------------------------------------------------------ */
+/* Gradient artwork                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Film grain laid over every gradient tile. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%22240%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* The tile palette — purple, violet, pink, coral and their pale tints. */
+.g-1 { background-image: linear-gradient(100deg, #b57cf5, #8f45ee); }
+.g-2 { background-image: linear-gradient(100deg, #9a5cf2 0%, #fa7fd8 55%, #fa7465 100%); }
+.g-3 { background-image: linear-gradient(100deg, #fa7465, #fb9a8a); }
+.g-4 { background-image: linear-gradient(100deg, #e6dcff, #a98bff); }
+.g-5 { background-image: linear-gradient(100deg, #ffd0e2, #fda1b8); }
+.g-6 { background-image: linear-gradient(100deg, #fa7fd8, #fa7465); }
+.g-7 { background-image: linear-gradient(100deg, #fa7465 0%, #fa7fd8 45%, #934bf0 100%); }
+.g-8 { background-image: linear-gradient(100deg, #fbe1ee, #d9c9ff 55%, #8e94ff); }
+.g-9 { background-image: linear-gradient(180deg, #934bf0, #fa7fd8); }
+.g-10 { background-image: linear-gradient(180deg, #fa7465, #fa7fd8 50%, #934bf0); }
+.g-11 { background-image: linear-gradient(100deg, #c084fc, #fa7fd8); }
+.g-12 { background-image: linear-gradient(100deg, #fa7fd8, #ffd9ec); }
+.g-13 { background-image: linear-gradient(180deg, #d9c9ff, #8e94ff); }
+.g-14 { background-image: linear-gradient(180deg, #fa7fd8, #ffd9ec 50%, #934bf0); }
+.g-15 { background-image: linear-gradient(100deg, #fa7465, #fa7fd8); }
+.g-16 { background-image: linear-gradient(100deg, #fa7fd8, #934bf0); }
+
+/* Tiles slowly breathe: the gradient drifts and warms. */
+@keyframes tile-breathe {
+  from {
+    background-position: 0% 50%;
+    filter: saturate(1);
+  }
+  to {
+    background-position: 100% 50%;
+    filter: saturate(1.18) brightness(1.03);
+  }
+}
+.tile {
+  background-size: 200% 200%;
+  animation: tile-breathe var(--dur, 9s) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero side bars only (.hero-bar, added in components/home/hero-section) */
+/* Colours, sizes and positions are untouched; only motion is added.   */
+/* ------------------------------------------------------------------ */
+
+/* 1 — Gradient flow: the colours drift left → right inside the bar. */
+@keyframes hero-bar-flow {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+.tile.hero-bar {
+  overflow: hidden;
+  background-size: 300% 100%;
+  will-change: background-position;
+  /* Speed: per-bar duration (6–14s) and delay come from --flow-dur / --flow-delay,
+     set in gradient-art.tsx. Change the fallbacks here to retime globally. */
+  animation: hero-bar-flow var(--flow-dur, 10s) ease-in-out var(--flow-delay, 0s) infinite alternate;
+}
+
+/* The shared grain sits on ::after; on hero bars it moves to ::before (same
+   grain) so ::after is free for the light sweep. */
+.tile.hero-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%22240%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* 2 — Soft light sweep: a 40%-wide highlight crossing left → right. */
+@keyframes hero-bar-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+.tile.hero-bar::after {
+  inset: 0 auto 0 0;
+  width: 40%;
+  opacity: 1;
+  mix-blend-mode: soft-light;
+  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background-size: auto;
+  transform: translateX(-100%);
+  /* Speed: per-bar sweep (8–12s) and delay come from --sweep-dur / --sweep-delay. */
+  animation: hero-bar-sweep var(--sweep-dur, 10s) linear var(--sweep-delay, 0s) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile.hero-bar,
+  .tile.hero-bar::after {
+    animation: none;
+  }
+  .tile.hero-bar::after {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion helpers                                                      */
+/* ------------------------------------------------------------------ */
 
 /* Horizontal auto-scrolling ticker. */
 @keyframes marquee {
@@ -204,7 +348,7 @@
   }
 }
 .animate-marquee {
-  animation: marquee 32s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
@@ -224,223 +368,144 @@
   background-size: 100% 1px;
 }
 
-/* ================================================================== */
-/* Flow design system                                                  */
-/* ================================================================== */
-
-/* Fluid root size — rem-based type and spacing breathe with the viewport
-   between tablet and wide desktop. */
-html {
-  font-size: 1rem;
-}
-@media (max-width: 1600px) {
-  html {
-    font-size: calc(0.343rem + 0.657vw);
-  }
-}
-@media (max-width: 991px) {
-  html {
-    font-size: 0.875rem;
-  }
-}
-@media (max-width: 767px) {
-  html {
-    font-size: 0.8125rem;
-  }
-}
-
-/* Page gutter + max width shared by every section. */
-.shell {
-  width: 100%;
-  max-width: 90rem;
-  margin-inline: auto;
-  padding-inline: 5rem;
-}
-@media (max-width: 991px) {
-  .shell {
-    padding-inline: 2.5rem;
-  }
-}
-@media (max-width: 767px) {
-  .shell {
-    padding-inline: 1.25rem;
-  }
-}
-
-/* Hero window reveal: the gradient opens from a small rounded slot to a
-   near-full-bleed panel; scroll then pushes it out to the edges. */
-@keyframes flow-window-open {
-  from {
-    clip-path: inset(50% 40% 50% 40% round 60px);
-  }
-  to {
-    clip-path: inset(1% 0.5% 1% 0.5% round 20px);
-  }
-}
-.flow-window {
-  clip-path: inset(50% 40% 50% 40% round 60px);
-  animation: flow-window-open 1.8s cubic-bezier(0.77, 0, 0.18, 1) 0.3s forwards;
-}
-@media (prefers-reduced-motion: reduce) {
-  .flow-window {
-    animation: none;
-    clip-path: inset(0 round 0);
-  }
-}
-
-/* Dotted orbit rings used around the green circle motif. */
-.orbit-dots {
-  border: 2px dotted var(--hairline);
-  border-radius: 9999px;
-}
-@keyframes orbit-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.animate-orbit {
-  animation: orbit-spin 90s linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .animate-orbit {
-    animation: none;
-  }
-}
-
-/* Liquid button — the pill and the arrow bead are separate shapes that
-   merge through the goo filter as the bead slides out on hover. */
-.liquid-btn .liquid-bead {
-  transform: translateX(-70%) scale(0.55);
-  opacity: 0;
-  transition:
-    transform 0.9s cubic-bezier(0.135, 0.9, 0.15, 1),
-    opacity 0.35s ease;
-}
-.liquid-btn:hover .liquid-bead,
-.liquid-btn:focus-visible .liquid-bead {
-  transform: translateX(0) scale(1);
-  opacity: 1;
-}
-.liquid-btn .liquid-arrow {
-  transition: transform 0.6s cubic-bezier(0.135, 0.9, 0.15, 1);
-}
-.liquid-btn:hover .liquid-arrow,
-.liquid-btn:focus-visible .liquid-arrow {
-  transform: translateX(200%);
-}
-.liquid-btn .liquid-arrow-next {
-  transform: translateX(-200%);
-}
-.liquid-btn:hover .liquid-arrow-next,
-.liquid-btn:focus-visible .liquid-arrow-next {
-  transform: translateX(0);
-}
-.liquid-btn .liquid-label {
-  transition:
-    background-color 0.4s ease,
-    color 0.4s ease,
-    border-color 0.4s ease;
-}
-@media (hover: none) {
-  .liquid-btn .liquid-bead {
-    transform: none;
-    opacity: 1;
-  }
-}
-
-/* Brand wordmark — MUR●N. The dot takes the signature green. */
+/* ------------------------------------------------------------------ */
+/* Brand wordmark — "Mur●nlabs": the "o" becomes a gradient dot.       */
+/* ------------------------------------------------------------------ */
 .wordmark {
-  position: relative;
   display: inline-flex;
   align-items: baseline;
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.5rem;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  letter-spacing: -0.045em;
   line-height: 1;
   color: inherit;
 }
 .wordmark-dot {
-  width: 0.34em;
-  height: 0.34em;
+  display: inline-block;
+  width: 0.56em;
+  height: 0.56em;
+  margin: 0 0.04em;
   border-radius: 9999px;
-  background: var(--wordmark-dot, var(--brand));
-  display: inline-block;
-  margin: 0 0.06em;
   align-self: center;
-}
-.wordmark-letters,
-.wordmark-dot {
-  transition: opacity 140ms ease;
-}
-.wordmark[data-fuzz] > .wordmark-letters,
-.wordmark[data-fuzz] > .wordmark-dot {
-  opacity: 0;
-  transition-delay: 60ms;
-}
-.wordmark-fuzz {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-start;
-  opacity: 0;
-  transition: opacity 140ms ease;
-}
-.wordmark[data-fuzz] > .wordmark-fuzz {
-  opacity: 1;
-}
-.wordmark-fuzz > .wordmark-dot {
-  align-self: center;
-}
-.wordmark-fuzz-part {
-  display: inline-block;
-  width: max-content;
-  flex: 0 0 auto;
+  transform: translateY(0.02em);
+  background: var(--wordmark-dot, linear-gradient(135deg, #934bf0, #fa7fd8 60%, #fa7465));
 }
 
-/* Pill form fields. */
-.field-pill {
+/* ------------------------------------------------------------------ */
+/* Forms                                                               */
+/* ------------------------------------------------------------------ */
+.field {
   width: 100%;
-  height: 3.25rem;
+  height: 3rem;
   border: 1px solid var(--hairline);
-  border-radius: 30px;
-  background: rgb(255 255 255 / 0.35);
-  padding-inline: 1.25rem;
-  font-size: 1rem;
+  border-radius: 0.25rem;
+  background: var(--canvas);
+  padding-inline: 1rem;
+  font-size: 0.9375rem;
   color: var(--ink);
   outline: none;
   transition:
     border-color 0.25s ease,
     background-color 0.25s ease;
 }
-.field-pill::placeholder {
-  color: var(--muted-foreground);
+.field::placeholder {
+  color: #8a9196;
 }
-.field-pill:hover {
-  border-color: var(--muted-foreground);
+.field:hover {
+  border-color: #cfd6d8;
 }
-.field-pill:focus-visible {
-  border-color: var(--brand-deep);
-  background: rgb(255 255 255 / 0.6);
+.field:focus-visible {
+  border-color: var(--ink);
+  background: #ffffff;
 }
-textarea.field-pill {
+textarea.field {
   height: auto;
   min-height: 9rem;
-  border-radius: 22px;
-  padding-block: 0.9rem;
+  padding-block: 0.8rem;
   resize: vertical;
 }
-select.field-pill {
+select.field {
   appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 fill=%22none%22 stroke=%22%23121211%22 stroke-width=%221.5%22%3E%3Cpath d=%22m4 6 4 4 4-4%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
 }
 
-/* Solid white variant — used on the frosted contact drawer. */
-.field-pill.field-solid {
-  background: #ffffff;
-  border-color: rgb(201 200 199 / 0.7);
+/* ------------------------------------------------------------------ */
+/* Insights card cover band: a multi-stop gradient that slowly drifts. */
+/* ------------------------------------------------------------------ */
+@keyframes cover-band-flow {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
 }
-.field-pill.field-solid:focus-visible {
-  border-color: var(--brand-deep);
-  background: #ffffff;
+.cover-band {
+  background-image: linear-gradient(90deg, #934bf0, #b57cf5 15%, #fa7fd8 35%, #fa7465 55%, #fa7fd8 72%, #934bf0 100%);
+  background-size: 200% 100%;
+  animation: cover-band-flow 12s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-band {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Closing call-out bands (GradientArt variant="band")                 */
+/* Long multi-stop gradients that drift slowly, with a visible grain.  */
+/* ------------------------------------------------------------------ */
+@keyframes band-drift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+.tile.band-tile {
+  background-size: 135% 100%;
+  filter: saturate(1.12);
+  will-change: background-position;
+  /* Speed: raise 16s to slow the drift; per-band offsets come from --delay. */
+  animation: band-drift 16s ease-in-out infinite alternate;
+  animation-delay: calc(var(--delay, 0s) * -2);
+}
+/* Stronger, finer noise than the shared grain. */
+.tile.band-tile::after {
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-size: 160px 160px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile.band-tile {
+    animation: none;
+  }
+}
+
+/* Hero phone strip: the same visible noise as the side bars. */
+.tile.grain-strong::after {
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-size: 160px 160px;
+}
+
+/* Navigation type, matched to the reference: Inter 14px / 500, tight
+   tracking and Inter's alternate glyphs. Applied to the header only. */
+.nav-type {
+  font-family: var(--font-nav);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: -0.02em;
+  font-feature-settings: "cv03" on, "cv04" on, "cv09" on, "cv11" on;
+}
+/* The nav's call-to-action button: same face, slightly different tracking. */
+.nav-type.nav-btn {
+  letter-spacing: -0.3px;
+  font-feature-settings: normal;
 }

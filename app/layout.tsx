@@ -1,42 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Google_Sans, Google_Sans_Flex } from "next/font/google";
-import localFont from "next/font/local";
+import { Inter, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/navigation/site-header";
-import { ContactDrawerProvider } from "@/components/contact/contact-drawer";
-import { GooFilter } from "@/components/ui/liquid-button";
 
-/** Body copy, UI and eyebrows. */
-const googleSansFlex = Google_Sans_Flex({
-  variable: "--font-flex",
-  adjustFontFallback: false,
-  fallback: ["system-ui", "sans-serif"],
+/** The single typeface: body, UI and display, regular and italic. */
+const schibsted = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
-/** Display headings. */
-const googleSans = Google_Sans({
-  variable: "--font-gsans",
-  adjustFontFallback: false,
-  fallback: ["system-ui", "sans-serif"],
+/** Navigation only — Labrina's nav sets Inter at 14px / 500. */
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-/** Pixel display face for the large headlines — undefined medium (OFL), self-hosted. */
-const undefinedMedium = localFont({
-  src: "./fonts/undefined-medium.woff2",
-  variable: "--font-undefined",
-  weight: "500",
-  fallback: ["ui-monospace", "monospace"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["500"],
+  display: "swap",
 });
 
 const defaultTitle = `${siteConfig.name} — ${siteConfig.tagline}`;
@@ -58,6 +42,8 @@ export const metadata: Metadata = {
     "UI/UX design systems",
     "intelligent search systems",
     "product engineering",
+    "neuroscience data science",
+    "EEG and fMRI analysis pipelines",
     "Sri Lanka",
   ],
   authors: [{ name: siteConfig.name }],
@@ -87,7 +73,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "light",
-  themeColor: "#ededed",
+  themeColor: "#f4f6f6",
 };
 
 export default function RootLayout({
@@ -96,17 +82,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn("h-full antialiased", googleSansFlex.variable, googleSans.variable, undefinedMedium.variable, geistMono.variable, "font-sans")}
-    >
+    <html lang="en" className={cn("h-full antialiased", schibsted.variable, inter.variable, "font-sans")}>
       <body id="top" className="flex min-h-full flex-col">
         <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
-        <GooFilter />
-        <ContactDrawerProvider>
-          <SiteHeader />
-          {children}
-        </ContactDrawerProvider>
+        <SiteHeader />
+        {children}
       </body>
     </html>
   );

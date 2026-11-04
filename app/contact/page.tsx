@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/site-footer";
-import { PageHero } from "@/components/page-hero";
 import { ProjectForm } from "@/components/contact/project-form";
+import { Reveal } from "@/components/ui/reveal";
+import { GradientArt } from "@/components/visuals/gradient-art";
 import { JsonLd } from "@/components/json-ld";
 import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { siteConfig, socialItems } from "@/lib/site-config";
@@ -21,61 +22,61 @@ export default function ContactPage() {
           { name: "Start a Project", path: "/contact" },
         ])}
       />
-      <PageHero
-        glow
-        eyebrow="Start a Project"
-        title="Have a complex problem? Let’s engineer the solution."
-        description="Reach out with your project details. Whether you are looking for an immersive application interface, custom AI agent workflows, or a full system build, our engineers are ready to ship."
-      />
 
-      <section className="relative z-[1] bg-paper pb-28">
-        <div className="shell grid gap-16 lg:grid-cols-[1.4fr_1fr]">
-          <ProjectForm />
+      <section aria-labelledby="contact-heading" className="relative px-2 pt-[4.5rem]">
+        <div className="relative overflow-hidden rounded-md">
+          {/* The gradient band sits behind the lower half of the form. */}
+          <GradientArt variant="strip" className="absolute inset-x-0 bottom-0 h-[55%]" delay={0.3} />
 
-          <aside className="space-y-10 lg:border-l lg:border-hairline lg:pl-12">
-            <div className="space-y-2">
-              <h2 className="text-sm font-medium tracking-[2px] text-ink uppercase">Email</h2>
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="link-underline font-display text-2xl text-ink hover:text-brand-deep"
-              >
-                {siteConfig.contact.email}
-              </a>
+          <div className="shell relative grid gap-10 py-14 lg:grid-cols-[1fr_1.45fr] lg:gap-16 lg:py-24">
+            <div className="lg:pt-4">
+              <Reveal immediate delay={0.15}>
+                <h1 id="contact-heading" className="display max-w-[20rem] text-[2.75rem] text-balance text-ink sm:text-[3.5rem] lg:text-[3.75rem]">
+                  Let’s build what’s next.
+                </h1>
+              </Reveal>
+              <Reveal immediate delay={0.25}>
+                <p className="mt-6 max-w-[22rem] text-[16px] leading-6 text-muted-foreground">
+                  Tell us about your product and where it needs to go. We reply within one business day with a clear next step — no
+                  sales script.
+                </p>
+              </Reveal>
+              <Reveal immediate delay={0.35} className="mt-10 grid gap-6 text-[15px] sm:grid-cols-2 lg:grid-cols-1">
+                <div>
+                  <p className="text-[12px] font-medium tracking-[0.12em] text-muted-foreground uppercase">Email</p>
+                  <a href={`mailto:${siteConfig.contact.email}`} className="link-underline mt-1 inline-block text-ink">
+                    {siteConfig.contact.email}
+                  </a>
+                </div>
+                <div>
+                  <p className="text-[12px] font-medium tracking-[0.12em] text-muted-foreground uppercase">Phone</p>
+                  <a href={`tel:${siteConfig.contact.phone.replace(/\s+/g, "")}`} className="link-underline mt-1 inline-block text-ink">
+                    {siteConfig.contact.phone}
+                  </a>
+                </div>
+                <div>
+                  <p className="text-[12px] font-medium tracking-[0.12em] text-muted-foreground uppercase">Elsewhere</p>
+                  <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                    {socialItems.map((s) => (
+                      <li key={s.href}>
+                        <a href={s.href} target="_blank" rel="noopener noreferrer" className="link-underline text-ink">
+                          {s.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
             </div>
-            <div className="space-y-2">
-              <h2 className="text-sm font-medium tracking-[2px] text-ink uppercase">Phone</h2>
-              <a
-                href={`tel:${siteConfig.contact.phone.replace(/\s+/g, "")}`}
-                className="link-underline font-display text-2xl text-ink hover:text-brand-deep"
-              >
-                {siteConfig.contact.phone}
-              </a>
-            </div>
-            <div className="space-y-3">
-              <h2 className="text-sm font-medium tracking-[2px] text-ink uppercase">Elsewhere</h2>
-              <ul className="flex flex-wrap gap-x-5 gap-y-2">
-                {socialItems.map((s) => (
-                  <li key={s.href}>
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-base text-muted-foreground hover:text-brand"
-                    >
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <p className="border-t border-hairline pt-6 text-base leading-relaxed text-muted-foreground">
-              Built in Sri Lanka, designed for the world. We typically respond within one business day.
-            </p>
-          </aside>
+
+            <Reveal immediate delay={0.3} className="sheet p-6 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.25)] sm:p-8">
+              <ProjectForm />
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter showCta={false} />
     </main>
   );
 }

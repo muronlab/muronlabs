@@ -1,11 +1,12 @@
 import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
-import { SectionHeading } from "@/components/home/section-heading";
+import { CapabilityTicker } from "@/components/home/capability-ticker";
 import { DistinctionSection } from "@/components/home/distinction-section";
 import { CtaSection } from "@/components/home/cta-section";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { Chip } from "@/components/ui/chip";
 import { Reveal } from "@/components/ui/reveal";
-import { LineBreaker } from "@/components/ui/line-breaker";
-import { FlowGradient, type FlowPalette } from "@/components/visuals/flow-gradient";
+import { ArtPanel } from "@/components/visuals/art-panel";
 import { JsonLd } from "@/components/json-ld";
 import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { divisions, siteConfig } from "@/lib/site-config";
@@ -13,16 +14,14 @@ import { divisions, siteConfig } from "@/lib/site-config";
 export const metadata = buildPageMetadata({
   title: "About",
   description:
-    "Muronlabs is a multidisciplinary technology studio housing engineering, agentic AI and digital artistry under one coordinated roof.",
+    "Muronlabs is a multidisciplinary technology studio housing engineering, AI & data science and digital artistry under one coordinated roof.",
   path: "/studio",
 });
 
-const divisionPalette: FlowPalette[] = ["dev", "ai", "arts"];
-
 const principles = [
-  { title: "Understand first", body: "We map the objective, the data and the constraints before choosing a single tool." },
-  { title: "Show, then build", body: "Real prototypes come before production code, so decisions are made on something you can touch." },
-  { title: "Own the outcome", body: "Clean, documented code you fully own — and a team that stays on call after launch." },
+  { title: "Understand first.", body: "We map the objective, the data and the constraints before choosing a single tool." },
+  { title: "Show, then build.", body: "Real prototypes come before production code, so decisions are made on something you can touch." },
+  { title: "Own the outcome.", body: "Clean, documented code you fully own — and a team that stays on call after launch." },
 ];
 
 export default function AboutPage() {
@@ -35,97 +34,101 @@ export default function AboutPage() {
         ])}
       />
       <PageHero
-        glow
-        eyebrow="About"
+        art
+        eyebrow="About Muronlabs"
         title="One studio. Three disciplines. Zero friction."
-        description="Muronlabs is an elite multidisciplinary technology studio. We unify high-performance software engineering, intelligent agentic AI and immersive digital artistry into a singular, seamless ecosystem — so the creative brain, the core infrastructure and the automation layer ship as one coordinated team."
+        description="An elite multidisciplinary technology studio: software engineering, AI & data science and digital artistry shipping as one coordinated team."
       />
 
-      {/* 01 — the craft, stated over the flow gradient */}
-      <section aria-label="The craft" className="relative z-[1] bg-paper pb-24 lg:pb-36">
-        <div className="shell">
-          <Reveal>
-            <div data-flow-root className="relative min-h-[26rem] overflow-hidden rounded-[20px] lg:min-h-[36rem]">
-              <FlowGradient />
-              <div className="absolute inset-0 bg-black/15" />
-              <div className="relative flex min-h-[26rem] flex-col justify-end p-8 lg:min-h-[36rem] lg:p-16">
-                <p className="text-lg font-medium text-white/75 lg:text-2xl">The Craft</p>
-                <p className="mt-4 max-w-4xl font-display text-3xl leading-[1.2] text-white lg:text-[3.25rem]">
-                  {siteConfig.tagline}
-                </p>
-              </div>
-            </div>
-          </Reveal>
+      <CapabilityTicker />
 
-          <ul className="mt-16 grid gap-10 md:grid-cols-3 lg:mt-24">
+      <DistinctionSection
+        eyebrow="What we believe"
+        title="Four standards we don’t bend, even when it’s inconvenient."
+        body={null}
+      />
+
+      {/* Our story */}
+      <section aria-labelledby="story-heading" className="px-6">
+        <div className="sheet px-6 py-12 sm:px-12 lg:py-16">
+          <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <Reveal>
+              <Eyebrow tone="chip">Our story</Eyebrow>
+            </Reveal>
+            <div>
+              <Reveal delay={0.08}>
+                <h2 id="story-heading" className="display text-[2.25rem] text-balance text-ink sm:text-[2.75rem] lg:text-[3rem]">
+                  We started Muronlabs so products could ship as one coordinated whole.
+                </h2>
+              </Reveal>
+              <Reveal delay={0.16} className="mt-8 grid gap-6 text-[15px] leading-6 text-muted-foreground md:grid-cols-2">
+                <p>{siteConfig.description}</p>
+                <p>
+                  The creative brain, the core infrastructure and the automation layer sit at the same table from day one — so the
+                  product you see in the first prototype is the product that reaches production. Built in Sri Lanka, designed for the
+                  world.
+                </p>
+              </Reveal>
+            </div>
+          </div>
+
+          <ul className="mt-12 grid gap-2 md:grid-cols-3 lg:mt-16">
             {principles.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 0.08}>
-                <LineBreaker />
-                <p className="mt-6 text-base text-brand-deep">/0{i + 1}</p>
-                <h3 className="mt-2 text-[1.75rem] leading-tight font-medium text-ink">{p.title}</h3>
-                <p className="mt-3 text-base leading-6 text-muted-foreground">{p.body}</p>
+              <Reveal as="li" key={p.title} delay={i * 0.08} className="flex min-h-[14rem] flex-col justify-between rounded-[4px] bg-canvas p-7">
+                <span className="text-[13px] font-medium text-muted-foreground">/0{i + 1}</span>
+                <div>
+                  <h3 className="display text-[1.5rem] text-ink">{p.title}</h3>
+                  <p className="mt-3 text-[15px] leading-6 text-muted-foreground">{p.body}</p>
+                </div>
               </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* 02 — the divisions */}
-      <section aria-labelledby="divisions-heading" className="relative z-[1] bg-paper py-24 lg:py-36">
+      {/* The divisions */}
+      <section aria-labelledby="divisions-heading" className="py-20 lg:py-28">
         <div className="shell">
-          <SectionHeading
-            id="divisions-heading"
-            index="02"
-            eyebrow="The Divisions"
-            title="Three specialist divisions. One coordinated roof."
-          />
+          <div className="mx-auto flex max-w-[44rem] flex-col items-center text-center">
+            <Reveal>
+              <Eyebrow>The divisions</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h2 id="divisions-heading" className="display mt-6 text-[2.5rem] text-balance text-ink sm:text-[3rem] lg:text-[3.5rem]">
+                Three specialist divisions. One coordinated roof.
+              </h2>
+            </Reveal>
+          </div>
 
-          <div className="mt-16">
-            <LineBreaker />
+          <div className="mt-14 flex flex-col gap-3">
             {divisions.map((division, i) => (
-              <article key={division.id} id={division.id} className="scroll-mt-28">
-                <Reveal
-                  delay={i * 0.06}
-                  className="group grid gap-8 py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)_14rem] lg:items-start lg:gap-16 lg:py-16"
-                >
-                  <div>
-                    <p className="text-base text-brand-deep">/{division.index}</p>
-                    <h3 className="mt-2 text-4xl leading-tight font-medium text-ink lg:text-5xl">{division.name}</h3>
-                    <p className="mt-3 text-base font-semibold text-muted-foreground">{division.tagline}</p>
+              <Reveal as="article" key={division.id} delay={i * 0.05} className="scroll-mt-28">
+                <div id={division.id} className="sheet grid gap-4 p-3 lg:grid-cols-[1fr_1fr_22rem]">
+                  <div className="p-5 pt-6 md:p-8">
+                    <p className="text-[13px] font-medium text-muted-foreground">
+                      <span className="text-ink">/{division.index}</span> {division.mark}
+                    </p>
+                    <h3 className="display mt-4 text-[2rem] text-ink lg:text-[2.5rem]">{division.name}</h3>
+                    <p className="mt-3 text-[15px] font-medium text-ink/80">{division.tagline}</p>
                   </div>
-
-                  <div>
-                    <p className="text-lg leading-7 text-muted-foreground">{division.body}</p>
-                    <ul className="mt-6 flex flex-wrap gap-2">
+                  <div className="flex flex-col justify-between p-5 pt-0 md:p-8 md:pt-0 lg:pt-8">
+                    <p className="text-[15px] leading-6 text-muted-foreground">{division.body}</p>
+                    <ul className="mt-6 flex flex-wrap gap-2" aria-label="Focus areas">
                       {division.focus.map((area) => (
-                        <li
-                          key={area}
-                          className="rounded-full border border-hairline px-3 py-1 text-sm text-muted-foreground transition-colors duration-300 group-hover:border-muted-foreground"
-                        >
-                          {area}
+                        <li key={area}>
+                          <Chip>{area}</Chip>
                         </li>
                       ))}
                     </ul>
                   </div>
-
-                  <div
-                    data-flow-root
-                    className="relative hidden aspect-[3/4] overflow-hidden rounded-[20px] rounded-bl-[60px] lg:block"
-                  >
-                    <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-                      <FlowGradient palette={divisionPalette[i]} resolution={0.35} interactive={false} />
-                    </div>
-                    <span className="absolute bottom-4 left-5 font-pixel text-3xl leading-none text-white">{division.mark}</span>
-                  </div>
-                </Reveal>
-                <LineBreaker />
-              </article>
+                  <ArtPanel kind={division.art} className="order-first aspect-[4/3] lg:order-none lg:aspect-auto lg:min-h-[22rem]" />
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <DistinctionSection index="03" />
       <CtaSection />
 
       <SiteFooter />

@@ -1,10 +1,12 @@
 import { HeroSection } from "@/components/home/hero-section";
-import { EcosystemSection } from "@/components/home/ecosystem-section";
 import { CapabilityTicker } from "@/components/home/capability-ticker";
-import { WorkflowSection } from "@/components/home/workflow-section";
 import { DistinctionSection } from "@/components/home/distinction-section";
-import { FaqSection } from "@/components/home/faq-section";
+import { AboutPreview } from "@/components/home/about-preview";
+import { EcosystemSection } from "@/components/home/ecosystem-section";
+import { WorkflowSection } from "@/components/home/workflow-section";
 import { CtaSection } from "@/components/home/cta-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { FaqSection } from "@/components/home/faq-section";
 import { SiteFooter } from "@/components/site-footer";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageJsonLd } from "@/lib/seo";
@@ -16,12 +18,16 @@ export default function Home() {
       <JsonLd data={faqPageJsonLd()} />
 
       <HeroSection />
-      <EcosystemSection />
       <CapabilityTicker />
-      <WorkflowSection />
       <DistinctionSection />
+      <AboutPreview />
+      <EcosystemSection />
+      <WorkflowSection />
+      <div className="pt-20 lg:pt-28">
+        <CtaSection />
+      </div>
+      <TestimonialsSection />
       <FaqSection />
-      <CtaSection />
 
       <SiteFooter />
     </main>

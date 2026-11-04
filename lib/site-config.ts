@@ -7,18 +7,18 @@
 export const siteConfig = {
   name: "Muronlabs",
   tagline: "Engineering with precision. Designing with soul.",
-  /** Used in the wordmark: the letter at `dotIndex` is replaced by the accent dot. */
-  wordmark: { text: "MURON", dotIndex: 3 },
+  /** Used in the wordmark: the letter at `dotIndex` is replaced by the gradient dot. */
+  wordmark: { text: "Muronlabs", dotIndex: 3 },
   description:
-    "Muronlabs is an elite multidisciplinary technology studio. We unify high-performance software engineering, intelligent agentic AI, and immersive digital artistry into a singular, seamless ecosystem.",
+    "Muronlabs is an elite multidisciplinary technology studio. We unify high-performance software engineering, intelligent agentic AI and data science — including neuroscience data — and immersive digital artistry into a singular, seamless ecosystem.",
   /** Shorter blurb for cards, footers and meta where the full description is too long. */
   shortDescription:
-    "A multidisciplinary technology studio unifying software engineering, agentic AI and digital artistry.",
+    "A multidisciplinary technology studio unifying software engineering, AI & data science and digital artistry.",
   /** Absolute base URL of the deployed site. Override with NEXT_PUBLIC_SITE_URL in production. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://muronlabs.com",
   locale: "en_GB",
-  /** Signature green, lifted from the flow-gradient palette. */
-  accent: "#70b494",
+  /** Signature purple, lifted from the gradient artwork. */
+  accent: "#934bf0",
   contact: {
     // Placeholders — swap for the real studio details before launch.
     email: "hello@muronlabs.com",
@@ -30,25 +30,30 @@ export interface NavItem {
   label: string;
   href: string;
   ariaLabel: string;
+  /** One-line description shown in dropdown menus. */
+  tagline?: string;
 }
 
-/** Primary navigation shown in the header menu. Anchors resolve to homepage sections. */
+/**
+ * Primary navigation, in header order. "Ecosystem" also opens a dropdown of
+ * the divisions (see `ecosystemNav`). Only real pages belong here.
+ */
 export const navItems: NavItem[] = [
   { label: "About", href: "/studio", ariaLabel: "Learn about the studio" },
-  { label: "Workflow", href: "/#workflow", ariaLabel: "See our execution framework" },
-  { label: "Work", href: "/work", ariaLabel: "See selected work" },
+  { label: "Ecosystem", href: "/ecosystem", ariaLabel: "Explore our ecosystem" },
+  { label: "Insights", href: "/insights", ariaLabel: "Read our insights" },
 ];
 
 /** Divisions listed under the "Ecosystem" dropdown in the header. */
 export const ecosystemNav: NavItem[] = [
-  { label: "Muron Dev", href: "/#muron-dev", ariaLabel: "Muron Dev — engineering" },
-  { label: "Muron AI", href: "/#muron-ai", ariaLabel: "Muron AI — agentic automation" },
-  { label: "Muron Arts", href: "/#muron-arts", ariaLabel: "Muron Arts — design and brand" },
+  { label: "Muron Dev", href: "/ecosystem#muron-dev", ariaLabel: "Muron Dev — engineering", tagline: "Robust code, built for scale." },
+  { label: "Muron AI & Data", href: "/ecosystem#muron-ai", ariaLabel: "Muron AI & Data — agents, automation and data science", tagline: "Agents, automation & data science." },
+  { label: "Muron Arts", href: "/ecosystem#muron-arts", ariaLabel: "Muron Arts — design and brand", tagline: "Interfaces people remember." },
 ];
 
 /** Primary call to action, surfaced in the header and conversion sections. */
 export const primaryCta = {
-  label: "Start a Project",
+  label: "Start a project",
   href: "/contact",
   ariaLabel: "Start a project with Muronlabs",
 } as const;
@@ -60,7 +65,7 @@ export interface SocialItem {
 
 export const socialItems: SocialItem[] = [
   { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "X", href: "https://x.com" },
+  { label: "X (Twitter)", href: "https://x.com" },
   { label: "GitHub", href: "https://github.com" },
 ];
 
@@ -71,6 +76,8 @@ export const socialItems: SocialItem[] = [
 export const siteRoutes: { path: string; priority: number; changeFrequency: "monthly" | "yearly" }[] = [
   { path: "/", priority: 1, changeFrequency: "monthly" },
   { path: "/studio", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/ecosystem", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/insights", priority: 0.7, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly" },
@@ -80,11 +87,16 @@ export const siteRoutes: { path: string; priority: number; changeFrequency: "mon
 /* Ecosystem — the three specialist divisions                          */
 /* ------------------------------------------------------------------ */
 
+/** The abstract artwork drawn beside each division. */
+export type ArtKind = "grid" | "diamond" | "orb" | "wave";
+
 export interface Division {
   id: string;
   index: string;
   name: string;
   tagline: string;
+  /** Short, two-beat headline used on the service cards. */
+  headline: string;
   body: string;
   /**
    * Capability and approach areas for this division. Deliberately
@@ -92,18 +104,20 @@ export interface Division {
    * per project rather than forcing one toolchain on every client.
    */
   focus: string[];
-  /**
-   * Optional two-stop gradient for the division name. Hex rather than Tailwind
-   * classes because the name paints its own fill (see `FlickerText`).
-   */
-  gradientStops?: { from: string; to: string };
-  /**
-   * Background classes for the full-width accent bar at the bottom of the
-   * card — the solid/gradient counterpart of `gradient` (which is text-only).
-   */
-  accent: string;
-  /** Short mark used on the oversized hero cards, e.g. "DEV". */
+  /** Label of the "Explore" link on the service card. */
+  cta: string;
+  art: ArtKind;
+  /** Short mark, e.g. "DEV". */
   mark: string;
+  /** Detailed services, shown on the Ecosystem page. */
+  services: Service[];
+}
+
+export interface Service {
+  title: string;
+  body: string;
+  /** What typically lands at the end. */
+  outputs: string[];
 }
 
 export const divisions: Division[] = [
@@ -112,6 +126,7 @@ export const divisions: Division[] = [
     index: "01",
     name: "Muron Dev",
     tagline: "High-Performance Technical Architecture",
+    headline: "Robust code. Built for extreme scale.",
     body: "We turn complex logical concepts into production-grade applications. From ultra-scalable cloud infrastructures to lightning-fast frontend ecosystems, we write robust, clean code engineered to handle extreme scale.",
     focus: [
       "Scalable Architecture",
@@ -121,32 +136,109 @@ export const divisions: Division[] = [
       "API Design",
       "Performance Engineering",
     ],
-    accent: "bg-foreground",
+    cta: "Explore Muron Dev",
+    art: "grid",
     mark: "DEV",
+    services: [
+      {
+        title: "Web applications & platforms",
+        body: "Customer-facing products, dashboards and internal tools built on modern, type-safe stacks — fast on day one and maintainable on day one thousand.",
+        outputs: ["Production web app", "Admin & dashboards", "Documentation"],
+      },
+      {
+        title: "Mobile & cross-platform apps",
+        body: "Native-feeling iOS and Android apps that share logic with your web product, so features ship everywhere at once.",
+        outputs: ["iOS & Android builds", "Shared component logic", "Store release"],
+      },
+      {
+        title: "Cloud infrastructure & DevOps",
+        body: "Infrastructure as code, CI/CD, observability and cost control, so deploys are boring and outages are rare.",
+        outputs: ["IaC templates", "CI/CD pipelines", "Monitoring & alerts"],
+      },
+      {
+        title: "APIs & system integrations",
+        body: "Clean APIs and reliable integrations between your CRM, ERP, payment, data and third-party tools.",
+        outputs: ["API design & docs", "Integration services", "Webhooks & sync jobs"],
+      },
+      {
+        title: "Performance & security engineering",
+        body: "Load-time budgets, profiling, input-layer testing and code audits before anything reaches production.",
+        outputs: ["Performance budget", "Security audit", "Hardening fixes"],
+      },
+      {
+        title: "Legacy modernisation",
+        body: "Untangle and migrate ageing systems step by step, without a risky big-bang rewrite.",
+        outputs: ["Migration plan", "Incremental rebuild", "Data migration"],
+      },
+    ],
   },
   {
     id: "muron-ai",
     index: "02",
-    name: "Muron AI",
-    tagline: "Intelligent Automation & Data Science",
-    body: "Move past basic analytics into true cognitive automation. We design, fine-tune, and deploy autonomous AI agents, data science solutions and intelligent data pipelines that surface insight, optimise operations, automate complex workflows, and solve critical business challenges.",
+    name: "Muron AI & Data",
+    tagline: "AI Agents, Automation & Data Science",
+    headline: "Agents that do the work. Data that tells the truth.",
+    body: "Move past basic analytics into true cognitive automation. We design and deploy AI agents, workflow automation, data pipelines and data science — including neuroscience data — that surface insight, cut busywork and solve critical business and research challenges.",
     focus: [
-      "Autonomous AI Agents",
-      "Data Science Solutions",
-      "Predictive Analytics",
-      "Contextual Retrieval",
+      "AI Agents",
+      "Workflow Automation",
+      "Data Science & Analytics",
+      "Neuroscience Data",
+      "Knowledge Assistants (RAG)",
       "Data Pipelines",
-      "Model Integration",
     ],
-    gradientStops: { from: "#5c9376", to: "#70b494" },
-    accent: "bg-brand",
+    cta: "Explore Muron AI & Data",
+    art: "orb",
     mark: "AI",
+    services: [
+      {
+        title: "Workflow automation",
+        body: "We map how work really moves between people and tools, then connect them so copying, chasing and re-keying disappear. Approvals, reports, onboarding and order admin run on their own.",
+        outputs: ["Process map", "Automated workflows", "Run-book & handover"],
+      },
+      {
+        title: "Custom AI agents",
+        body: "Assistants that handle support questions, bookings, triage and back-office tasks — with guardrails, audit logs and a clear hand-off to a person when they’re unsure.",
+        outputs: ["Agent design & guardrails", "Tool integrations", "Escalation & logging"],
+      },
+      {
+        title: "Knowledge assistants (RAG)",
+        body: "Search and answer across your documents, tickets and wikis with sources attached, so your team gets answers they can verify.",
+        outputs: ["Document ingestion", "Retrieval pipeline", "Chat & search UI"],
+      },
+      {
+        title: "AI strategy & roadmap",
+        body: "An honest look at where AI belongs in your business — and where it doesn’t — scored by effort, impact and risk.",
+        outputs: ["Opportunity shortlist", "ROI model", "90-day roadmap"],
+      },
+      {
+        title: "Data science & predictive analytics",
+        body: "Forecasting, classification and anomaly detection on your own data, delivered as models your team can monitor and trust.",
+        outputs: ["Exploratory analysis", "Production models", "Monitoring dashboards"],
+      },
+      {
+        title: "Data engineering & pipelines",
+        body: "Reliable pipelines that collect, clean and model data from every source into one place your analytics and AI can use.",
+        outputs: ["Ingestion pipelines", "Data warehouse models", "Data-quality checks"],
+      },
+      {
+        title: "Neuroscience data science",
+        body: "Reproducible pipelines for EEG, MEG, fMRI, electrophysiology and behavioural data — preprocessing, BIDS curation, machine learning on neural signals and research dashboards. We build research tooling, not medical diagnosis.",
+        outputs: ["Preprocessing pipeline", "BIDS-curated datasets", "Analysis & decoding models"],
+      },
+      {
+        title: "LLM integration & fine-tuning",
+        body: "Bring language models into your product safely: prompt design, evaluation suites, fine-tuning where it pays off, and cost controls.",
+        outputs: ["Model selection", "Evaluation suite", "Production integration"],
+      },
+    ],
   },
   {
     id: "muron-arts",
     index: "03",
     name: "Muron Arts",
     tagline: "Immersive Visual Communication",
+    headline: "Logic meets feeling. Interfaces people remember.",
     body: "Advanced technology requires human connection. Muron Arts bridges the gap between complex logic and exceptional human experiences. We craft high-fidelity design systems, intuitive UI/UX architectures, and unforgettable digital branding.",
     focus: [
       "UI/UX Design Systems",
@@ -156,9 +248,41 @@ export const divisions: Division[] = [
       "Prototyping",
       "Visual Systems",
     ],
-    gradientStops: { from: "#e38b95", to: "#f5a6af" },
-    accent: "bg-pink",
+    cta: "Explore Muron Arts",
+    art: "diamond",
     mark: "ARTS",
+    services: [
+      {
+        title: "Product UI/UX design",
+        body: "Research-led interfaces for web and mobile products, designed around how people actually work.",
+        outputs: ["User flows", "High-fidelity screens", "Usability testing"],
+      },
+      {
+        title: "Design systems",
+        body: "Tokens, components and documentation that keep every screen consistent and every release faster.",
+        outputs: ["Design tokens", "Component library", "Usage guidelines"],
+      },
+      {
+        title: "Brand identity",
+        body: "Names, logos, type, colour and voice that make a technical product feel human and memorable.",
+        outputs: ["Logo & wordmark", "Brand guidelines", "Launch assets"],
+      },
+      {
+        title: "Interactive prototyping",
+        body: "Clickable prototypes with real content, so decisions are made on something you can touch — before code.",
+        outputs: ["Clickable prototype", "Stakeholder reviews", "Validated scope"],
+      },
+      {
+        title: "Motion & interaction design",
+        body: "Micro-interactions, transitions and product motion that make interfaces feel alive without slowing them down.",
+        outputs: ["Motion principles", "Animated components", "Lottie & video assets"],
+      },
+      {
+        title: "Marketing websites",
+        body: "High-performance, search-friendly sites that tell your story clearly and convert visitors into conversations.",
+        outputs: ["Site design", "CMS build", "SEO foundations"],
+      },
+    ],
   },
 ];
 
@@ -168,35 +292,41 @@ export const divisions: Division[] = [
 
 export interface WorkflowPhase {
   phase: string;
+  /** One-word name shown on the accordion tab. */
+  short: string;
   title: string;
   body: string;
-  /** What actually lands at the end of the phase. Rendered as a mono index. */
+  /** What actually lands at the end of the phase. */
   deliverables: string[];
 }
 
 export const workflowPhases: WorkflowPhase[] = [
   {
     phase: "Phase 01",
+    short: "Discover",
     title: "Discovery & Architecture Mapping",
-    body: "We map the objective, the data and the stack before a line of code is written.",
+    body: "We map the objective, the data and the stack before a line of code is written — so every later decision has somewhere to stand.",
     deliverables: ["Objective mapping", "Data & schema design", "Functional scope", "Stack selection"],
   },
   {
     phase: "Phase 02",
+    short: "Prototype",
     title: "High-Fidelity UI/UX & System Prototyping",
-    body: "Muron Arts prototypes the real interface first, so you see the product before we code it.",
+    body: "Muron Arts prototypes the real interface first, so you see and touch the product before we commit to code.",
     deliverables: ["Interactive prototypes", "Component library", "Design tokens", "UX validation"],
   },
   {
     phase: "Phase 03",
+    short: "Build",
     title: "Iterative Sprint Development & AI Training",
-    body: "Muron Dev builds the framework while Muron AI trains and wires the agent pipelines.",
+    body: "Muron Dev builds the framework while Muron AI & Data trains and wires the agent and data pipelines. You review working software every sprint.",
     deliverables: ["Modular app framework", "Agentic pipelines", "Sprint reviews", "Continuous integration"],
   },
   {
     phase: "Phase 04",
+    short: "Launch",
     title: "Vulnerability Assessment & Production Deployment",
-    body: "We audit every input, tune the load times, then ship to a locked-down cloud.",
+    body: "We audit every input, tune the load times, then ship to a locked-down cloud — with documentation your team can run on.",
     deliverables: ["Input-layer testing", "Code security audit", "Speed optimisation", "Cloud deployment"],
   },
 ];
@@ -212,20 +342,69 @@ export interface Distinction {
 
 export const distinctions: Distinction[] = [
   {
-    title: "Unified Execution",
-    body: "Design, engineering and AI under one coordinated roof.",
+    title: "Unified execution.",
+    body: "Design, engineering, AI and data under one coordinated roof — no hand-off gaps.",
   },
   {
-    title: "Performance First",
-    body: "Lean modern stacks, tuned for speed and search.",
+    title: "Performance first.",
+    body: "Lean modern stacks, tuned for speed and search from day one.",
   },
   {
-    title: "Security By Default",
-    body: "Audited inputs, safe data paths, locked-down deploys.",
+    title: "Security by default.",
+    body: "Audited inputs, safe data paths and locked-down deploys, not a final-stage checklist.",
   },
   {
-    title: "Design-Led Craft",
-    body: "Interfaces built with the same rigour as the backend.",
+    title: "Design-led craft.",
+    body: "Interfaces built with the same rigour as the backend that powers them.",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Headline numbers                                                    */
+/* ------------------------------------------------------------------ */
+
+export interface Stat {
+  value: number;
+  suffix: string;
+  label: string;
+  icon: "layers" | "route" | "clock";
+}
+
+export const stats: Stat[] = [
+  { value: 3, suffix: "", label: "Specialist divisions under one coordinated roof.", icon: "layers" },
+  { value: 4, suffix: "", label: "Phase framework from discovery to secure launch.", icon: "route" },
+  { value: 24, suffix: "h", label: "Typical response time to a new project brief.", icon: "clock" },
+];
+
+/* ------------------------------------------------------------------ */
+/* Testimonials                                                        */
+/* ------------------------------------------------------------------ */
+
+export interface Testimonial {
+  text: string;
+  name: string;
+  role: string;
+  /** Marks the wide card with artwork and a headline number. */
+  featured?: { value: number; suffix: string; label: string };
+}
+
+/** Placeholder quotes — illustrative until real client testimonials are approved. */
+export const testimonials: Testimonial[] = [
+  {
+    text: "We came in with a long list of ideas and left with three that mattered. The first one shipped within a month, and it still runs every day.",
+    name: "Ravindu Jayasinghe",
+    role: "CTO, Atlas",
+  },
+  {
+    text: "Design, engineering and AI from one team meant no hand-off gaps. The product felt whole from the very first demo.",
+    name: "Mei-Lin Tan",
+    role: "Head of Product, Tideline",
+  },
+  {
+    text: "Muronlabs shipped the dispatch platform our ops team now runs every morning — and, more importantly, the team actually trusts it.",
+    name: "Daniel Okafor",
+    role: "Operations Director, Harbour",
+    featured: { value: 35, suffix: "%", label: "Fewer late dispatches" },
   },
 ];
 
@@ -252,7 +431,12 @@ export const faqs: Faq[] = [
   {
     question: "Do you handle design, engineering and AI, or just one?",
     answer:
-      "All three, under one roof. Muron Arts, Muron Dev and Muron AI ship as a single coordinated team, so you avoid the friction of stitching together separate design studios, engineering shops and data-science contractors.",
+      "All of it, under one roof. Muron Arts, Muron Dev and Muron AI & Data ship as a single coordinated team, so you avoid the friction of stitching together separate design studios, engineering shops and data-science contractors.",
+  },
+  {
+    question: "What kind of neuroscience data work do you take on?",
+    answer:
+      "Muron AI & Data works with research labs, clinical-research groups and neurotech teams on EEG, MEG, fMRI, electrophysiology and behavioural data. Typical projects are preprocessing and analysis pipelines, BIDS data curation, machine-learning models on neural signals, and dashboards that make results explorable. We build research tooling; we don’t provide medical diagnosis.",
   },
   {
     question: "How do you approach security and data privacy?",
@@ -263,6 +447,11 @@ export const faqs: Faq[] = [
     question: "What does a typical engagement look like?",
     answer:
       "We follow a structured sequence — discovery and architecture mapping, high-fidelity prototyping, iterative sprint development, then a security and performance pass before deployment. You see working software early and stay in the loop at every phase.",
+  },
+  {
+    question: "Who owns what you build?",
+    answer:
+      "You do. Code, design files, infrastructure accounts and documentation are handed over in full, with no lock-in to our tooling or our team.",
   },
   {
     question: "What happens after launch?",
@@ -278,7 +467,7 @@ export const faqs: Faq[] = [
 export const squadOptions = [
   { value: "ecosystem", label: "Muronlabs Ecosystem" },
   { value: "muron-dev", label: "Muron Dev" },
-  { value: "muron-ai", label: "Muron AI" },
+  { value: "muron-ai", label: "Muron AI & Data" },
   { value: "muron-arts", label: "Muron Arts" },
 ] as const;
 
@@ -298,62 +487,72 @@ export interface FooterColumn {
 
 export const footerColumns: FooterColumn[] = [
   {
-    heading: "Ecosystem",
-    links: [
-      { label: "Muron Dev", href: "/#ecosystem" },
-      { label: "Muron AI", href: "/#ecosystem" },
-      { label: "Muron Arts", href: "/#ecosystem" },
-    ],
-  },
-  {
-    heading: "Navigate",
+    heading: "Explore",
     links: [
       { label: "About", href: "/studio" },
-      { label: "Work", href: "/work" },
       { label: "Workflow", href: "/#workflow" },
+      { label: "Insights", href: "/insights" },
       { label: "Contact", href: "/contact" },
     ],
   },
   {
-    heading: "Legal",
+    heading: "Ecosystem",
     links: [
-      { label: "Privacy Architecture", href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
+      { label: "Muron Dev", href: "/ecosystem#muron-dev" },
+      { label: "Muron AI & Data", href: "/ecosystem#muron-ai" },
+      { label: "Muron Arts", href: "/ecosystem#muron-arts" },
     ],
   },
 ];
-
 
 /* ------------------------------------------------------------------ */
 /* Homepage narrative copy                                             */
 /* ------------------------------------------------------------------ */
 
 export const homeCopy = {
-  /** Oversized two-line hero headline; the CTA sits between the lines. */
-  heroLines: ["Precision", "meets soul"] as const,
-  heroLead: "Engineering with precision. Designing with soul. One studio for software, agentic AI and digital artistry.",
+  hero: {
+    eyebrow: "Software, AI, data and design. One studio.",
+    title: "Engineering with precision. Designing with soul.",
+    lead: "We bring engineers, AI specialists and designers into one coordinated studio — so your product ships as a whole, not in parts.",
+  },
+  why: {
+    eyebrow: "Why Muronlabs",
+    title: "Not a software factory. A studio built around your product.",
+    body: "You didn’t start a company to stitch together agencies, contractors and hand-offs. We put design, engineering, AI and data under one roof — so decisions get made once, and the product feels whole.",
+  },
   about: {
-    eyebrow: "What is Muronlabs?",
-    body: "Muronlabs brings engineers, AI specialists and designers into one coordinated studio. Together, we map the problem, prototype the experience and ship production-grade software that performs, scales and feels human.",
-    close: "Technology is changing everything. We make sure it is built with care.",
+    eyebrow: "About us",
+    title: "A multidisciplinary studio that works inside your product — not around it.",
+    body: "Muronlabs unifies high-performance software engineering, AI agents, automation and data science — including neuroscience data — and immersive digital artistry. We map the problem, prototype the experience and ship production-grade software that performs, scales and feels human.",
+    link: "More about us",
   },
   ecosystem: {
-    title: "Bring Muronlabs to your product",
+    eyebrow: "Ecosystem",
+    title: "Built for your product. Ready for your team.",
     intro: "Three specialist divisions, one roof. Engage one squad for a focused build, or the whole ecosystem for a product end to end.",
   },
+  workflow: {
+    eyebrow: "Our Workflow",
+    title: "A clear path. From first sketch to secure launch.",
+    intro: "Small steps. Close collaboration. Working software at the end of every phase.",
+    cta: "Plan your build",
+  },
   callout: {
-    lines: [
-      "Design, engineering and AI under one coordinated roof. Built in Sri Lanka, designed for the world.",
-      "Let’s build what’s next.",
-    ],
+    lines: ["You don’t need to rebuild everything.", "Just the right part."] as const,
+    body: "Most engagements show working software within the first sprint — with your team in the loop at every phase.",
   },
-  connect: {
-    eyebrow: "Let’s Connect",
-    title: "Have a complex problem? We’d love to hear about it.",
-    button: "Connect with a human",
+  testimonials: {
+    eyebrow: "Testimonials",
+    title: "Good work. In their words.",
+    intro: "The people behind the products — and what changed once they shipped.",
   },
-  drawer: {
-    title: "Want to start a project, join the studio, or just start a conversation?",
-    body: "Drop us a line, and we’ll get back to you within one business day.",
+  faq: {
+    eyebrow: "FAQ",
+    title: "Questions, answered.",
+    intro: "The things teams ask us most, before the first call.",
+  },
+  finalCta: {
+    title: "Let’s build what’s next.",
+    body: "Design, engineering, AI and data under one coordinated roof. Built in Sri Lanka, designed for the world.",
   },
 } as const;

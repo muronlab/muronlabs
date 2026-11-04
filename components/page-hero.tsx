@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
-import { CircleMotif } from "@/components/visuals/circle-motif";
+import { GradientArt } from "@/components/visuals/gradient-art";
 
 interface PageHeroProps {
   eyebrow: string;
@@ -8,42 +9,33 @@ interface PageHeroProps {
   description?: string;
   /** Tightens the heading width for long-form (legal) pages. */
   narrow?: boolean;
-  /** Shows the green orb motif in the top-right corner. */
-  glow?: boolean;
+  /** Shows the gradient strip beneath the title. */
+  art?: boolean;
   className?: string;
 }
 
 /**
- * Shared hero for inner pages — green eyebrow, a large medium-weight title
- * and a grey lead, with the brand orb drifting off the top-right edge.
+ * Shared hero for inner pages — a white sheet with a centred pill, title and
+ * lead, optionally closed by a banner of gradient tiles.
  */
-export function PageHero({ eyebrow, title, description, narrow = false, glow = false, className }: PageHeroProps) {
+export function PageHero({ eyebrow, title, description, narrow = false, art = false, className }: PageHeroProps) {
   return (
-    <section className={cn("relative z-[1] overflow-hidden bg-paper pt-40 pb-16 lg:pt-52 lg:pb-24", className)}>
-      {glow ? (
-        <>
-          {/* Same treatment as the Work page: big orb right, faint orbit top-left. */}
-          <CircleMotif className="absolute top-[22rem] -right-[30%] size-[70vw] sm:-right-[20%] sm:size-[50vw] lg:top-[12rem] lg:-right-[8%] lg:size-[42vw]" />
-          <div aria-hidden="true" className="orbit-dots absolute -top-[12rem] -left-[10rem] size-[30rem]" />
-        </>
-      ) : null}
-
-      <div className={cn("shell relative z-10")}>
-        <div className={cn(narrow ? "max-w-3xl" : "max-w-[62rem]", glow && "lg:max-w-[58%]")}>
-          <Reveal>
-            <p className="text-xl text-brand-deep md:text-2xl">{eyebrow}</p>
+    <section className={cn("px-2 pt-[4.5rem]", className)}>
+      <div className="sheet overflow-hidden">
+        <div className={cn("mx-auto flex flex-col items-center px-6 pt-20 pb-14 text-center lg:pt-28 lg:pb-16", narrow ? "max-w-[38rem]" : "max-w-[46rem]")}>
+          <Reveal immediate delay={0.15}>
+            <Eyebrow tone="chip">{eyebrow}</Eyebrow>
           </Reveal>
-          <Reveal delay={0.06}>
-            <h1 className="mt-6 font-pixel text-5xl leading-[1.1] font-normal text-balance text-ink sm:text-6xl lg:mt-8 lg:text-[5.25rem]">
-              {title}
-            </h1>
+          <Reveal immediate delay={0.25}>
+            <h1 className="display mt-6 text-[2.75rem] text-balance text-ink sm:text-[3.5rem] lg:text-[4.25rem]">{title}</h1>
           </Reveal>
           {description ? (
-            <Reveal delay={0.12}>
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground lg:text-xl">{description}</p>
+            <Reveal immediate delay={0.35}>
+              <p className="mx-auto mt-6 max-w-[32rem] text-[17px] leading-7 text-pretty text-muted-foreground">{description}</p>
             </Reveal>
           ) : null}
         </div>
+        {art ? <GradientArt variant="strip" className="mx-2 mb-2 h-48 sm:h-64 lg:h-[26rem]" delay={0.3} /> : null}
       </div>
     </section>
   );

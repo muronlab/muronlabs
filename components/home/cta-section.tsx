@@ -1,52 +1,45 @@
-import { FlowGradient } from "@/components/visuals/flow-gradient";
-import { LiquidButton } from "@/components/ui/liquid-button";
-import { Reveal } from "@/components/ui/reveal";
 import { homeCopy, primaryCta } from "@/lib/site-config";
+import { PillButton } from "@/components/ui/pill-button";
+import { Reveal } from "@/components/ui/reveal";
+import { GradientArt } from "@/components/visuals/gradient-art";
 
 interface CtaSectionProps {
-  /** Override the two callout lines (e.g. per page). */
-  lines?: readonly string[];
+  /** Override the two headline lines; the second is set in italic. */
+  lines?: readonly [string, string];
+  body?: string;
 }
 
 /**
- * Full-bleed call-out: a window onto a fixed flow-gradient (the fixed layer is
- * clipped to this section, so it behaves like `background-attachment: fixed`)
- * with a sticky statement that holds while the window scrolls past.
+ * Charcoal call-out: a two-line statement with the second line in italic,
+ * supporting copy and a white pill, beside a stack of vertical gradient bars.
  */
-export function CtaSection({ lines = homeCopy.callout.lines }: CtaSectionProps) {
-  const [statement, close] = lines;
+export function CtaSection({ lines = homeCopy.callout.lines, body = homeCopy.callout.body }: CtaSectionProps) {
+  const [first, second] = lines;
 
   return (
-    <section
-      data-flow-root
-      aria-label="Start a project"
-      className="relative z-[1] h-[90vh] bg-paper lg:h-[125vh]"
-      style={{ clipPath: "inset(0)" }}
-    >
-      <div className="fixed inset-0">
-        <FlowGradient />
-        <div className="absolute inset-0 bg-black/15" />
-      </div>
-
-      <div className="relative z-[2] h-full">
-        <div className="shell sticky top-[100px] py-[60px] lg:py-[100px]">
+    <section aria-label="Start a project" className="px-6">
+      <div className="grid overflow-hidden rounded-md bg-ink-2 text-white lg:grid-cols-[1fr_34%]">
+        <div className="flex flex-col justify-between p-7 sm:p-10 lg:min-h-[36rem] lg:p-12">
           <Reveal>
-            <p className="max-w-full font-display text-[2rem] leading-9 font-normal text-white lg:max-w-[50%] lg:text-[2.625rem] lg:leading-[3rem]">
-              {statement}
-              {close ? (
-                <>
-                  <br />
-                  <br />
-                  {close}
-                </>
-              ) : null}
-            </p>
+            <h2 className="display max-w-[30rem] text-[2.5rem] text-balance sm:text-[3rem] lg:text-[3.5rem]">
+              {first}
+              <br />
+              <em className="italic">{second}</em>
+            </h2>
           </Reveal>
-          <Reveal delay={0.1} className="mt-10">
-            <LiquidButton href={primaryCta.href} tone="light" bead="always">
-              {primaryCta.label}
-            </LiquidButton>
-          </Reveal>
+          <div className="mt-16">
+            <Reveal delay={0.08}>
+              <p className="max-w-[22rem] text-[15px] leading-6 text-white/80">{body}</p>
+            </Reveal>
+            <Reveal delay={0.16}>
+              <PillButton href={primaryCta.href} tone="white" className="mt-8" aria-label={primaryCta.ariaLabel}>
+                {primaryCta.label}
+              </PillButton>
+            </Reveal>
+          </div>
+        </div>
+        <div className="p-2 lg:p-3 lg:pl-0">
+          <GradientArt variant="bars" className="h-64 w-full rounded-[2px] lg:h-full" />
         </div>
       </div>
     </section>

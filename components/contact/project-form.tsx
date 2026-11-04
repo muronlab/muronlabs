@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check } from "lucide-react";
-import { LiquidButton } from "@/components/ui/liquid-button";
+import { PillButton } from "@/components/ui/pill-button";
 import { squadOptions } from "@/lib/site-config";
 
 interface FormState {
@@ -21,9 +21,7 @@ const initialState: FormState = {
   brief: "",
 };
 
-const fieldClass = "field-pill";
-
-const labelClass = "block pl-1 text-sm font-medium text-muted-foreground";
+const labelClass = "mb-2 block text-[14px] font-medium text-ink";
 
 /**
  * Project engagement form. Performs client-side validation and surfaces a
@@ -53,18 +51,14 @@ export function ProjectForm() {
 
   if (status === "success") {
     return (
-      <div
-        className="flex flex-col items-start gap-4 rounded-[22px] border border-hairline bg-white/40 p-8 lg:p-10"
-        role="status"
-        aria-live="polite"
-      >
-        <span className="flex size-12 items-center justify-center rounded-full bg-brand text-ink">
-          <Check className="size-6" />
+      <div className="flex min-h-[24rem] flex-col items-start justify-center gap-4" role="status" aria-live="polite">
+        <span className="flex size-12 items-center justify-center rounded-full bg-ink text-white">
+          <Check className="size-5" strokeWidth={2} />
         </span>
-        <h3 className="text-3xl font-medium text-ink">Thank you! Your brief has been received.</h3>
-        <p className="text-base leading-relaxed text-muted-foreground">
-          Thanks, {form.name.split(" ")[0] || "there"}. We&rsquo;ve received your brief and our engineers will be
-          in touch shortly.
+        <h2 className="display text-[1.75rem] text-ink">Thank you — your brief has been received.</h2>
+        <p className="max-w-[26rem] text-[15px] leading-6 text-muted-foreground">
+          Thanks, {form.name.split(" ")[0] || "there"}. We’ve received your brief and a human from the studio will be in touch within
+          one business day.
         </p>
         <button
           type="button"
@@ -72,7 +66,7 @@ export function ProjectForm() {
             setForm(initialState);
             setStatus("idle");
           }}
-          className="link-underline mt-2 cursor-pointer text-base text-ink"
+          className="link-underline mt-2 cursor-pointer text-[15px] text-ink"
         >
           Submit another brief
         </button>
@@ -83,9 +77,9 @@ export function ProjectForm() {
   const submitting = status === "submitting";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" noValidate={false}>
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
+        <div>
           <label htmlFor="name" className={labelClass}>
             Your name
           </label>
@@ -97,14 +91,14 @@ export function ProjectForm() {
             autoComplete="name"
             value={form.name}
             onChange={(e) => update("name", e.target.value)}
-            className={fieldClass}
-            placeholder="Ada Lovelace"
+            className="field"
+            placeholder="Jane Smith"
           />
         </div>
 
-        <div className="space-y-2">
+        <div>
           <label htmlFor="company" className={labelClass}>
-            Company / Project name
+            Company name
           </label>
           <input
             id="company"
@@ -114,73 +108,64 @@ export function ProjectForm() {
             autoComplete="organization"
             value={form.company}
             onChange={(e) => update("company", e.target.value)}
-            className={fieldClass}
-            placeholder="Acme Inc."
+            className="field"
+            placeholder="Company name"
           />
         </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <label htmlFor="email" className={labelClass}>
-            Corporate email address
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            value={form.email}
-            onChange={(e) => update("email", e.target.value)}
-            className={fieldClass}
-            placeholder="you@company.com"
-          />
-        </div>
+      <div>
+        <label htmlFor="email" className={labelClass}>
+          Work email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          value={form.email}
+          onChange={(e) => update("email", e.target.value)}
+          className="field"
+          placeholder="you@company.com"
+        />
+      </div>
 
-        <div className="space-y-2">
-          <label htmlFor="squad" className={labelClass}>
-            Target core squad
-          </label>
-          <select
-            id="squad"
-            name="squad"
-            required
-            value={form.squad}
-            onChange={(e) => update("squad", e.target.value)}
-            className={fieldClass}
-          >
-            <option value="" disabled>
-              Select a squad
+      <div>
+        <label htmlFor="squad" className={labelClass}>
+          Which squad?
+        </label>
+        <select id="squad" name="squad" required value={form.squad} onChange={(e) => update("squad", e.target.value)} className="field">
+          <option value="" disabled>
+            Select an option
+          </option>
+          {squadOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
-            {squadOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
+          ))}
+        </select>
       </div>
 
-      <div className="space-y-2">
+      <div>
         <label htmlFor="brief" className={labelClass}>
-          Project brief & requirements
+          What are you trying to build?
         </label>
         <textarea
           id="brief"
           name="brief"
           required
-          rows={6}
+          rows={5}
           value={form.brief}
           onChange={(e) => update("brief", e.target.value)}
-          className={fieldClass}
-          placeholder="Tell us what you're building, the problem it solves, and any constraints we should know about."
+          className="field"
+          placeholder="A few lines about the product, the problem it solves, and any constraints we should know about."
         />
       </div>
 
-      <LiquidButton type="submit" tone="ink" disabled={submitting}>
+      <PillButton type="submit" disabled={submitting} className="w-full">
         {submitting ? "Sending…" : "Send project brief"}
-      </LiquidButton>
+      </PillButton>
     </form>
   );
 }

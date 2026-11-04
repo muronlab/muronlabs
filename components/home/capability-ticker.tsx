@@ -1,35 +1,36 @@
+import { Activity, Boxes, Bot, Brain, Cloud, Cpu, Gauge, Layers, Palette, Search, ShieldCheck, Sparkles, Waypoints, Workflow } from "lucide-react";
+
 const items = [
-  "Scalable Architecture",
-  "Agentic Automation",
-  "Design Systems",
-  "Performance Engineering",
-  "Cloud-Native",
-  "Security-First",
-  "Intelligent Search",
-  "API Design",
-  "Motion & Interaction",
-  "Brand Identity",
-  "Accessibility",
-  "Best-Fit Stack",
+  { label: "Scalable Architecture", Icon: Layers },
+  { label: "Agentic Automation", Icon: Bot },
+  { label: "Design Systems", Icon: Palette },
+  { label: "Performance Engineering", Icon: Gauge },
+  { label: "Cloud-Native", Icon: Cloud },
+  { label: "Security-First", Icon: ShieldCheck },
+  { label: "Intelligent Search", Icon: Search },
+  { label: "API Design", Icon: Waypoints },
+  { label: "Motion & Interaction", Icon: Sparkles },
+  { label: "Data Pipelines", Icon: Workflow },
+  { label: "Model Integration", Icon: Cpu },
+  { label: "Component Libraries", Icon: Boxes },
+  { label: "Neuroscience Data", Icon: Brain },
+  { label: "EEG & fMRI Pipelines", Icon: Activity },
 ];
 
 /**
- * Oversized, slow marquee of the studio's capabilities — framed around
- * outcomes, not a fixed toolchain. Pure CSS; the list is duplicated for a
- * seamless loop and stops for reduced motion.
+ * A slow, muted marquee of capabilities, styled like a logo strip: grey marks
+ * fading at both edges. The list is duplicated for a seamless loop and stops
+ * for reduced motion.
  */
 export function CapabilityTicker() {
   return (
-    <div className="relative z-[1] flex overflow-hidden border-y border-hairline bg-paper py-8 md:py-10">
-      <p className="sr-only">Capabilities: {items.join(", ")}.</p>
-      <div className="flex shrink-0 animate-marquee items-center gap-10 pr-10 [animation-duration:60s]" aria-hidden="true">
-        {[...items, ...items].map((item, i) => (
-          <span
-            key={i}
-            className="flex items-center gap-10 font-pixel text-4xl leading-none font-medium whitespace-nowrap text-ink md:text-6xl"
-          >
-            {item}
-            <span className={i % 3 === 1 ? "size-3 rounded-full bg-pink md:size-4" : "size-3 rounded-full bg-brand md:size-4"} />
+    <div className="relative overflow-hidden py-10 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+      <p className="sr-only">Capabilities: {items.map((i) => i.label).join(", ")}.</p>
+      <div className="flex w-max animate-marquee items-center gap-16 pr-16" aria-hidden="true">
+        {[...items, ...items].map(({ label, Icon }, i) => (
+          <span key={i} className="flex items-center gap-3 text-[22px] font-semibold whitespace-nowrap text-[#aab1b5]">
+            <Icon className="size-7" strokeWidth={1.75} />
+            {label}
           </span>
         ))}
       </div>
