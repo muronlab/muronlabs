@@ -12,9 +12,9 @@ import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { divisions, siteConfig } from "@/lib/site-config";
 
 export const metadata = buildPageMetadata({
-  title: "About",
+  title: "About Us | Technology Studio in Sri Lanka",
   description:
-    "Muronlabs is a multidisciplinary technology studio housing engineering, AI & data science and digital artistry under one coordinated roof.",
+    "Meet Muronlabs: one studio for software engineering, AI & data, and product design. How we work, what we believe, and the three divisions behind it.",
   path: "/studio",
 });
 

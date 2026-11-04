@@ -23,7 +23,7 @@ export function HeroSection() {
           <Reveal immediate delay={0.2}>
             <Eyebrow tone="chip">{hero.eyebrow}</Eyebrow>
           </Reveal>
-          <Reveal immediate delay={0.3}>
+          <Reveal immediate lcp delay={0.3}>
             <h1 className="display mt-7 text-[2.75rem] text-balance text-ink sm:text-[3.5rem] lg:text-[4rem]">{hero.title}</h1>
           </Reveal>
           <Reveal immediate delay={0.42}>

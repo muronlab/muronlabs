@@ -3,6 +3,13 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/ui/reveal";
 import { GradientArt } from "@/components/visuals/gradient-art";
+import type { Metadata } from "next";
+
+/** Never index the 404 page itself. */
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: true },
+};
 
 /** 404 — same sheet, pill and gradient language as every other page. */
 export default function NotFound() {
@@ -14,7 +21,7 @@ export default function NotFound() {
             <Reveal immediate delay={0.15}>
               <Eyebrow tone="chip">Error 404</Eyebrow>
             </Reveal>
-            <Reveal immediate delay={0.25}>
+            <Reveal immediate lcp delay={0.25}>
               <h1 id="not-found-heading" className="display mt-6 text-[2.75rem] text-balance text-ink sm:text-[3.5rem] lg:text-[4.25rem]">
                 This page took a different path.
               </h1>

@@ -5,10 +5,10 @@ import type { ArtKind } from "@/lib/site-config";
 function GradientQuad({ className }: { className?: string }) {
   return (
     <div className={cn("grid grid-cols-2 grid-rows-2 overflow-hidden", className)}>
-      <div className="tile grain relative g-11" style={{ ["--delay" as string]: "0s" }} />
-      <div className="tile grain relative g-15" style={{ ["--delay" as string]: "2s" }} />
-      <div className="tile grain relative g-3" style={{ ["--delay" as string]: "4s" }} />
-      <div className="tile grain relative g-16" style={{ ["--delay" as string]: "1s" }} />
+      <div className="tile grain art-grain relative g-11" style={{ ["--delay" as string]: "0s" }} />
+      <div className="tile grain art-grain relative g-15" style={{ ["--delay" as string]: "2s" }} />
+      <div className="tile grain art-grain relative g-3" style={{ ["--delay" as string]: "4s" }} />
+      <div className="tile grain art-grain relative g-16" style={{ ["--delay" as string]: "1s" }} />
     </div>
   );
 }
@@ -87,16 +87,16 @@ export function ArtPanel({ kind, className }: ArtPanelProps) {
           {/* Gradient "brain" core: two hemispheres. */}
           <div className="absolute left-1/2 top-1/2 flex h-[44%] w-[62%] -translate-x-1/2 -translate-y-1/2 gap-[3%]">
             <div className="grid flex-1 grid-cols-2 grid-rows-2 overflow-hidden rounded-l-full">
-              <div className="tile grain relative g-11" />
-              <div className="tile grain relative g-15" style={{ ["--delay" as string]: "2s" }} />
-              <div className="tile grain relative g-3" style={{ ["--delay" as string]: "4s" }} />
-              <div className="tile grain relative g-16" style={{ ["--delay" as string]: "1s" }} />
+              <div className="tile grain art-grain relative g-11" />
+              <div className="tile grain art-grain relative g-15" style={{ ["--delay" as string]: "2s" }} />
+              <div className="tile grain art-grain relative g-3" style={{ ["--delay" as string]: "4s" }} />
+              <div className="tile grain art-grain relative g-16" style={{ ["--delay" as string]: "1s" }} />
             </div>
             <div className="grid flex-1 grid-cols-2 grid-rows-2 overflow-hidden rounded-r-full">
-              <div className="tile grain relative g-16" style={{ ["--delay" as string]: "3s" }} />
-              <div className="tile grain relative g-11" style={{ ["--delay" as string]: "1s" }} />
-              <div className="tile grain relative g-15" />
-              <div className="tile grain relative g-3" style={{ ["--delay" as string]: "5s" }} />
+              <div className="tile grain art-grain relative g-16" style={{ ["--delay" as string]: "3s" }} />
+              <div className="tile grain art-grain relative g-11" style={{ ["--delay" as string]: "1s" }} />
+              <div className="tile grain art-grain relative g-15" />
+              <div className="tile grain art-grain relative g-3" style={{ ["--delay" as string]: "5s" }} />
             </div>
           </div>
           <span className="absolute left-[calc(19%-5px)] top-[calc(50%-5px)] size-2.5 rounded-full bg-[#c3cad0]" />

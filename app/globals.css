@@ -507,3 +507,51 @@ select.field {
   letter-spacing: -0.3px;
   font-feature-settings: normal;
 }
+
+/* ------------------------------------------------------------------ */
+/* On-load reveals (Reveal `immediate`). Pure CSS so they start at first */
+/* paint. `reveal-rise` is for page headlines: no fade, so the text is   */
+/* painted immediately for Largest Contentful Paint.                    */
+/* ------------------------------------------------------------------ */
+@keyframes reveal-now {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 24px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-rise {
+  from {
+    transform: translateY(calc(var(--reveal-y, 24px) * 0.6));
+  }
+  to {
+    transform: none;
+  }
+}
+.reveal-now {
+  animation: reveal-now 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.reveal-rise {
+  animation: reveal-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-now,
+  .reveal-rise {
+    animation: none;
+  }
+}
+
+/* Footer watermark: decorative, so the word is drawn by CSS rather than as text. */
+.footer-watermark::before {
+  content: attr(data-watermark);
+}
+
+/* Ecosystem illustrations (ArtPanel): a heavier, finer grain on the gradient shapes. */
+.tile.art-grain::after {
+  opacity: 0.75;
+  mix-blend-mode: overlay;
+  background-size: 140px 140px;
+}

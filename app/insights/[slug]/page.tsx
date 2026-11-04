@@ -20,7 +20,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getInsight(slug);
   if (!post) return {};
-  return buildPageMetadata({ title: post.title, description: post.excerpt, path: `/insights/${post.slug}` });
+  return buildPageMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/insights/${post.slug}`,
+    article: { publishedTime: post.date, authors: [`${siteConfig.name} ${post.author.name}`], tags: post.tags },
+  });
 }
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -46,9 +51,14 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
             headline: post.title,
             description: post.excerpt,
             datePublished: post.date,
-            author: { "@type": "Organization", name: `${siteConfig.name} — ${post.author.name}` },
+            dateModified: post.date,
+            inLanguage: siteConfig.locale.replace("_", "-"),
+            keywords: post.tags.join(", "),
+            articleSection: post.tags[0],
+            image: absoluteUrl("/opengraph-image"),
+            author: { "@type": "Organization", name: `${siteConfig.name} ${post.author.name}`, url: siteConfig.url },
             publisher: { "@id": `${siteConfig.url}/#organization` },
-            mainEntityOfPage: absoluteUrl(`/insights/${post.slug}`),
+            mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/insights/${post.slug}`) },
           },
         ]}
       />
@@ -70,7 +80,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
               ))}
             </ul>
           </Reveal>
-          <Reveal immediate delay={0.2}>
+          <Reveal immediate lcp delay={0.2}>
             <h1 className="display mt-6 text-[2.5rem] text-balance text-ink sm:text-[3rem] lg:text-[3.5rem]">{post.title}</h1>
           </Reveal>
           <Reveal immediate delay={0.28}>

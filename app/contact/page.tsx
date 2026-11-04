@@ -7,9 +7,9 @@ import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { siteConfig, socialItems } from "@/lib/site-config";
 
 export const metadata = buildPageMetadata({
-  title: "Start a Project",
+  title: "Contact | Start a Software or AI Project",
   description:
-    "Tell Muronlabs about your project. Whether you need an immersive application interface, custom AI agent workflows, or a full system build, our engineers are ready to ship.",
+    "Tell us what you’re building. Muronlabs replies within one business day with a clear next step for your software, AI or design project.",
   path: "/contact",
 });
 
@@ -30,7 +30,7 @@ export default function ContactPage() {
 
           <div className="shell relative grid gap-10 py-14 lg:grid-cols-[1fr_1.45fr] lg:gap-16 lg:py-24">
             <div className="lg:pt-4">
-              <Reveal immediate delay={0.15}>
+              <Reveal immediate lcp delay={0.15}>
                 <h1 id="contact-heading" className="display max-w-[20rem] text-[2.75rem] text-balance text-ink sm:text-[3.5rem] lg:text-[3.75rem]">
                   Let’s build what’s next.
                 </h1>
@@ -48,12 +48,14 @@ export default function ContactPage() {
                     {siteConfig.contact.email}
                   </a>
                 </div>
+                {/* Mock data — placeholder phone number, hidden until the real one is set in site-config. Uncomment to restore.
                 <div>
                   <p className="text-[12px] font-medium tracking-[0.12em] text-muted-foreground uppercase">Phone</p>
                   <a href={`tel:${siteConfig.contact.phone.replace(/\s+/g, "")}`} className="link-underline mt-1 inline-block text-ink">
                     {siteConfig.contact.phone}
                   </a>
                 </div>
+                */}
                 <div>
                   <p className="text-[12px] font-medium tracking-[0.12em] text-muted-foreground uppercase">Elsewhere</p>
                   <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-1">

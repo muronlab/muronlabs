@@ -11,6 +11,12 @@ export const siteConfig = {
   wordmark: { text: "muronlabs" },
   description:
     "Muronlabs is an elite multidisciplinary technology studio. We unify high-performance software engineering, intelligent agentic AI and data science — including neuroscience data — and immersive digital artistry into a singular, seamless ecosystem.",
+  /**
+   * Search-result description (under 160 characters so Google shows it whole).
+   * Used as the default meta description and on social shares.
+   */
+  seoDescription:
+    "Muronlabs is a software, AI & data, and design studio in Sri Lanka, building web apps, AI agents, automation and data pipelines for teams worldwide.",
   /** Shorter blurb for cards, footers and meta where the full description is too long. */
   shortDescription:
     "A multidisciplinary technology studio unifying software engineering, AI & data science and digital artistry.",
@@ -61,12 +67,19 @@ export const primaryCta = {
 export interface SocialItem {
   label: string;
   href: string;
+  /**
+   * True once `href` is the studio's real profile. Only verified profiles are
+   * listed to search engines (schema.org `sameAs`), which ties them to the brand.
+   */
+  verified?: boolean;
 }
 
 export const socialItems: SocialItem[] = [
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "X (Twitter)", href: "https://x.com" },
-  { label: "GitHub", href: "https://github.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/97878910/", verified: true },
+  // Mock data — placeholder profiles, hidden until the real URLs exist.
+  // Uncomment, swap in the real profile URL and set `verified: true`.
+  // { label: "X (Twitter)", href: "https://x.com" },
+  // { label: "GitHub", href: "https://github.com" },
 ];
 
 /**

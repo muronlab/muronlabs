@@ -38,7 +38,7 @@ export function ServiceTabs({ items }: ServiceTabsProps) {
               aria-current={isActive ? "true" : undefined}
               className={cn(
                 "block rounded-[3px] px-3 py-2.5 text-[13px] font-medium tracking-[0.06em] uppercase transition-colors duration-300",
-                isActive ? "bg-surface text-ink" : "text-[#aab1b5] hover:text-ink",
+                isActive ? "bg-surface text-ink" : "text-muted-foreground hover:text-ink",
               )}
             >
               {item.label}

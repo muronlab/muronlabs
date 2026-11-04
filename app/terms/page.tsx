@@ -5,7 +5,8 @@ import { siteConfig } from "@/lib/site-config";
 
 export const metadata = buildPageMetadata({
   title: "Terms of Service",
-  description: `The terms governing use of the ${siteConfig.name} website.`,
+  description:
+    "The terms that govern use of the Muronlabs website.",
   path: "/terms",
 });
 

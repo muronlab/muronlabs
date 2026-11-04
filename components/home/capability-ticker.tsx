@@ -28,7 +28,7 @@ export function CapabilityTicker() {
       <p className="sr-only">Capabilities: {items.map((i) => i.label).join(", ")}.</p>
       <div className="flex w-max animate-marquee items-center gap-16 pr-16" aria-hidden="true">
         {[...items, ...items].map(({ label, Icon }, i) => (
-          <span key={i} className="flex items-center gap-3 text-[22px] font-semibold whitespace-nowrap text-[#aab1b5]">
+          <span key={i} className="flex items-center gap-3 text-[22px] font-semibold whitespace-nowrap text-muted-foreground">
             <Icon className="size-7" strokeWidth={1.75} />
             {label}
           </span>

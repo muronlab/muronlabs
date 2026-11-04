@@ -26,7 +26,7 @@ export function PageHero({ eyebrow, title, description, narrow = false, art = fa
           <Reveal immediate delay={0.15}>
             <Eyebrow tone="chip">{eyebrow}</Eyebrow>
           </Reveal>
-          <Reveal immediate delay={0.25}>
+          <Reveal immediate lcp delay={0.25}>
             <h1 className="display mt-6 text-[2.75rem] text-balance text-ink sm:text-[3.5rem] lg:text-[4.25rem]">{title}</h1>
           </Reveal>
           {description ? (

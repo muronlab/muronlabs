@@ -14,9 +14,9 @@ import { absoluteUrl, buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { divisions, siteConfig } from "@/lib/site-config";
 
 export const metadata = buildPageMetadata({
-  title: "Ecosystem",
+  title: "Services | Software, AI Agents & Design",
   description:
-    "Muron Dev, Muron AI & Data and Muron Arts: software engineering, AI agents, workflow automation, data science — including neuroscience data — and product design under one roof.",
+    "Web and mobile apps, AI agents, workflow automation, data science, neuroscience data and UI/UX design, from three specialist divisions under one roof.",
   path: "/ecosystem",
 });
 

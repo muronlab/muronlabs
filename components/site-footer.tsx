@@ -56,7 +56,7 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
             <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:gap-20">
               {columns.map((column) => (
                 <nav key={column.heading} aria-label={column.heading} className="flex flex-col gap-3">
-                  <h3 className="mb-1 text-[12px] font-medium tracking-[0.12em] text-white/40 uppercase">{column.heading}</h3>
+                  <h3 className="mb-1 text-[12px] font-medium tracking-[0.12em] text-white/60 uppercase">{column.heading}</h3>
                   {column.links.map((link) =>
                     link.href.startsWith("http") ? (
                       <a
@@ -80,12 +80,7 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           </div>
 
           <div className="mt-14 overflow-hidden border-t border-white/10 pt-8">
-            <p
-              aria-hidden="true"
-              className="display -mb-[0.18em] text-[21vw] leading-[0.8] font-semibold tracking-[-0.06em] text-white/[0.055] select-none lg:text-[19vw]"
-            >
-              {siteConfig.wordmark.text}
-            </p>
+            <div aria-hidden="true" data-watermark={siteConfig.wordmark.text} className="footer-watermark display -mb-[0.18em] text-[21vw] leading-[0.8] font-semibold tracking-[-0.06em] text-white/[0.055] select-none lg:text-[19vw]" />
           </div>
 
           <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-[14px] text-white/50 sm:flex-row sm:items-center sm:justify-between">

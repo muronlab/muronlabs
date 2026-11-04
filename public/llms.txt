@@ -1,0 +1,23 @@
+# Muronlabs
+
+> Muronlabs is a technology studio based in Sri Lanka, working with clients worldwide. One coordinated team covers software engineering, AI & data science, and product design, so products ship as a whole, not in parts.
+
+Contact: hello@muronlabs.com · Start a project: https://muronlabs.com/contact
+
+## Divisions and services
+
+- [Muron Dev](https://muronlabs.com/ecosystem#muron-dev): web applications and platforms, mobile and cross-platform apps, cloud infrastructure and DevOps, APIs and system integrations, performance and security engineering, legacy modernisation.
+- [Muron AI & Data](https://muronlabs.com/ecosystem#muron-ai): workflow automation, custom AI agents, knowledge assistants (RAG), AI strategy and roadmaps, data science and predictive analytics, data engineering and pipelines, neuroscience data science (EEG, MEG, fMRI, electrophysiology, BIDS curation), LLM integration and fine-tuning.
+- [Muron Arts](https://muronlabs.com/ecosystem#muron-arts): product UI/UX design, design systems, brand identity, interactive prototyping, motion and interaction design, marketing websites.
+
+## How we work
+
+A four-phase framework: discovery and architecture mapping, high-fidelity prototyping, iterative sprint development with AI training, then a security and performance review before production deployment. Clients see working software early and own all code, designs, data and documentation, with no lock-in.
+
+## Pages
+
+- [Home](https://muronlabs.com/)
+- [About](https://muronlabs.com/studio): the studio, what we believe, and the three divisions.
+- [Ecosystem / Services](https://muronlabs.com/ecosystem): every service in detail.
+- [Insights](https://muronlabs.com/insights): articles on software, AI agents, automation, data pipelines and neuroscience data.
+- [Contact](https://muronlabs.com/contact)

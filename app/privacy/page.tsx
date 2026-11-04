@@ -4,8 +4,9 @@ import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = buildPageMetadata({
-  title: "Privacy Architecture",
-  description: `How ${siteConfig.name} collects, uses and protects personal data.`,
+  title: "Privacy Policy",
+  description:
+    "How Muronlabs collects, uses and protects personal data submitted through this website.",
   path: "/privacy",
 });
 

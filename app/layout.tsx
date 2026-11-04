@@ -21,54 +21,71 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["500"],
   display: "swap",
+  // Not preloaded: the headline font (Schibsted Grotesk) loads first, which
+  // speeds up the page's Largest Contentful Paint.
+  preload: false,
 });
 
-const defaultTitle = `${siteConfig.name} — ${siteConfig.tagline}`;
+/**
+ * Default <title> for the home page and for social shares: brand first, then
+ * the services people actually search for. Under 60 characters.
+ */
+const defaultTitle = `${siteConfig.name} | Software, AI & Design Studio`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: defaultTitle,
-    template: `%s — ${siteConfig.name}`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: siteConfig.description,
+  description: siteConfig.seoDescription,
   applicationName: siteConfig.name,
   keywords: [
-    "technology studio",
-    "software engineering",
+    "software development company Sri Lanka",
+    "AI development company",
     "AI agents",
-    "agentic automation",
-    "high-performance web development",
-    "UI/UX design systems",
-    "intelligent search systems",
-    "product engineering",
-    "neuroscience data science",
-    "EEG and fMRI analysis pipelines",
-    "Sri Lanka",
+    "workflow automation",
+    "web application development",
+    "mobile app development",
+    "data engineering",
+    "data science consulting",
+    "LLM integration",
+    "neuroscience data analysis",
+    "UI/UX design studio",
+    "design systems",
+    "technology studio",
   ],
-  authors: [{ name: siteConfig.name }],
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "technology",
+  formatDetection: { email: false, address: false, telephone: false },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.name,
     title: defaultTitle,
-    description: siteConfig.description,
+    description: siteConfig.seoDescription,
   },
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
-    description: siteConfig.description,
+    description: siteConfig.seoDescription,
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
-  alternates: {
-    canonical: "/",
+  // Search Console / Bing verification: set these env vars when you add the site.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
   },
+  // Each page sets its own canonical via buildPageMetadata().
 };
 
 export const viewport: Viewport = {
@@ -82,7 +99,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full antialiased", schibsted.variable, inter.variable, "font-sans")}>
+    <html lang="en-GB" className={cn("h-full antialiased", schibsted.variable, inter.variable, "font-sans")}>
       <body id="top" className="flex min-h-full flex-col">
         <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
         <SiteHeader />

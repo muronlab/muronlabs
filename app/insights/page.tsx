@@ -4,12 +4,14 @@ import { Newsletter } from "@/components/insights/newsletter";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/json-ld";
-import { buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
+import { absoluteUrl, buildPageMetadata, breadcrumbJsonLd } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 import { insights, insightsCopy } from "@/lib/insights";
 
 export const metadata = buildPageMetadata({
-  title: "Insights",
-  description: insightsCopy.intro,
+  title: "Insights | Software, AI & Data Notes",
+  description:
+    "Practical notes on software engineering, AI agents, automation, data pipelines and neuroscience data, from real Muronlabs projects.",
   path: "/insights",
 });
 
@@ -17,10 +19,28 @@ export default function InsightsPage() {
   return (
     <main className="flex flex-1 flex-col">
       <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", path: "/" },
-          { name: "Insights", path: "/insights" },
-        ])}
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Insights", path: "/insights" },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "@id": absoluteUrl("/insights#blog"),
+            name: `${siteConfig.name} Insights`,
+            description: insightsCopy.intro,
+            url: absoluteUrl("/insights"),
+            publisher: { "@id": `${siteConfig.url}/#organization` },
+            blogPost: insights.map((p) => ({
+              "@type": "BlogPosting",
+              headline: p.title,
+              description: p.excerpt,
+              datePublished: p.date,
+              url: absoluteUrl(`/insights/${p.slug}`),
+            })),
+          },
+        ]}
       />
 
       {/* Header straight on the grey canvas, as on the reference. */}
@@ -29,7 +49,7 @@ export default function InsightsPage() {
           <Reveal immediate delay={0.1}>
             <Eyebrow>{insightsCopy.eyebrow}</Eyebrow>
           </Reveal>
-          <Reveal immediate delay={0.2}>
+          <Reveal immediate lcp delay={0.2}>
             <h1 id="insights-heading" className="display mt-6 text-[2.5rem] text-balance text-ink sm:text-[3rem] lg:text-[3.5rem]">
               {insightsCopy.title}
             </h1>
