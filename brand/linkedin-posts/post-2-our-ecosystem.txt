@@ -1,0 +1,22 @@
+What does "one studio" actually look like in practice?
+
+Here is what each part of the Muronlabs ecosystem does, and how they work together.
+
+Muron Dev builds the foundation.
+Web platforms, mobile apps, APIs and cloud infrastructure, engineered for speed, security and scale.
+
+Muron AI & Data makes it intelligent.
+Workflow automation that removes copying, chasing and re-keying. AI agents that handle support, bookings and back-office tasks, with a clear hand-off to a person when they are unsure. Data pipelines, predictive analytics and research-grade neuroscience data work for EEG and fMRI.
+
+Muron Arts makes it human.
+Interfaces, design systems and brands people actually enjoy using.
+
+On a real project, these three move together. Designers prototype the real interface, engineers build it, and the AI and data team wires in the intelligence, in the same sprints, with the same goal.
+
+You see working software early, stay involved at every step, and own everything we build.
+
+Which of these does your team need most right now?
+
+Explore the full ecosystem: muronlabs.com/ecosystem
+
+#Muronlabs #WorkflowAutomation #AIAgents #DataScience #UXDesign #SoftwareEngineering
