@@ -102,14 +102,14 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         <div className="sheet mx-auto mt-2 max-w-[64rem] px-6 py-12 sm:px-12 lg:py-16">
           <div className="mx-auto max-w-[40rem] space-y-10">
             {post.sections.map((s) => (
-              <section key={s.heading}>
+              <Reveal as="section" key={s.heading}>
                 <h2 className="display text-[1.75rem] text-ink">{s.heading}</h2>
                 {s.paragraphs.map((p, i) => (
                   <p key={i} className="mt-4 text-[17px] leading-7 text-ink/80">
                     {p}
                   </p>
                 ))}
-              </section>
+              </Reveal>
             ))}
           </div>
         </div>

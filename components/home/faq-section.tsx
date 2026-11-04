@@ -42,10 +42,15 @@ export function FaqSection() {
                     className="group flex w-full cursor-pointer items-center justify-between gap-6 px-6 py-6 text-left"
                   >
                     <span className="text-[16px] font-medium text-ink">{item.question}</span>
-                    <span aria-hidden="true" className="relative flex size-6 shrink-0 items-center justify-center text-ink">
+                    <motion.span
+                      aria-hidden="true"
+                      className="relative flex size-6 shrink-0 items-center justify-center text-ink"
+                      animate={{ rotate: isOpen && !reduceMotion ? 180 : 0 }}
+                      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    >
                       <span className="absolute h-px w-4 bg-current" />
                       <span className={cn("absolute h-4 w-px bg-current transition-transform duration-300", isOpen ? "scale-y-0" : "scale-y-100")} />
-                    </span>
+                    </motion.span>
                   </button>
                 </h3>
 
@@ -62,7 +67,14 @@ export function FaqSection() {
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="max-w-[40rem] px-6 pb-7 text-[15px] leading-6 text-muted-foreground">{item.answer}</p>
+                      <motion.p
+                        className="max-w-[40rem] px-6 pb-7 text-[15px] leading-6 text-muted-foreground"
+                        initial={reduceMotion ? false : { y: 12 }}
+                        animate={{ y: 0 }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+                      >
+                        {item.answer}
+                      </motion.p>
                     </motion.div>
                   ) : null}
                 </AnimatePresence>

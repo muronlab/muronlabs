@@ -37,7 +37,7 @@ type PillButtonProps = BaseProps &
 export function PillButton(props: PillButtonProps) {
   const { children, tone = "ink", size = "md", className } = props;
   const shared = cn(
-    "inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-full font-medium transition-[background-color,color,transform] duration-300 hover:-translate-y-px active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink disabled:pointer-events-none disabled:opacity-60",
+    "pill-shine relative overflow-hidden inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-full font-medium transition-[background-color,color,transform] duration-300 hover:-translate-y-px active:translate-y-0 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink disabled:pointer-events-none disabled:opacity-60",
     toneClass[tone],
     sizeClass[size],
     className,

@@ -17,10 +17,10 @@ export function PostCard({ post, className }: { post: Insight; className?: strin
     <article className={cn("sheet group p-2", className)}>
       <Link href={`/insights/${post.slug}`} className="block rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink">
         <div className={cn("relative flex aspect-[16/9] flex-col justify-between overflow-hidden rounded-[2px]", dark ? "bg-ink-2" : "bg-sky")}>
-          <p className={cn("display max-w-[11ch] p-6 text-[1.75rem] sm:text-[2.25rem]", dark ? "text-white" : "text-ink")}>
+          <p className={cn("display max-w-[11ch] p-6 text-[1.75rem] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1.5 sm:text-[2.25rem]", dark ? "text-white" : "text-ink")}>
             <SplitWords text={post.cover} delay={0.2} />
           </p>
-          <div aria-hidden="true" className="cover-band grain relative h-[14%] min-h-10" />
+          <div aria-hidden="true" className="cover-band grain relative h-[14%] min-h-10 transition-[filter,height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:h-[18%] group-hover:brightness-110 group-hover:saturate-125" />
         </div>
 
         <div className="px-5 pt-7 pb-6 sm:px-6">

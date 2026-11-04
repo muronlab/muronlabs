@@ -69,12 +69,12 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[15px] text-white/85 transition-colors hover:text-white"
+                        className="footer-link text-[15px] text-white/85 transition-colors hover:text-white"
                       >
                         {link.label}
                       </a>
                     ) : (
-                      <Link key={link.label} href={link.href} className="text-[15px] text-white/85 transition-colors hover:text-white">
+                      <Link key={link.label} href={link.href} className="footer-link text-[15px] text-white/85 transition-colors hover:text-white">
                         {link.label}
                       </Link>
                     ),

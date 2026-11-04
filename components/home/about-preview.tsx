@@ -6,6 +6,7 @@ import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
 import { GradientArt } from "@/components/visuals/gradient-art";
 import { SplitWords } from "@/components/motion/split-words";
+import { PopIn } from "@/components/motion/pop-in";
 
 const icons = { layers: Layers, route: Route, clock: Clock };
 
@@ -54,7 +55,9 @@ export function AboutPreview() {
                   className="display text-[4rem] leading-none text-ink"
                   suffixClassName="text-[1.5rem] text-muted-foreground"
                 />
-                <Icon className="size-5 text-ink" strokeWidth={1.5} />
+                <PopIn delay={0.35}>
+                  <Icon className="size-5 text-ink" strokeWidth={1.5} />
+                </PopIn>
               </div>
               <p className="max-w-[14rem] text-[15px] leading-6 text-muted-foreground">{stat.label}</p>
             </Reveal>

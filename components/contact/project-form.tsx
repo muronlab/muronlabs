@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 import { PillButton } from "@/components/ui/pill-button";
 import { squadOptions } from "@/lib/site-config";
+import { PopIn } from "@/components/motion/pop-in";
 
 interface FormState {
   name: string;
@@ -52,9 +53,9 @@ export function ProjectForm() {
   if (status === "success") {
     return (
       <div className="flex min-h-[24rem] flex-col items-start justify-center gap-4" role="status" aria-live="polite">
-        <span className="flex size-12 items-center justify-center rounded-full bg-ink text-white">
+        <PopIn delay={0.05} rotate={-90} className="flex size-12 items-center justify-center rounded-full bg-ink text-white">
           <Check className="size-5" strokeWidth={2} />
-        </span>
+        </PopIn>
         <h2 className="display text-[1.75rem] text-ink">Thank you — your brief has been received.</h2>
         <p className="max-w-[26rem] text-[15px] leading-6 text-muted-foreground">
           Thanks, {form.name.split(" ")[0] || "there"}. We’ve received your brief and a human from the studio will be in touch within
@@ -77,7 +78,7 @@ export function ProjectForm() {
   const submitting = status === "submitting";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="form-cascade space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>

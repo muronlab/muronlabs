@@ -145,15 +145,32 @@ export function GradientArt({ variant = "mosaic", mirror = false, className, del
           });
         }
 
+        // A slow light pass across every bar (hero bars have their own sweep).
+        const sweep = !tileClassName?.includes("hero-bar");
+        if (sweep) {
+          Object.assign(style, {
+            "--sw-dur": `${9 + ((i * 7) % 6)}s`, // 9–14s
+            "--sw-delay": `-${((i * 3.1) % 11).toFixed(2)}s`,
+          });
+        }
+
         return (
           <motion.div
             key={i}
-            className={cn("tile grain absolute", t.bg ? "band-tile" : `g-${t.g}`, tileClassName)}
-            style={style}
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            className={cn("tile grain absolute", t.bg ? "band-tile" : `g-${t.g}`, sweep && "tile-sweep", tileClassName)}
+            // Each bar grows out from the edge it is anchored to, row by row.
+            style={{ ...style, originX: mirror ? 1 : 0 }}
+            initial={{ opacity: 0, scaleX: 0.15 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true, margin: "0px 0px -5% 0px" }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.9, delay: delay + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : {
+                    scaleX: { duration: 1.1, delay: delay + t.y * 0.008 + t.x * 0.004, ease: [0.16, 1, 0.3, 1] },
+                    opacity: { duration: 0.5, delay: delay + t.y * 0.008 + t.x * 0.004 },
+                  }
+            }
           />
         );
       })}
