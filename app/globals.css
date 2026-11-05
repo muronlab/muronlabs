@@ -674,6 +674,12 @@ select.field {
   0% { transform: translateX(-110%); }
   55%, 100% { transform: translateX(260%); }
 }
+/* Clip the highlight to its own bar so it never smears over the dark
+   background or neighbouring bars. */
+.tile-sweep {
+  overflow: hidden;
+  isolation: isolate;
+}
 .tile-sweep::before {
   content: "";
   position: absolute;
